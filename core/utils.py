@@ -12,7 +12,7 @@ from wagtail.core.signals import page_published, page_unpublished
 
 from errors.models import VirusException
 
-if settings.AZURE_FILE_ACCOUNT_NAME is not None:
+if settings.AZURE_FILE_ACCOUNT_NAME is not None and settings.AZURE_FILE_ACCOUNT_NAME != "":
     FILE_SERVICE = FileService(account_name=settings.AZURE_FILE_ACCOUNT_NAME, account_key=settings.AZURE_FILE_ACCOUNT_KEY)
 
 
