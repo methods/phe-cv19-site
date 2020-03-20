@@ -65,7 +65,7 @@ class LandingPage(MethodsBasePage):
 
 
 class OverviewPage(MethodsBasePage):
-    title = TextField(blank=True)
+    heading = TextField(blank=True)
     banner_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -73,7 +73,6 @@ class OverviewPage(MethodsBasePage):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-    title = TextField(blank=True)
     body = RichTextField(null=True, blank=True)
 
     content_panels = MethodsBasePage.content_panels + [
