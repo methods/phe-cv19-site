@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'errors.apps.ErrorsConfig',
     'search.apps.SearchConfig',
     'demo.apps.DemoConfig',
+    'contentPages.apps.ContentpagesConfig',
 
     'sass_processor',
     'storages',
