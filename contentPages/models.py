@@ -2,10 +2,12 @@ from django.db import models
 from django.db.models.fields import TextField
 
 from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel
-from wagtail.core.fields import  RichTextField
+from wagtail.core import blocks
+from wagtail.core.fields import RichTextField, StreamField
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from core.models.pages import MethodsBasePage
+
 
 class LandingPage(MethodsBasePage):
     heading = TextField(blank=True)
@@ -47,7 +49,6 @@ class LandingPage(MethodsBasePage):
 
     body = RichTextField(null=True, blank=True)
 
-
     content_panels = MethodsBasePage.content_panels + [
         FieldPanel('heading'),
         ImageChooserPanel('banner_image'),
@@ -59,5 +60,24 @@ class LandingPage(MethodsBasePage):
         FieldPanel('resources_subpage_heading'),
         FieldPanel('resources_subpage_body'),
         PageChooserPanel('resources_subpage'),
+        FieldPanel('body'),
+    ]
+
+
+class OverviewPage(MethodsBasePage):
+    title = TextField(blank=True)
+    banner_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    title = TextField(blank=True)
+    body = RichTextField(null=True, blank=True)
+
+    content_panels = MethodsBasePage.content_panels + [
+        FieldPanel('heading'),
+        ImageChooserPanel('banner_image'),
         FieldPanel('body'),
     ]
