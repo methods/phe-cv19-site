@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+docker exec -ti wagtailexample_web_1 bash -c "coverage run manage.py test" >/dev/null
+
+docker exec -ti wagtailexample_web_1 bash -c "coverage report"
+
+docker exec -ti wagtailexample_web_1 bash -c "coverage html"
+
+docker cp wagtailexample_web_1:code/htmlcov .
