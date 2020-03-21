@@ -48,6 +48,13 @@ BAKERY_VIEWS = (
     'wagtailbakery.views.AllPublishedPagesView',
 )
 
+# File upload settings
+
+DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+AZURE_ACCOUNT_NAME = os.environ.get('AZURE_ACCOUNT_NAME')    # eg. 'campaignstorage'
+AZURE_ACCOUNT_KEY = os.environ.get('AZURE_ACCOUNT_KEY')      # eg. '<secret key>'
+AZURE_CONTAINER = os.environ.get('AZURE_CONTAINER')          # eg. 'campaign-resource-centre'
+
 # Security settings
 
 SECURE_HSTS_SECONDS = os.environ.get('SECURE_HSTS_SECONDS', 0)
