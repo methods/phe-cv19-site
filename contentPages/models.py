@@ -156,7 +156,6 @@ class ResourceItemPage(MethodsBasePage):
     overview = RichTextField()
     format = CharField(max_length=256, blank=True, null=True)
     file_size = CharField(max_length=256, blank=True, null=True)
-    link_url = CharField(max_length=2048, blank=True)
 
     content_panels = MethodsBasePage.content_panels + [
 
