@@ -5,6 +5,7 @@ from modelcluster.fields import ParentalKey
 from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, InlinePanel, MultiFieldPanel
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable
+from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from core.models.pages import MethodsBasePage
@@ -142,6 +143,15 @@ class ResourceItemPage(MethodsBasePage):
     )
     preview_image_screen_reader_text = TextField(blank=True)
 
+    link_document = models.ForeignKey(
+        'wagtaildocs.Document',
+        null=True,
+        blank=True,
+        related_name='+',
+        on_delete=models.CASCADE,
+        verbose_name='Upload document'
+    )
+
     product_code = CharField(max_length=256, blank=True, null=True)
     overview = RichTextField()
     format = CharField(max_length=256, blank=True, null=True)
@@ -149,13 +159,14 @@ class ResourceItemPage(MethodsBasePage):
     link_url = CharField(max_length=2048, blank=True)
 
     content_panels = MethodsBasePage.content_panels + [
-        FieldPanel('heading'),
-        FieldPanel('description'),
-        FieldPanel('link_url'),
+
         MultiFieldPanel([
+            FieldPanel('heading'),
+            FieldPanel('description'),
+            DocumentChooserPanel('link_document'),
             ImageChooserPanel('preview_image'),
             FieldPanel('preview_image_screen_reader_text'),
-        ], heading='Resource'),
+        ], heading='Header section'),
         MultiFieldPanel([
             FieldPanel('product_code'),
             FieldPanel('overview'),
