@@ -1,9 +1,11 @@
 from django.db import models
 from django.db.models.fields import TextField
+from modelcluster.fields import ParentalKey
 
-from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel
+from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, InlinePanel, MultiFieldPanel
 from wagtail.core import blocks
 from wagtail.core.fields import RichTextField, StreamField
+from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from core.models.pages import MethodsBasePage
@@ -79,4 +81,51 @@ class OverviewPage(MethodsBasePage):
         FieldPanel('heading'),
         ImageChooserPanel('banner_image'),
         FieldPanel('body'),
+    ]
+
+
+class ResourceItemPreview(Orderable):
+    page = ParentalKey("contentPages.ResourcesPage", related_name="resource_items")
+
+    heading = TextField(blank=True)
+    description = TextField(blank=True)
+    preview_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    resource_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    panels = [
+        FieldPanel('heading'),
+        FieldPanel('description'),
+        ImageChooserPanel('preview_image'),
+        PageChooserPanel('resource_page'),
+    ]
+
+
+class ResourcesPage(MethodsBasePage):
+    heading = TextField(blank=True)
+    banner_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    content_panels = MethodsBasePage.content_panels + [
+        FieldPanel('heading'),
+        ImageChooserPanel('banner_image'),
+        MultiFieldPanel([
+            InlinePanel('resource_items')
+        ], heading='Resource Items'),
     ]
