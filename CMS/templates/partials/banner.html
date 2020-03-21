@@ -1,0 +1,9 @@
+{% load wagtailimages_tags %}
+
+<h1 class="header">
+  {{ page.heading }}
+</h1>
+
+{% image page.banner_image original as banner %}
+
+<img src="{{ banner.url }}" alt="{{ banner.alt }}" />
