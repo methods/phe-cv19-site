@@ -1,10 +1,9 @@
 from django.db import models
-from django.db.models.fields import TextField
+from django.db.models.fields import TextField, CharField
 from modelcluster.fields import ParentalKey
 
 from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, InlinePanel, MultiFieldPanel
-from wagtail.core import blocks
-from wagtail.core.fields import RichTextField, StreamField
+from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 
@@ -128,4 +127,39 @@ class ResourcesPage(MethodsBasePage):
         MultiFieldPanel([
             InlinePanel('resource_items')
         ], heading='Resource Items'),
+    ]
+
+
+class ResourceItemPage(MethodsBasePage):
+    heading = TextField(blank=True)
+    description = TextField(blank=True)
+    preview_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    preview_image_screen_reader_text = TextField(blank=True)
+
+    product_code = CharField(max_length=256, blank=True, null=True)
+    overview = RichTextField()
+    format = CharField(max_length=256, blank=True, null=True)
+    file_size = CharField(max_length=256, blank=True, null=True)
+    link_url = CharField(max_length=2048, blank=True)
+
+    content_panels = MethodsBasePage.content_panels + [
+        FieldPanel('heading'),
+        FieldPanel('description'),
+        FieldPanel('link_url'),
+        MultiFieldPanel([
+            ImageChooserPanel('preview_image'),
+            FieldPanel('preview_image_screen_reader_text'),
+        ], heading='Resource'),
+        MultiFieldPanel([
+            FieldPanel('product_code'),
+            FieldPanel('overview'),
+            FieldPanel('format'),
+            FieldPanel('file_size'),
+        ], heading='Details'),
     ]
