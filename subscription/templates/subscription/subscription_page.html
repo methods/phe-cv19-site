@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags methods_tags sass_tags %}
+
+{% block extra_css %}
+  <link href="{% sass_src 'scss/subscription.scss' %}" rel="stylesheet" type="text/css" >
+{% endblock %}
+
+{% block body_class %}template-demopage{% endblock %}
+
+{% block content %}
+  <form method="POST" action="#" class="subscription-form">
+    <p>{{ page.intro }}</p>
+
+    <p class="subscription-form__required-field">* Required fields</p>
+
+    <fieldset class="subscription-form__field col-sm-12 col-md-6">
+      <label class="subscription-form__label" for="firstname">First name*</label>
+
+      <input class="subscription-form__text-input" id="firstname" type="text" name="firstname">
+    </fieldset>
+
+    <fieldset class="subscription-form__field col-sm-12 col-md-6">
+      <label class="subscription-form__label" for="lastname">Last name*</label>
+
+      <input class="subscription-form__text-input" id="lastname" type="text" name="lastname">
+    </fieldset>
+
+    <fieldset class="subscription-form__field col-sm-12 col-md-6">
+      <label class="subscription-form__label" for="email">Email address*</label>
+
+      <input class="subscription-form__text-input" id="email" type="text" name="email">
+    </fieldset>
+
+    {{ signup_details | richtext }}
+
+    <fieldset class="subscription-form__field">
+      <input id="terms" type="checkbox" name="terms">
+
+      <label class="subscription-form__terms-label" for="terms">{{ page.terms_agreement | richtext }}</label>
+    </fieldset>
+
+    <button class="subscription-form__btn">Subscribe</button>
+  </form>
+{% endblock content %}
