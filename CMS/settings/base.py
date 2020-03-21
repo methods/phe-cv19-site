@@ -61,7 +61,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'errors.apps.ErrorsConfig',
     'search.apps.SearchConfig',
-    'demo.apps.DemoConfig',
+    'contentPages.apps.ContentpagesConfig',
 
     'sass_processor',
     'storages',
@@ -207,12 +207,9 @@ AZURE_FILE_ACCOUNT_KEY = os.environ.get('AZURE_FILE_ACCOUNT_KEY')
 AZURE_FILE_SHARE = os.environ.get('AZURE_FILE_SHARE')
 
 
-# Search API settings
+# File upload settings
 
-DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
-AZURE_ACCOUNT_NAME = os.environ.get('AZURE_ACCOUNT_NAME')    # eg. 'campaignstorage'
-AZURE_ACCOUNT_KEY = os.environ.get('AZURE_ACCOUNT_KEY')      # eg. '<secret key>'
-AZURE_CONTAINER = os.environ.get('AZURE_CONTAINER')          # eg. 'campaign-resource-centre'
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
