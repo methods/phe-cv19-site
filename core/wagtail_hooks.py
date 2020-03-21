@@ -51,8 +51,3 @@ modeladmin_register(AccessAttemptAdmin)
 @hooks.register('register_rich_text_features')
 def unregister_document_feature(features):
     features.default_features.remove('document-link')
-
-
-# Removing documents from the menu. Had to specify the index because searching for it breaks the urls
-# TODO improve the way the  documents are removed
-hooks._hooks['register_admin_menu_item'].pop(2)
