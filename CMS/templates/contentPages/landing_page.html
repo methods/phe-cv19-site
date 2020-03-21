@@ -46,7 +46,7 @@
                     <div class="one-you-links-block">
                         <div class="block-wrap col-md-6 left">
                             <a data-track="CRC_Resources_Navigation" data-track-item="Overview"
-                               href="/resources/campaigns/101-coronavirus-/overview">
+                               href="{% pageurl page.overview_subpage %}">
                                 <div class="block">
                                     <div class="row">
                                         <div class="title">
@@ -56,7 +56,7 @@
                                     <div class="row overview">
                                         {{ page.overview_subpage_body }}
                                     </div>
-                                    <button class="btn pod-arrow"></button>
+                                    <button class="btn pod-arrow" style="background-image: url('static/img/right-arrow.svg')"></button>
                                 </div>
                             </a>
                         </div>
@@ -65,7 +65,7 @@
                     <div class="one-you-links-block">
                         <div class="block-wrap col-md-6 right">
                             <a data-track="CRC_Resources_Navigation" data-track-item="Resources"
-                               href="/resources/campaigns/101-coronavirus-/resources">
+                               href="{% pageurl page.resources_subpage %}">
                                 <div class="block">
                                     <div class="row">
                                         <div class="title">
@@ -75,7 +75,7 @@
                                     <div class="row overview">
                                         {{ page.resources_subpage_body }}
                                     </div>
-                                    <button class="btn pod-arrow"></button>
+                                    <button class="btn pod-arrow" style="background-image: url('static/img/right-arrow.svg')"></button>
                                 </div>
                             </a></div>
                     </div>
