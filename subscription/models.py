@@ -16,6 +16,7 @@ class SubscriptionPage(MethodsBasePage):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    sub_heading = TextField(blank=True)
     intro = TextField(blank=True)
     signup_details = RichTextField(blank=True)
     terms_agreement = RichTextField(blank=True)
@@ -23,6 +24,7 @@ class SubscriptionPage(MethodsBasePage):
     content_panels = MethodsBasePage.content_panels + [
         FieldPanel('heading'),
         ImageChooserPanel('banner_image'),
+        FieldPanel('sub_heading'),
         FieldPanel('intro'),
         FieldPanel('signup_details'),
         FieldPanel('terms_agreement'),
