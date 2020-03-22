@@ -123,7 +123,7 @@ class ResourcesPage(MethodsBasePage):
 
 class ResourceItemPage(MethodsBasePage):
     heading = TextField(blank=True)
-    description = TextField(blank=True)
+    description = RichTextField(blank=True, null=True, default='')
     preview_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -131,7 +131,7 @@ class ResourceItemPage(MethodsBasePage):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-    preview_image_screen_reader_text = TextField(blank=True)
+    preview_image_screen_reader_text = TextField(blank=True, default='')
 
     link_document = models.ForeignKey(
         'wagtaildocs.Document',
@@ -142,10 +142,10 @@ class ResourceItemPage(MethodsBasePage):
         verbose_name='Upload document'
     )
 
-    product_code = CharField(max_length=256, blank=True, null=True)
-    overview = RichTextField()
-    format = CharField(max_length=256, blank=True, null=True)
-    file_size = CharField(max_length=256, blank=True, null=True)
+    product_code = CharField(max_length=256, blank=True, null=True, default='')
+    overview = RichTextField(blank=True, default='')
+    format = CharField(max_length=256, blank=True, null=True, default='')
+    file_size = CharField(max_length=256, blank=True, null=True, default='')
 
     content_panels = MethodsBasePage.content_panels + [
 
@@ -163,3 +163,7 @@ class ResourceItemPage(MethodsBasePage):
             FieldPanel('file_size'),
         ], heading='Details'),
     ]
+
+    @property
+    def link_url(self):
+        return self.get_site().hostname + self.url_path
