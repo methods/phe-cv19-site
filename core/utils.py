@@ -35,6 +35,14 @@ def parse_menu_item(menu_item):
     return item_dict
 
 
+def find_subscription_page_url():
+    from subscription.models import SubscriptionPage
+    page = SubscriptionPage.objects.first()
+    if page is None:
+        return '#'
+    return page.full_url
+
+
 def check_for_virus(instance):
     if instance.file.closed:
         with open(instance.file.path, 'rb') as file:

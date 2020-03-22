@@ -5,7 +5,7 @@ from wagtail.core.models import Page
 
 from CMS.enums import enums
 from core.models.nav import Menu, Footer
-from core.utils import parse_menu_item
+from core.utils import parse_menu_item, find_subscription_page_url
 
 
 class MethodsBasePage(Page):
@@ -37,13 +37,5 @@ class MethodsBasePage(Page):
     def get_context(self, request):
         context = super().get_context(request)
         context['page'] = self
+        context['subscription_url'] = find_subscription_page_url()
         return context
-
-    # @transaction.atomic
-    # def save(self, *args, **kwargs):
-    #     super(MethodsBasePage, self).save(*args, **kwargs)
-        
-    #     if self.has_unpublished_changes:
-    #         call_command('build')
-
-    #     return self

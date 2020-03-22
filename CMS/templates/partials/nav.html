@@ -30,6 +30,12 @@
           </li>
         {% endif %}
       {% endfor %}
+      
+      <li class="nav__desktop-link">
+        <a href="{{ subscription_url }}">
+          Subscribe for updates
+        </a>
+      </li>
     </ul>
 
     <div class="nav__mobile-nav">
@@ -70,5 +76,9 @@
         </a>
       {% endif %}
     {% endfor %}
+
+      <a class="nav__mobile-link" href="{{ subscription_url }}">
+        Subscribe for updates
+      </a>
   </div>
 </nav>
