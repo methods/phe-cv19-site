@@ -1,0 +1,54 @@
+{% extends "../base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+
+{% image page.banner_image original as banner %}
+
+
+<div id="default-header" class="header " style="background-image: url({{ banner.url }})">
+    <div class="container">
+        <div class='row vcenter'>
+            <div class="col-md-8 header-block">
+                <h1>{{ page.parent_heading }}</h1>
+                <span class="header-span"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="content">
+
+{#    TODO: Create breadcrumb snippet#}
+    <div class='container'>
+        <ol class="breadcrumb">
+{#            <li class=''><a href="/">{{ page.parent.heading }}</a></li>#}
+            <li class='active'>Overview</li>
+        </ol>
+    </div>
+
+{#    TODO: Tab bar snippet #}
+    <div class="crc-tab-shelf">
+        <div class="container">
+            <div class="crc-nav-tabs">
+                <ul class='nav nav-tabs nav-justified'>
+                    <li class="active"><a data-track="CRC_Resources_Navigation" data-track-item="Overview"
+                                          href="overview">Overview</a></li>
+                    <li class=""><a data-track="CRC_Resources_Navigation" data-track-item="Resources" href="resources">Resources</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="crc-tab-content-shelf">
+        <div class="container crc-nav-tab-content">
+            <h3>{{ page.heading }}</h3>
+
+            {{ page.body | richtext }}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

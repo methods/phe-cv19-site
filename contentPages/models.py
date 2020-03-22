@@ -82,6 +82,11 @@ class OverviewPage(MethodsBasePage):
         FieldPanel('body'),
     ]
 
+    @property
+    def parent_heading(self):
+        parent = self.get_parent()
+        return parent.landingpage.heading
+
 
 class ResourceItemPreview(Orderable):
     page = ParentalKey("contentPages.ResourcesPage", related_name="resource_items")
