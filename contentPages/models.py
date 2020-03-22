@@ -83,7 +83,7 @@ class OverviewPage(MethodsBasePage):
     ]
 
     @property
-    def parent_heading(self):
+    def site_heading(self):
         parent = self.get_parent()
         return parent.landingpage.heading
 
@@ -115,6 +115,10 @@ class ResourceItemPreview(Orderable):
         PageChooserPanel('resource_page'),
     ]
 
+    @property
+    def site_heading(self):
+        parent = self.get_parent()
+        return parent.landingpage.heading
 
 class ResourcesPage(MethodsBasePage):
     heading = TextField(blank=True)
