@@ -30,6 +30,10 @@ class MethodsBasePage(Page):
                 footer.append(parse_menu_item(item))
         return footer
 
+    @property
+    def breadcrumbs(self):
+        return self.get_ancestors().live()[1:]
+
     def get_context(self, request):
         context = super().get_context(request)
         context['page'] = self
