@@ -83,37 +83,9 @@ class OverviewPage(MethodsBasePage):
     ]
 
     @property
-    def parent_heading(self):
+    def site_heading(self):
         parent = self.get_parent()
         return parent.landingpage.heading
-
-
-class ResourceItemPreview(Orderable):
-    page = ParentalKey("contentPages.ResourcesPage", related_name="resource_items")
-
-    heading = TextField(blank=True)
-    description = TextField(blank=True)
-    preview_image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-    resource_page = models.ForeignKey(
-        'wagtailcore.Page',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-
-    panels = [
-        FieldPanel('heading'),
-        FieldPanel('description'),
-        ImageChooserPanel('preview_image'),
-        PageChooserPanel('resource_page'),
-    ]
 
 
 class ResourcesPage(MethodsBasePage):
@@ -125,14 +97,28 @@ class ResourcesPage(MethodsBasePage):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    usage_notes = TextField(blank=True, null=True)
+    signup_message = TextField(blank=True, null=True)
 
     content_panels = MethodsBasePage.content_panels + [
         FieldPanel('heading'),
         ImageChooserPanel('banner_image'),
-        MultiFieldPanel([
-            InlinePanel('resource_items')
-        ], heading='Resource Items'),
+        FieldPanel('signup_message'),
+        FieldPanel('usage_notes'),
     ]
+
+    @property
+    def site_heading(self):
+        parent = self.get_parent()
+        return parent.landingpage.heading
+
+    @property
+    def resource_count(self):
+        return ResourceItemPage.objects.live().count()
+
+    @property
+    def resource_list(self):
+        return ResourceItemPage.objects.live()
 
 
 class ResourceItemPage(MethodsBasePage):
