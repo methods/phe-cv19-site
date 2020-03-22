@@ -1,9 +1,10 @@
-{% load wagtailimages_tags %}
-
-<h1 class="header">
-  {{ page.heading }}
-</h1>
-
-{% image page.banner_image original as banner %}
-
-<img src="{{ banner.url }}" alt="{{ banner.alt }}" />
+<div id="default-header" class="header " style="background-image: url({{ banner.url }})">
+    <div class="container">
+        <div class='row vcenter'>
+            <div class="col-md-8 header-block">
+                <h1>{{ heading }}</h1>
+                <span class="header-span"></span>
+            </div>
+        </div>
+    </div>
+</div>

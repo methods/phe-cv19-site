@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags methods_tags sass_tags %}
+{% load static wagtailcore_tags wagtailimages_tags methods_tags sass_tags %}
 
 {% block extra_css %}
   <link href="{% sass_src 'scss/subscription.scss' %}" rel="stylesheet" type="text/css" >
@@ -8,7 +8,10 @@
 {% block body_class %}template-demopage{% endblock %}
 
 {% block content %}
-  <form method="POST" action="#" class="subscription-form">
+  {% image page.banner_image original as banner %}
+  {% include 'partials/banner.html' with heading=page.heading banner=banner %}
+
+  <form method="POST" action="#" class="subscription-form container">
     <p>{{ page.intro }}</p>
 
     <p class="subscription-form__required-field">* Required fields</p>
