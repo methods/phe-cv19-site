@@ -125,10 +125,12 @@ class ResourcesPage(MethodsBasePage):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    signup_message = TextField(blank=True, null=True)
 
     content_panels = MethodsBasePage.content_panels + [
         FieldPanel('heading'),
         ImageChooserPanel('banner_image'),
+        FieldPanel('signup_message'),
         MultiFieldPanel([
             InlinePanel('resource_items')
         ], heading='Resource Items'),
