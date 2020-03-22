@@ -1,0 +1,69 @@
+{% extends "../base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+
+    <div id="content">
+        <div class="crc-tab-content-shelf">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        {% include 'partials/breadcrumbs.html' with ancestors=page.breadcrumbs title=page.title %}
+
+                        {% image page.preview_image original as preview_image %}
+
+                        <div class="row resource-list-item">
+                            <div class="col-sm-4 asset-thumbnail-large" style="background-image: url('/static/img/resource-bg.png')">
+                                <div class="asset-thumb-container"
+                                     style="background-image: url({{ preview_image.url }});"></div>
+                            </div>
+                            <div class="col-sm-8 asset-details">
+                                <h3 class="title">{{ page.heading }}</h3>
+                                <div class="asset-description asset-description-actions-one">{{ page.description | richtext }}</div>
+                                <div class="row row-no-padding asset-actions-panel">
+                                    <div class="asset-actions-table col-sm-12">
+                                        <div class="row asset-actions-table-tr">
+                                            <div class="asset-actions-table-td col-sm-6">
+                                                <a class="asset-button cta-btn-download"
+                                                   href="{{ page.link_document.url }}">Download</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 asset-properties">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <td class="crc-table-striped-heading">Product code</td>
+                                        <td class="">{{ page.product_code|default:"" }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="crc-table-striped-heading">Overview</td>
+                                        <td class="">{{ page.overview | richtext }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="crc-table-striped-heading">Format</td>
+                                        <td class="">{{ page.format|default:"" }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="crc-table-striped-heading">File size</td>
+                                        <td class="">{{ page.file_size|default:"" }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="crc-table-striped-heading">Link</td>
+                                        <td class=""><a href="{{ page.link_url }}">{{ page.link_url }}</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
