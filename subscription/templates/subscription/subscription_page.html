@@ -17,31 +17,39 @@
 
     <p class="subscription-form__required-field">* Required fields</p>
 
-    <fieldset class="subscription-form__field col-sm-12 col-md-6">
-      <label class="subscription-form__label" for="firstname">First name*</label>
+    <div class="row">
+      <div class="subscription-form__field col-sm-12 col-md-6">
+        <label class="subscription-form__label" for="firstname">First name*</label>
 
-      <input class="subscription-form__text-input" id="firstname" type="text" name="firstname">
-    </fieldset>
+        <input class="subscription-form__text-input" id="firstname" type="text" name="firstname">
+      </div>
+    </div>
 
-    <fieldset class="subscription-form__field col-sm-12 col-md-6">
-      <label class="subscription-form__label" for="lastname">Last name*</label>
+    <div class="row">
+      <div class="subscription-form__field col-sm-12 col-md-6">
+        <label class="subscription-form__label" for="lastname">Last name*</label>
 
-      <input class="subscription-form__text-input" id="lastname" type="text" name="lastname">
-    </fieldset>
+        <input class="subscription-form__text-input" id="lastname" type="text" name="lastname">
+      </div>
+    </div>
 
-    <fieldset class="subscription-form__field col-sm-12 col-md-6">
-      <label class="subscription-form__label" for="email">Email address*</label>
+    <div class="row">
+      <div class="subscription-form__field col-sm-12 col-md-6">
+        <label class="subscription-form__label" for="email">Email address*</label>
 
-      <input class="subscription-form__text-input" id="email" type="text" name="email">
-    </fieldset>
+        <input class="subscription-form__text-input" id="email" type="text" name="email">
+      </div>
+    </div>
 
     {{ signup_details | richtext }}
 
-    <fieldset class="subscription-form__field">
-      <input id="terms" type="checkbox" name="terms">
+    <div class="row">
+      <div class="subscription-form__field terms col-sm-12 col-md-6">
+        <input id="terms" type="checkbox" name="terms">
 
-      <label class="subscription-form__terms-label" for="terms">{{ page.terms_agreement | richtext }}</label>
-    </fieldset>
+        <label class="subscription-form__terms-label" for="terms">{{ page.terms_agreement | richtext }}</label>
+      </div>
+    </div>
 
     <button class="subscription-form__btn">Subscribe</button>
   </form>
