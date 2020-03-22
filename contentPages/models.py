@@ -115,10 +115,6 @@ class ResourceItemPreview(Orderable):
         PageChooserPanel('resource_page'),
     ]
 
-    @property
-    def site_heading(self):
-        parent = self.get_parent()
-        return parent.landingpage.heading
 
 class ResourcesPage(MethodsBasePage):
     heading = TextField(blank=True)
@@ -129,16 +125,27 @@ class ResourcesPage(MethodsBasePage):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    usage_notes = TextField(blank=True, null=True)
     signup_message = TextField(blank=True, null=True)
 
     content_panels = MethodsBasePage.content_panels + [
         FieldPanel('heading'),
         ImageChooserPanel('banner_image'),
         FieldPanel('signup_message'),
+        FieldPanel('usage_notes'),
         MultiFieldPanel([
             InlinePanel('resource_items')
         ], heading='Resource Items'),
     ]
+
+    @property
+    def site_heading(self):
+        parent = self.get_parent()
+        return parent.landingpage.heading
+
+    @property
+    def resource_count(self):
+        return ResourceItemPreview.objects.filter(page=self).count()
 
 
 class ResourceItemPage(MethodsBasePage):

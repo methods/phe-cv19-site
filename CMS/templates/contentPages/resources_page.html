@@ -3,51 +3,374 @@
 
 {% block content %}
 
-{% image page.banner_image original as banner %}
+    {% image page.banner_image original as banner %}
 
 
-<div id="default-header" class="header " style="background-image: url({{ banner.url }})">
-    <div class="container">
-        <div class='row vcenter'>
-            <div class="col-md-8 header-block">
-                <h1>{{ page.site_heading }}</h1>
-                <span class="header-span"></span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="content">
-
-{#    TODO: Create breadcrumb snippet#}
-    <div class='container'>
-        <ol class="breadcrumb">
-            <li class='active'>Overview</li>
-        </ol>
-    </div>
-
-{#    TODO: Tab bar snippet #}
-    <div class="crc-tab-shelf">
+    <div id="default-header" class="header " style="background-image: url({{ banner.url }})">
         <div class="container">
-            <div class="crc-nav-tabs">
-                <ul class='nav nav-tabs nav-justified'>
-                    <li class="active"><a data-track="CRC_Resources_Navigation" data-track-item="Overview"
-                                          href="overview">Overview</a></li>
-                    <li class=""><a data-track="CRC_Resources_Navigation" data-track-item="Resources" href="resources">Resources</a>
-                    </li>
-                </ul>
+            <div class='row vcenter'>
+                <div class="col-md-8 header-block">
+                    <h1>{{ page.site_heading }}</h1>
+                    <span class="header-span"></span>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="crc-tab-content-shelf">
-        <div class="container crc-nav-tab-content">
-            <h3>{{ page.heading }}</h3>
+    <div id="content">
 
-            {{ page.body | richtext }}
+        {#    TODO: Create breadcrumb snippet#}
+        <div class='container'>
+            <ol class="breadcrumb">
+                <li class=''><a href="/">{{ page.site_heading }}</a></li>
+                <li class='active'>Resources</li>
+            </ol>
+        </div>
 
+        <div class="crc-shelf sign-in-shelf partners-intro">
+            <div class="container odd">
+                <div class="row">
+                    <div class="col-xs-offset-2 col-xs-8 text-center">
+                        {{ page.signup_message }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 button-col">
+                        <ul class="cta-buttons">
+                            <li>
+                                <a class="btn cta-button" href="#">
+                                    <div class="cta-label">Sign up for updates</div>
+                                </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {#    TODO: Tab bar snippet #}
+        <div class="crc-tab-shelf">
+            <div class="container">
+                <div class="crc-nav-tabs">
+                    <ul class='nav nav-tabs nav-justified'>
+                        <li class=""><a data-track="CRC_Resources_Navigation" data-track-item="Overview"
+                                              href="overview">Overview</a></li>
+                        <li class="active"><a data-track="CRC_Resources_Navigation" data-track-item="Resources"
+                                        href="resources">Resources</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="crc-tab-content-shelf">
+            <div class="container crc-nav-tab-content">
+
+                <div class="row">
+                    <div class='col-sm-3 col-xs-5'>
+                        <div class="panel-heading">Usage</div>
+                        <div class="spacer-top-2 symbol-defs">
+                            This resource is for local authority and NHS use only
+                        </div>
+
+
+                    </div>
+                    <div class='col-sm-9 col-xs-7'>
+                        <div id="search-results-summary">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="panel-heading">{{ page.resource_count }} items matching</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="search-results" class="spacer-top-1">
+                            <div class="row">
+                                <ul class="crc-thumbnails">
+
+                                    <li id="resource-5016" class="list-item resource-list-item col-sm-6 col-md-4">
+                                        <div class="item-thumbnail-container">
+                                            <div class="item-thumbnail">
+                                                <div class="item-detail"
+                                                     data-link-to="https://campaignresources.phe.gov.uk:443/resources/campaigns/101/resources/5016">
+                                                    <div class="asset-thumb-container" data-reload="true"
+                                                         style="background-image: url(https://digitalcampaignsstorage.blob.core.windows.net/campaign-resource-centre/production/asset/image/5016/mediumthumb_453543.jpg);"
+                                                         title="Handwashing Advice - Public Information Materials - updated on 09.03.2020"></div>
+                                                </div>
+                                                <div class="item-footer">
+                                                    <div class="title-container">
+                                                        <a class="title"
+                                                           title="Handwashing Advice - Public Information Materials - updated on 09.03.2020"
+                                                           href="https://campaignresources.phe.gov.uk:443/resources/campaigns/101/resources/5016">Handwashing
+                                                            Advice - Public Information Materials - updated on
+                                                            09.03.2020</a>
+                                                        <a class="item-campaign" title="Coronavirus (COVID-19)"
+                                                           data-track="CRC_Resource_Downloads"
+                                                           data-track-item="Handwashing Advice - Public Information Materials - updated on 09.03.2020"
+                                                           data-asset-id="5016"
+                                                           href="/resources/campaigns/101-coronavirus-">Coronavirus
+                                                            (COVID-19)</a>
+                                                    </div>
+                                                    <ul class="actions evenly-spaced">
+                                                        <li><!-- download link -->
+                                                            <a class="asset-download-link"
+                                                               data-track="CRC_Resource_Downloads"
+                                                               data-track-item="Handwashing Advice - Public Information Materials - updated on 09.03.2020"
+                                                               href="/resources/resources/5016/download"></a>
+                                                        </li>
+                                                        <li class="divider"></li>
+                                                        <li><!-- add to basket link -->
+                                                            <span class="asset-order-link inactive"></span>
+                                                        </li>
+                                                        <li class="divider"></li>
+                                                        <li><!-- favourites link -->
+                                                            <span class="asset-favourite-link"
+                                                                  data-show-popper="signin-popper"
+                                                                  data-instructions="You must be signed in to use favourites"></span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <!-- Popovers 5016 -->
+                                            <div data-popover-name="add-to-basket-popper" style="display: none;">
+                                                <div class="asset-action-popper">
+                                                    <div class="popper-close"><span class="glyphicon glyphicon-remove"
+                                                                                    data-close-poppers="true"></span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+
+                                    <li id="resource-5080" class="list-item resource-list-item col-sm-6 col-md-4">
+                                        <div class="item-thumbnail-container">
+                                            <div class="item-thumbnail">
+                                                <div class="item-detail"
+                                                     data-link-to="https://campaignresources.phe.gov.uk:443/resources/campaigns/101/resources/5080">
+                                                    <div class="asset-thumb-container" data-reload="true"
+                                                         style="background-image: url(https://digitalcampaignsstorage.blob.core.windows.net/campaign-resource-centre/production/asset/image/5080/mediumthumb_Alternaitve.jpg);"
+                                                         title="Alternative Formats - Public Information Resources"></div>
+                                                </div>
+                                                <div class="item-footer">
+                                                    <div class="title-container">
+                                                        <a class="title"
+                                                           title="Alternative Formats - Public Information Resources"
+                                                           href="https://campaignresources.phe.gov.uk:443/resources/campaigns/101/resources/5080">Alternative
+                                                            Formats - Public Information Resources</a>
+                                                        <a class="item-campaign" title="Coronavirus (COVID-19)"
+                                                           data-track="CRC_Resource_Downloads"
+                                                           data-track-item="Alternative Formats - Public Information Resources"
+                                                           data-asset-id="5080"
+                                                           href="/resources/campaigns/101-coronavirus-">Coronavirus
+                                                            (COVID-19)</a>
+                                                    </div>
+                                                    <ul class="actions evenly-spaced">
+                                                        <li><!-- download link -->
+                                                            <a class="asset-download-link"
+                                                               data-track="CRC_Resource_Downloads"
+                                                               data-track-item="Alternative Formats - Public Information Resources"
+                                                               href="/resources/resources/5080/download"></a>
+                                                        </li>
+                                                        <li class="divider"></li>
+                                                        <li><!-- add to basket link -->
+                                                            <span class="asset-order-link inactive"></span>
+                                                        </li>
+                                                        <li class="divider"></li>
+                                                        <li><!-- favourites link -->
+                                                            <span class="asset-favourite-link"
+                                                                  data-show-popper="signin-popper"
+                                                                  data-instructions="You must be signed in to use favourites"></span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <!-- Popovers 5080 -->
+                                            <div data-popover-name="add-to-basket-popper" style="display: none;">
+                                                <div class="asset-action-popper">
+                                                    <div class="popper-close"><span class="glyphicon glyphicon-remove"
+                                                                                    data-close-poppers="true"></span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <div class="clearfix visible-sm-block"></div>
+
+                                    <li id="resource-4992" class="list-item resource-list-item col-sm-6 col-md-4">
+                                        <div class="item-thumbnail-container">
+                                            <div class="item-thumbnail">
+                                                <div class="item-detail"
+                                                     data-link-to="https://campaignresources.phe.gov.uk:443/resources/campaigns/101/resources/4992">
+                                                    <div class="asset-thumb-container" data-reload="true"
+                                                         style="background-image: url(https://digitalcampaignsstorage.blob.core.windows.net/campaign-resource-centre/production/asset/image/4992/mediumthumb_76876.jpg);"
+                                                         title="Home Isolation Advice - Public Information Materials - updated on 19.03.2020"></div>
+                                                </div>
+                                                <div class="item-footer">
+                                                    <div class="title-container">
+                                                        <a class="title"
+                                                           title="Home Isolation Advice - Public Information Materials - updated on 19.03.2020"
+                                                           href="https://campaignresources.phe.gov.uk:443/resources/campaigns/101/resources/4992">Home
+                                                            Isolation Advice - Public Information Materials - updated on
+                                                            19.03.2020</a>
+                                                        <a class="item-campaign" title="Coronavirus (COVID-19)"
+                                                           data-track="CRC_Resource_Downloads"
+                                                           data-track-item="Home Isolation Advice - Public Information Materials - updated on 19.03.2020"
+                                                           data-asset-id="4992"
+                                                           href="/resources/campaigns/101-coronavirus-">Coronavirus
+                                                            (COVID-19)</a>
+                                                    </div>
+                                                    <ul class="actions evenly-spaced">
+                                                        <li><!-- download link -->
+                                                            <a class="asset-download-link"
+                                                               data-track="CRC_Resource_Downloads"
+                                                               data-track-item="Home Isolation Advice - Public Information Materials - updated on 19.03.2020"
+                                                               href="/resources/resources/4992/download"></a>
+                                                        </li>
+                                                        <li class="divider"></li>
+                                                        <li><!-- add to basket link -->
+                                                            <span class="asset-order-link inactive"></span>
+                                                        </li>
+                                                        <li class="divider"></li>
+                                                        <li><!-- favourites link -->
+                                                            <span class="asset-favourite-link"
+                                                                  data-show-popper="signin-popper"
+                                                                  data-instructions="You must be signed in to use favourites"></span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <!-- Popovers 4992 -->
+                                            <div data-popover-name="add-to-basket-popper" style="display: none;">
+                                                <div class="asset-action-popper">
+                                                    <div class="popper-close"><span class="glyphicon glyphicon-remove"
+                                                                                    data-close-poppers="true"></span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <div class="clearfix visible-lg-block"></div>
+
+                                    <li id="resource-5015" class="list-item resource-list-item col-sm-6 col-md-4">
+                                        <div class="item-thumbnail-container">
+                                            <div class="item-thumbnail">
+                                                <div class="item-detail"
+                                                     data-link-to="https://campaignresources.phe.gov.uk:443/resources/campaigns/101/resources/5015">
+                                                    <div class="asset-thumb-container" data-reload="true"
+                                                         style="background-image: url(https://digitalcampaignsstorage.blob.core.windows.net/campaign-resource-centre/production/asset/image/5015/mediumthumb_543453.jpg);"
+                                                         title="UPDATED - NHS Resources for Hospitals, GPs, Pharmacies and Other NHS Settings - updated on 19.03.2020"></div>
+                                                </div>
+                                                <div class="item-footer">
+                                                    <div class="title-container">
+                                                        <a class="title"
+                                                           title="UPDATED - NHS Resources for Hospitals, GPs, Pharmacies and Other NHS Settings - updated on 19.03.2020"
+                                                           href="https://campaignresources.phe.gov.uk:443/resources/campaigns/101/resources/5015">UPDATED
+                                                            - NHS Resources for Hospitals, GPs, Pharmacies and Other NHS
+                                                            Settings - updated on 19.03.2020</a>
+                                                        <a class="item-campaign" title="Coronavirus (COVID-19)"
+                                                           data-track="CRC_Resource_Downloads"
+                                                           data-track-item="UPDATED - NHS Resources for Hospitals, GPs, Pharmacies and Other NHS Settings - updated on 19.03.2020"
+                                                           data-asset-id="5015"
+                                                           href="/resources/campaigns/101-coronavirus-">Coronavirus
+                                                            (COVID-19)</a>
+                                                    </div>
+                                                    <ul class="actions evenly-spaced">
+                                                        <li><!-- download link -->
+                                                            <a class="asset-download-link"
+                                                               data-track="CRC_Resource_Downloads"
+                                                               data-track-item="UPDATED - NHS Resources for Hospitals, GPs, Pharmacies and Other NHS Settings - updated on 19.03.2020"
+                                                               href="/resources/resources/5015/download"></a>
+                                                        </li>
+                                                        <li class="divider"></li>
+                                                        <li><!-- add to basket link -->
+                                                            <span class="asset-order-link inactive"></span>
+                                                        </li>
+                                                        <li class="divider"></li>
+                                                        <li><!-- favourites link -->
+                                                            <span class="asset-favourite-link"
+                                                                  data-show-popper="signin-popper"
+                                                                  data-instructions="You must be signed in to use favourites"></span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <!-- Popovers 5015 -->
+                                            <div data-popover-name="add-to-basket-popper" style="display: none;">
+                                                <div class="asset-action-popper">
+                                                    <div class="popper-close"><span class="glyphicon glyphicon-remove"
+                                                                                    data-close-poppers="true"></span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <div class="clearfix visible-sm-block"></div>
+
+                                    <li id="resource-5052" class="list-item resource-list-item col-sm-6 col-md-4">
+                                        <div class="item-thumbnail-container">
+                                            <div class="item-thumbnail">
+                                                <div class="item-detail"
+                                                     data-link-to="https://campaignresources.phe.gov.uk:443/resources/campaigns/101/resources/5052">
+                                                    <div class="asset-thumb-container" data-reload="true"
+                                                         style="background-image: url(https://digitalcampaignsstorage.blob.core.windows.net/campaign-resource-centre/production/asset/image/5052/mediumthumb_Links.jpg);"
+                                                         title="Links to Coronavirus Guidance Materials"></div>
+                                                </div>
+                                                <div class="item-footer">
+                                                    <div class="title-container">
+                                                        <a class="title" title="Links to Coronavirus Guidance Materials"
+                                                           href="https://campaignresources.phe.gov.uk:443/resources/campaigns/101/resources/5052">Links
+                                                            to Coronavirus Guidance Materials</a>
+                                                        <a class="item-campaign" title="Coronavirus (COVID-19)"
+                                                           data-track="CRC_Resource_Downloads"
+                                                           data-track-item="Links to Coronavirus Guidance Materials"
+                                                           data-asset-id="5052"
+                                                           href="/resources/campaigns/101-coronavirus-">Coronavirus
+                                                            (COVID-19)</a>
+                                                    </div>
+                                                    <ul class="actions evenly-spaced">
+                                                        <li><!-- download link -->
+                                                            <span class="asset-download-link inactive"></span>
+                                                        </li>
+                                                        <li class="divider"></li>
+                                                        <li><!-- add to basket link -->
+                                                            <span class="asset-order-link inactive"></span>
+                                                        </li>
+                                                        <li class="divider"></li>
+                                                        <li><!-- favourites link -->
+                                                            <span class="asset-favourite-link"
+                                                                  data-show-popper="signin-popper"
+                                                                  data-instructions="You must be signed in to use favourites"></span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <!-- Popovers 5052 -->
+                                            <div data-popover-name="add-to-basket-popper" style="display: none;">
+                                                <div class="asset-action-popper">
+                                                    <div class="popper-close"><span class="glyphicon glyphicon-remove"
+                                                                                    data-close-poppers="true"></span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
 {% endblock %}
