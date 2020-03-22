@@ -145,7 +145,11 @@ class ResourcesPage(MethodsBasePage):
 
     @property
     def resource_count(self):
-        return ResourceItemPreview.objects.filter(page=self).count()
+        return ResourceItemPage.objects.live().count()
+
+    @property
+    def resource_list(self):
+        return ResourceItemPage.objects.live()
 
 
 class ResourceItemPage(MethodsBasePage):
