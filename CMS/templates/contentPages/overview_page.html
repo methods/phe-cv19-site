@@ -19,13 +19,7 @@
 
 <div id="content">
 
-{#    TODO: Create breadcrumb snippet#}
-    <div class='container'>
-        <ol class="breadcrumb">
-{#            <li class=''><a href="/">{{ page.parent.heading }}</a></li>#}
-            <li class='active'>Overview</li>
-        </ol>
-    </div>
+    {% include 'partials/breadcrumbs.html' with ancestors=page.breadcrumbs %}
 
 {#    TODO: Tab bar snippet #}
     <div class="crc-tab-shelf">
