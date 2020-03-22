@@ -88,34 +88,6 @@ class OverviewPage(MethodsBasePage):
         return parent.landingpage.heading
 
 
-class ResourceItemPreview(Orderable):
-    page = ParentalKey("contentPages.ResourcesPage", related_name="resource_items")
-
-    heading = TextField(blank=True)
-    description = TextField(blank=True)
-    preview_image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-    resource_page = models.ForeignKey(
-        'wagtailcore.Page',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-
-    panels = [
-        FieldPanel('heading'),
-        FieldPanel('description'),
-        ImageChooserPanel('preview_image'),
-        PageChooserPanel('resource_page'),
-    ]
-
-
 class ResourcesPage(MethodsBasePage):
     heading = TextField(blank=True)
     banner_image = models.ForeignKey(
@@ -133,9 +105,6 @@ class ResourcesPage(MethodsBasePage):
         ImageChooserPanel('banner_image'),
         FieldPanel('signup_message'),
         FieldPanel('usage_notes'),
-        MultiFieldPanel([
-            InlinePanel('resource_items')
-        ], heading='Resource Items'),
     ]
 
     @property
