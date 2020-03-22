@@ -17,11 +17,38 @@
     }
   }
 
+  var NavBar = function() {
+    this.setup();
+  }
+
+  NavBar.prototype = {
+    setup: function() {
+      this.navToggleBtn = $('.navbar-toggle');
+      this.navList = $('#top-navbar');
+      this.startWatcher();
+    },
+
+    startWatcher: function() {
+      var that = this;
+      this.navToggleBtn.click(function() {
+        console.log(that.navToggleBtn.attr('aria-expanded'));
+        if (!that.navToggleBtn.attr('aria-expanded') || that.navToggleBtn.attr('aria-expanded') === 'False') {
+          that.navToggleBtn.attr('aria-expanded', 'True');
+        } else {
+          that.navToggleBtn.attr('aria-expanded', 'False');
+        }
+        that.navToggleBtn.toggleClass('collapsed');
+        that.navList.toggleClass('in');
+      });
+    }
+  }
+
   function init() {
     var newTabLinks = $('a[target=_blank]');
     for (var i = 0; i < newTabLinks.length; i++) {
       new NewTabLinks(newTabLink[i]);
     }
+    new NavBar();
   }
 
   $(document).on('page:load', init);
