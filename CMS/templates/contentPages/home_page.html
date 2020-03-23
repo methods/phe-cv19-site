@@ -1,0 +1,63 @@
+{% extends "../base.html" %}
+{% load wagtailcore_tags wagtailimages_tags sass_tags %}
+
+{% block extra_css %}
+  <link href="{% sass_src 'scss/all.scss' %}" rel="stylesheet" type="text/css" >
+  <link href="{% sass_src 'scss/pages/homepage.scss' %}" rel="stylesheet" type="text/css" >
+{% endblock %}
+
+{% block content %}
+
+    {% image page.banner_image original as banner %}
+
+
+    <div id="default-header" class="header " style="background-image: url({{ banner.url }})">
+        <div class="container">
+            <div class='row vcenter'>
+                <div class="col-md-8 header-block">
+                    <h1>{{ page.heading }}</h1>
+                    <p>{{ page.subtitle }}</p>
+                    <span class="header-span"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="content">
+        <div class="crc-shelf sign-in-shelf partners-intro">
+            <div class="container odd">
+                <div class="row">
+                    <div class="col-xs-offset-2 col-xs-8 text-center">
+                        {{ page.signup_intro }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 signup-button-wrapper">
+                        <a class="signup-button" href="#">Sign up for updates</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="spacer-top-2">
+                {% for campaign in page.campaign_items.all %}
+                    {% image campaign.thumbnail_image original as thumbnail %}
+                    <div class="js-teaser-panel-block col-md-3 col-sm-6 low-padding"><a
+                            href="{% if campaign.page %}{% pageurl campaign.page %}{% endif %}">
+                        <div class="teaser-panel" style="background-image:url({{ thumbnail.url }})">
+                            <div class="thumbnail with-caption">
+                                <div class="campaign-title">
+                                    <div class="campaign-title-text">{{ campaign.caption }}</div>
+                                </div>
+                                <div class="cta-arrow"></div>
+                            </div>
+                            <div class="overlay"></div>
+                        </div>
+                    </a></div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
