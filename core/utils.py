@@ -90,7 +90,7 @@ def get_clam():
 
 def prerender_pages(sender, **kwargs):
     call_command('build')
-    if settings.AZURE_FILE_ACCOUNT_NAME is not None:
+    if settings.AZURE_FILE_ACCOUNT_NAME is not None and settings.AZURE_FILE_ACCOUNT_NAME != "":
         export_directory('')
 
 
