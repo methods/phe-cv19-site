@@ -82,12 +82,12 @@
                                                         <div class="title-container">
                                                             <a class="title"
                                                                title="{{ resource_page.title }}"
-                                                               href="{% pageurl resource_page %}">{{ resource_page.title }}</a>
+                                                               href="{% if resource_page %}{% pageurl resource_page %}{% endif %}">{{ resource_page.title }}</a>
                                                             <a class="item-campaign" title="Coronavirus (COVID-19)"
-                                                               href="{% pageurl resource_page %}">Coronavirus
+                                                               href="{% if resource_page %}{% pageurl resource_page %}{% endif %}">Coronavirus
                                                                 (COVID-19)</a>
                                                         </div><!-- download link -->
-                                                        <a href="{% pageurl resource_page %}">Download</a>
+                                                        <a href="{% if resource_page %}{% pageurl resource_page %}{% endif %}">Download</a>
 
                                                     </div>
                                                 </div>
@@ -98,7 +98,6 @@
                                 </ul>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

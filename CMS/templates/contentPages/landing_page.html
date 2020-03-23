@@ -36,7 +36,7 @@
                     <div class="one-you-links-block">
                         <div class="block-wrap col-md-6 left">
                             <a data-track="CRC_Resources_Navigation" data-track-item="Overview"
-                               href="{% pageurl page.overview_subpage %}">
+                               href="{% if page.overview_subpage %}{% pageurl page.overview_subpage %}{% endif %}">
                                 <div class="block">
                                     <div class="row">
                                         <div class="title">
@@ -55,7 +55,7 @@
                     <div class="one-you-links-block">
                         <div class="block-wrap col-md-6 right">
                             <a data-track="CRC_Resources_Navigation" data-track-item="Resources"
-                               href="{% pageurl page.resources_subpage %}">
+                               href="{% if page.resources_subpage %}{% pageurl page.resources_subpage %}{% endif %}">
                                 <div class="block">
                                     <div class="row">
                                         <div class="title">
