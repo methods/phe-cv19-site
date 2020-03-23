@@ -144,9 +144,9 @@ class ResourcesPage(MethodsBasePage):
 
 
 class ResourceItemPage(MethodsBasePage):
-    subpage_types = ['contentPages.ResourcesPage']
+    subpage_types = []
 
-    parent_page_type = []
+    parent_page_type = ['contentPages.ResourcesPage']
 
     heading = TextField(blank=True)
     description = RichTextField(blank=True, null=True, default='')
