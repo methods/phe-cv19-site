@@ -25,7 +25,6 @@ class Menu(models.Model):
     name = models.CharField(max_length=255)
     menu_items = StreamField([
         ('simple_menu_item', SimpleMenuItem()),
-        ('multi_menu_item', MultiMenuItem())
     ])
 
     panels = [

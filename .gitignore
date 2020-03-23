@@ -30,6 +30,7 @@ coverage.xml
 
 # Compiled SASS files
 **/*.css*
+!crc.css
 
 # Media files
 media/*

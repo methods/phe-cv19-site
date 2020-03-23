@@ -1,74 +1,52 @@
 {% load staticfiles methods_tags %}
 
-<nav class="nav">
-  <a href="#main-content" class="screen-reader">skip to main content</a>
-
-  <div class="nav__container container">
-    <ul class="nav__desktop-links">
-      {% for item in page.menu %}
-        {% if item.sub_items %}
-          <li class="nav__desktop-dropdown">
-            <a class="nav__desktop-dropdown-toggle" href="#">
-              {{ item.label }}
-            </a>
-
-            <ul class="nav__desktop-dropdown-body">
-              {% for sub_item in item.sub_items %}
-                <li>
-                  <a class="nav__desktop-dropdown-link" href="{{ sub_item.url }}">
-                    {{ sub_item.label }}
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
-          </li>
-        {% else %}
-          <li class="nav__desktop-link">
-            <a href="{{ item.url }}">
-              {{ item.label }}
-            </a>
-          </li>
-        {% endif %}
-      {% endfor %}
-    </ul>
-
-    <div class="nav__mobile-nav">
-      <i id="burger-menu" class="nav__burger-menu fas fa-bars"></i>
-      <i id="close-menu" class="nav__close-menu fas fa-times"></i>
+<nav class="navbar navbar-default navbar-static-top crc-navbar affix-top" role="navigation" data-spy="affix" data-offset-top="74">
+  <div class="container">
+    <div class="navbar-header">
+      <a data-track="CRC_Header_Navigation" data-track-item="HomeLink" href="https://campaignresources.phe.gov.uk/resources">
+        <div class="navbar-brand"></div>
+      </a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
     </div>
-  </div>
+    <div class="collapse navbar-collapse" id="top-navbar">
+      <div class="top-menu-items">
+        <ul class="nav navbar-nav crc-navbar-center">
+          <li>
+            <a data-track="CRC_Header_Navigation" data-track-item="HomeLink" class="crc-menu-item " href="https://campaignresources.phe.gov.uk/resources">Home</a>
+          </li>
 
-  <div class="nav__mobile-links">
-    {% for item in page.menu %}
-      {% if item.sub_items %}
-        <div class="nav__mobile-accordion">
-          <div class="nav__mobile-accordion-header">
-            <p class="nav__mobile-accordion-title">
-              {{ item.label }}
-            </p>
-
-            <div class="expand">
-              <img class="nav-section__icon" src="{% static 'images/menu_down_icon.svg' %}" alt="expand {{ item.label }} drop down menu">
-            </div>
-
-            <div class="collapse">
-              <img class="nav-section__icon" src="{% static 'images/menu_up_icon.svg' %}" alt="collapse {{ item.label }} drop down menu">
-            </div>
-          </div>
-
-          <div class="nav__mobile-accordion-body">
-            {% for sub_item in item.sub_items %}
-              <a class="nav__mobile-accordion-body-link" href="{{ sub_item.url }}">
-                {{ sub_item.label }}
+          {% for item in page.menu %}
+            <li>
+              <a data-track="CRC_Header_Navigation" data-track-item="{% title_to_id item.label %}" class="crc-menu-item" href="{{ item.url }}">
+                {{ item.label }}
               </a>
-            {% endfor %}
+            </li>
+          {% endfor %}
+
+          <li>
+            <a data-track="CRC_Header_Navigation" data-track-item="Case Studies" class="crc-menu-item" href="https://campaignresources.phe.gov.uk/resources/case_studies/gallery">Case Studies</a>
+          </li>
+
+          <li>
+              <a data-track="CRC_Header_Navigation" data-track-item="About_Us" class="crc-menu-item" href="https://campaignresources.phe.gov.uk/resources/about_us">About us</a>
+          </li>
+        </ul>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right crc-navbar-right">
+        <li class="last">
+          <div>
+            <a data-track="CRC_Subscribe" data-track-item="header" class="crc-menu-item signin" id="btn-trigger-signin" href="{{ subscription_url }}">
+              Subscribe for updates
+            </a>
           </div>
-        </div>
-      {% else %}
-        <a class="nav__mobile-link" href="{{ item.url }}">
-          {{ item.label }}
-        </a>
-      {% endif %}
-    {% endfor %}
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags methods_tags sass_tags %}
+
+{% block extra_css %}
+  <link href="{% sass_src 'scss/subscription.scss' %}" rel="stylesheet" type="text/css" >
+{% endblock %}
+
+{% block body_class %}template-demopage{% endblock %}
+
+{% block content %}
+  {% image page.banner_image original as banner %}
+  {% include 'partials/banner.html' with heading=page.heading banner=banner %}
+
+  <form method="POST" action="#" class="subscription-form container">
+    <h3>{{ page.sub_heading }}</h3>
+    <p>{{ page.intro }}</p>
+
+    <p class="subscription-form__required-field">* Required fields</p>
+
+    <div class="row">
+      <div class="subscription-form__field col-sm-12 col-md-6">
+        <label class="subscription-form__label" for="firstname">First name*</label>
+
+        <input class="subscription-form__text-input" id="firstname" type="text" name="firstname">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="subscription-form__field col-sm-12 col-md-6">
+        <label class="subscription-form__label" for="lastname">Last name*</label>
+
+        <input class="subscription-form__text-input" id="lastname" type="text" name="lastname">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="subscription-form__field col-sm-12 col-md-6">
+        <label class="subscription-form__label" for="email">Email address*</label>
+
+        <input class="subscription-form__text-input" id="email" type="text" name="email">
+      </div>
+    </div>
+
+    {{ signup_details | richtext }}
+
+    <div class="row">
+      <div class="subscription-form__field terms col-sm-12 col-md-6">
+        <input id="terms" type="checkbox" name="terms">
+
+        <label class="subscription-form__terms-label" for="terms">{{ page.terms_agreement | richtext }}</label>
+      </div>
+    </div>
+
+    <button class="subscription-form__btn">Subscribe</button>
+  </form>
+{% endblock content %}
