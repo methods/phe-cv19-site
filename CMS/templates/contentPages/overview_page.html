@@ -21,19 +21,7 @@
 
     {% include 'partials/breadcrumbs.html' with ancestors=page.breadcrumbs title=page.title %}
 
-{#    TODO: Tab bar snippet #}
-    <div class="crc-tab-shelf">
-        <div class="container">
-            <div class="crc-nav-tabs">
-                <ul class='nav nav-tabs nav-justified'>
-                    <li class="active"><a data-track="CRC_Resources_Navigation" data-track-item="Overview"
-                                          href="overview">Overview</a></li>
-                    <li class=""><a data-track="CRC_Resources_Navigation" data-track-item="Resources" href="resources">Resources</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    {% include 'partials/tabbar.html' with active='overview' %}
 
     <div class="crc-tab-content-shelf">
         <div class="container crc-nav-tab-content">
