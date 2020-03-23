@@ -8,6 +8,12 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from core.models.pages import MethodsBasePage
 
 class SubscriptionPage(MethodsBasePage):
+    subpage_types = []
+
+    parent_page_type = [
+        'contentPages.LandingPage'  # appname.ModelName
+    ]
+
     heading = TextField(blank=True)
     banner_image = models.ForeignKey(
         'wagtailimages.Image',

@@ -11,6 +11,16 @@ from core.models.pages import MethodsBasePage
 
 
 class LandingPage(MethodsBasePage):
+    subpage_types = [
+        'contentPages.OverviewPage',  # appname.ModelName
+        'contentPages.ResourcesPage',  # appname.ModelName
+        'subscription.SubscriptionPage',  # appname.ModelName
+    ]
+
+    parent_page_type = [
+        'wagtailcore.Page'  # appname.ModelName
+    ]
+
     heading = TextField(blank=True)
     banner_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -66,6 +76,12 @@ class LandingPage(MethodsBasePage):
 
 
 class OverviewPage(MethodsBasePage):
+    subpage_types = []
+
+    parent_page_type = [
+        'contentPages.LandingPage'  # appname.ModelName
+    ]
+
     heading = TextField(blank=True)
     banner_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -89,6 +105,12 @@ class OverviewPage(MethodsBasePage):
 
 
 class ResourcesPage(MethodsBasePage):
+    subpage_types = ['contentPages.ResourceItemPage']
+
+    parent_page_type = [
+        'contentPages.LandingPage'  # appname.ModelName
+    ]
+
     heading = TextField(blank=True)
     banner_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -122,6 +144,10 @@ class ResourcesPage(MethodsBasePage):
 
 
 class ResourceItemPage(MethodsBasePage):
+    subpage_types = ['contentPages.ResourcesPage']
+
+    parent_page_type = []
+
     heading = TextField(blank=True)
     description = RichTextField(blank=True, null=True, default='')
     preview_image = models.ForeignKey(
