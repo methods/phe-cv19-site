@@ -168,12 +168,16 @@ class ResourcesPage(MethodsBasePage):
 
     @property
     def resource_count(self):
-        return ResourceItemPage.objects.live().count()
+        return ResourceItemPage.objects.live().descendant_of(self).count()
 
     @property
     def resource_list(self):
-        return ResourceItemPage.objects.live()
+        return ResourceItemPage.objects.live().descendant_of(self)
 
+    @property
+    def campaign_slug(self):
+        parent = self.get_parent()
+        return parent.landingpage.slug
 
 class ResourceItemPage(MethodsBasePage):
     heading = TextField(blank=True)
