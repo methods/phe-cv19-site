@@ -2,5 +2,4 @@ version: 0.2
 phases:
   build:
     commands:
-        - cd deployments/platformdeployment/Docker
         - docker-compose up -d
