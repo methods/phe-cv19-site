@@ -1,0 +1,23 @@
+@import "../variables";
+
+.signup-button-wrapper {
+  text-align:center;
+  margin-top:1.5em;
+  margin-bottom:1.5em;
+}
+.signup-button {
+  font-size: 18px;
+  padding: .75em 1.5em;
+  color: $white;
+  background-color: $phe-teal;
+
+  &:active, &:visited {
+    color: $white;
+    background-color: $phe-teal;
+  }
+
+  &:hover, &:focus {
+    color: $white;
+    background-color: $phe-dark;
+  }
+}
