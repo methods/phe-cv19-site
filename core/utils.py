@@ -1,6 +1,6 @@
 import pyclamd
 
-from azure.storage.file import FileService
+import boto3
 
 from django.core.management import call_command
 from django.conf import settings
@@ -11,9 +11,6 @@ from os.path import isfile, join
 from wagtail.core.signals import page_published, page_unpublished
 
 from errors.models import VirusException
-
-if settings.AZURE_FILE_ACCOUNT_NAME is not None and settings.AZURE_FILE_ACCOUNT_NAME != "":
-    FILE_SERVICE = FileService(account_name=settings.AZURE_FILE_ACCOUNT_NAME, account_key=settings.AZURE_FILE_ACCOUNT_KEY)
 
 
 def fallback_to(value, default_value):
@@ -88,21 +85,40 @@ def get_clam():
             raise ValueError('could not connect to clamd server either by unix or network socket')
 
 
+def is_s3_configured():
+    s3_settings = (settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY, settings.AWS_STORAGE_BUCKET_NAME)
+    are_set = (s3_setting != None and s3_setting !="" for s3_setting in s3_settings)
+    return all(are_set)
+
+
+
 def prerender_pages(sender, **kwargs):
     call_command('build')
-    if settings.AZURE_FILE_ACCOUNT_NAME is not None:
-        export_directory('')
+    if is_s3_configured():
+        export_directory()
 
 
-def export_directory(path):
-    directory_contents = listdir(settings.BUILD_DIR + path)
+def export_directory(path:str=''):
+    directory_path = join(settings.BUILD_DIR, path)
+    directory_contents = listdir(directory_path)
+    s3_client = boto3.client(
+        "s3",
+        region_name = "eu-west-2",
+        aws_access_key_id = settings.AWS_ACCESS_KEY_ID,
+        aws_secret_access_key = settings.AWS_SECRET_ACCESS_KEY
+    )
     for f in directory_contents:
         if f != 'static':
-            if isfile(join(path, f)):
-                FILE_SERVICE.put_file_from_path(settings.AZURE_FILE_SHARE, path, f, join(path, f))
-            else:
-                FILE_SERVICE.create_directory(settings.AZURE_FILE_SHARE, path)
-                export_directory(join(path, f))
+            full_filepath = join(directory_path , f)
+            local_filepath = join(path, f)
+        if isfile(full_filepath):
+            s3_client.upload_file(
+                Filename=full_filepath,
+                Bucket=settings.AWS_STORAGE_BUCKET_NAME,
+                Key=local_filepath
+            )
+        else:
+            export_directory(local_filepath)
 
 
 page_published.connect(prerender_pages)

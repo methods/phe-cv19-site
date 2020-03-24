@@ -5,15 +5,15 @@ import shutil
 import tempfile
 
 from contextlib import redirect_stdout
-# from CMS.test.utils import MethodsTestCase
-from unittest import TestCase as MethodsTestCase
+from CMS.test.utils import MethodsTestCase
+#from unittest import TestCase as MethodsTestCase
 
 import boto3
 
 from moto import mock_s3
 
 # code under test:
-import temp as utils
+from core import utils
 
 
 @mock_s3
@@ -26,12 +26,8 @@ class TestUtilsS3Upload(MethodsTestCase):
         Compare two directories recursively. Files in each directory are
         assumed to be equal if their names and contents are equal.
 
-        @param dir1: First directory path
-        @param dir2: Second directory path
-
-        @return: True if the directory trees are the same and
-            there were no errors while accessing the directories or files,
-            False otherwise.
+        Return True if the directory trees are the same and there were no
+        errors while accessing the directories or files, False otherwise.
 
         Taken from: https://stackoverflow.com/questions/4187564
         """
@@ -51,7 +47,7 @@ class TestUtilsS3Upload(MethodsTestCase):
         for common_dir in dirs_cmp.common_dirs:
             new_dir1 = os.path.join(dir1, common_dir)
             new_dir2 = os.path.join(dir2, common_dir)
-            if not self.are_dir_trees_equal(new_dir1, new_dir2):
+            if not self._are_dir_trees_equal(new_dir1, new_dir2):
                 return False
         return True
 
@@ -72,7 +68,7 @@ class TestUtilsS3Upload(MethodsTestCase):
     def _setup_test_directory(self, test_dir: str) -> None:
         """
         Setup three-deep, trifurcating directory tree with unique pseudo-html
-        and pseudo-image file in each directory.
+        and pseudo-image file in each directory:
         """
         for lvl1_seed in range(1, 4):
             dirpath = os.path.join(test_dir, f"dir{lvl1_seed}")
@@ -122,6 +118,7 @@ class TestUtilsS3Upload(MethodsTestCase):
     # =================== # setup # =================== #
 
     def setUp(self):
+        super().setUp()
         self.test_dir = tempfile.mkdtemp()
         self._setup_test_directory(self.test_dir)
         self.backup_utils_settings = utils.settings
@@ -149,12 +146,13 @@ class TestUtilsS3Upload(MethodsTestCase):
     def test_export_directory_s3(self):
 
         # upload temp directory to mocked s3 bucket
-        utils.export_directory("")
+        utils.export_directory()
 
         # assert mock bucket has correct files and directory structure
         with tempfile.TemporaryDirectory() as mock_bucket_contents_directory:
             self._s3_to_local_dir(mock_bucket_contents_directory)
             trees_equal =  self._are_dir_trees_equal(self.test_dir, mock_bucket_contents_directory)
+            diff_report = ""
             if not trees_equal:
                 # filecmp annoyingly likes to report to stdout, but we want the output as a string for the assert msg
                 with io.StringIO() as buf, redirect_stdout(buf):
