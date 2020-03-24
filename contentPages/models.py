@@ -136,6 +136,11 @@ class OverviewPage(MethodsBasePage):
         parent = self.get_parent()
         return parent.landingpage.heading
 
+    @property
+    def campaign_slug(self):
+        parent = self.get_parent()
+        return parent.landingpage.slug
+
 
 class ResourcesPage(MethodsBasePage):
     heading = TextField(blank=True)
