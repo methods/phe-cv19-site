@@ -3,6 +3,7 @@
 
 {% block extra_css %}
     <link href="{% sass_src 'scss/all.scss' %}" rel="stylesheet" type="text/css">
+    <link href="{% sass_src 'scss/pages/resourcepage.scss' %}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block content %}
@@ -49,12 +50,10 @@
 
                 <div class="row">
                     <div class='col-sm-3 col-xs-5'>
-                        <div class="panel-heading">Usage</div>
+                        <div class="panel-heading">Resources</div>
                         <div class="spacer-top-2 symbol-defs">
                             {{ page.usage_notes }}
                         </div>
-
-
                     </div>
                     <div class='col-sm-9 col-xs-7'>
                         <div id="search-results-summary">
@@ -67,36 +66,11 @@
 
                         <div id="search-results" class="spacer-top-1">
                             <div class="row">
-                                <ul class="crc-thumbnails">
+                                <div class="crc-thumbnails">
                                     {% for resource_page in page.resource_list %}
-                                        {% image resource_page.preview_image original as preview_image %}
-                                        <li class="list-item resource-list-item col-sm-6 col-md-4">
-                                            <div class="item-thumbnail-container">
-                                                <div class="item-thumbnail">
-                                                    <div class="item-detail"
-                                                         style="background-image: url('/static/img/resource-bg.png')">
-                                                        <div class="asset-thumb-container"
-                                                             style="background-image: url({{ preview_image.url }})"
-                                                             title="{{ resource_page.title }}"></div>
-                                                    </div>
-                                                    <div class="item-footer">
-                                                        <div class="title-container">
-                                                            <a class="title"
-                                                               title="{{ resource_page.title }}"
-                                                               href="{% if resource_page %}{% pageurl resource_page %}{% endif %}">{{ resource_page.title }}</a>
-                                                            <a class="item-campaign" title="Coronavirus (COVID-19)"
-                                                               href="{% if resource_page %}{% pageurl resource_page %}{% endif %}">Coronavirus
-                                                                (COVID-19)</a>
-                                                        </div><!-- download link -->
-                                                        <a href="{% if resource_page %}{% pageurl resource_page %}{% endif %}">Download</a>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <div class="clearfix visible-{% cycle 'sm' 'sm' 'lg' %}-block"></div>
+                                        {% include 'partials/resource_list_item.html' with resource_page=resource_page %}
                                     {% endfor %}
-                                </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
