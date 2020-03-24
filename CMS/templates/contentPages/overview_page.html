@@ -25,7 +25,7 @@
 
     {% include 'partials/breadcrumbs.html' with ancestors=page.breadcrumbs title=page.title %}
 
-    {% include 'partials/tabbar.html' with active='overview' %}
+    {% include 'partials/tabbar.html' with active='overview' landing_page=page.campaign_slug %}
 
     <div class="crc-tab-content-shelf">
         <div class="container crc-nav-tab-content">
