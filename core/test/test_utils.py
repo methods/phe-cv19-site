@@ -125,13 +125,15 @@ class TestUtilsS3Upload(MethodsTestCase):
         self.mock_key_id = "mock-key-ID"
         self.mock_key = "mock-key"
         self.mock_bucket = "mock-bucket"
-        utils.settings.AWS_ACCESS_KEY_ID = self.mock_key_id
-        utils.settings.AWS_ACCESS_KEY_ID = self.mock_key
-        utils.settings.AWS_STORAGE_BUCKET_NAME = self.mock_bucket
+        self.mock_region = "eu-west-2"
+        utils.settings.AWS_ACCESS_KEY_ID_DEPLOYMENT = self.mock_key_id
+        utils.settings.AWS_SECRET_ACCESS_KEY_DEPLOYMENT = self.mock_key
+        utils.settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT = self.mock_bucket
+        utils.settings.AWS_REGION_DEPLOYMENT = self.mock_region
         utils.settings.BUILD_DIR = self.test_dir
         self.s3_client = boto3.client(
             "s3",
-            region_name="eu-west-2",
+            region_name=self.mock_region,
             aws_access_key_id=self.mock_key_id,
             aws_secret_access_key=self.mock_key,
         )

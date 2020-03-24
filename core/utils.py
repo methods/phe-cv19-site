@@ -85,27 +85,38 @@ def get_clam():
             raise ValueError('could not connect to clamd server either by unix or network socket')
 
 
-def is_s3_configured():
-    s3_settings = (settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY, settings.AWS_STORAGE_BUCKET_NAME)
+def is_s3_deployment_configured() -> bool:
+    """
+    Return True if all three settings needed to deploy site to S3 are set to something valid-seeming.
+    """
+    s3_settings = (
+        settings.AWS_ACCESS_KEY_ID_DEPLOYMENT,
+        settings.AWS_SECRET_ACCESS_KEY_DEPLOYMENT,
+        settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT,
+        settings.AWS_REGION_DEPLOYMENT
+    )
     are_set = (s3_setting != None and s3_setting !="" for s3_setting in s3_settings)
     return all(are_set)
 
 
-
 def prerender_pages(sender, **kwargs):
     call_command('build')
-    if is_s3_configured():
+    if is_s3_deployment_configured():
         export_directory()
 
 
 def export_directory(path:str=''):
+    """
+    Crawl through directory structure found at settings.BUILD_DIR/path. Upload
+    files and directories with contents only to AWS s3 (no empty dirs permitted in s3!)
+    """
     directory_path = join(settings.BUILD_DIR, path)
     directory_contents = listdir(directory_path)
     s3_client = boto3.client(
         "s3",
-        region_name = "eu-west-2",
-        aws_access_key_id = settings.AWS_ACCESS_KEY_ID,
-        aws_secret_access_key = settings.AWS_SECRET_ACCESS_KEY
+        region_name = settings.AWS_REGION_DEPLOYMENT,
+        aws_access_key_id = settings.AWS_ACCESS_KEY_ID_DEPLOYMENT,
+        aws_secret_access_key = settings.AWS_SECRET_ACCESS_KEY_DEPLOYMENT
     )
     for f in directory_contents:
         if f != 'static':
@@ -114,7 +125,7 @@ def export_directory(path:str=''):
         if isfile(full_filepath):
             s3_client.upload_file(
                 Filename=full_filepath,
-                Bucket=settings.AWS_STORAGE_BUCKET_NAME,
+                Bucket=settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT,
                 Key=local_filepath
             )
         else:
