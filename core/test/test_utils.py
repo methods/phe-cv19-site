@@ -192,11 +192,38 @@ class TestUtilsS3Upload(MethodsTestCase):
                     # filecmp annoyingly likes to report to stdout, but we want the output as a string for the assert msg
                     with io.StringIO() as buf, redirect_stdout(buf):
                         filecmp.dircmp(test_dir_html_only, mock_bucket_contents_directory).report_full_closure()
-                        diff_report = "Directory tree in s3 bucket does not match test directory tree: " + buf.getvalue()
+                        diff_report = "Non-html files were found in the uploaded S3 content: " + buf.getvalue()
                 self.assertTrue(trees_equal, diff_report)
 
+    def test_export_directory_removes_unpublished_resources(self):
+        """
+        Assert export_directory will remove anything from S3 bucket that is NOT in the export directory.
+        """
+        # setup test dir
+        self._setup_test_directory(self.test_dir)
+
+        # upload temp directory to mocked s3 bucket
+        utils.export_directory()
+
+        # prune a subdirectory from the test dir
+        shutil.rmtree(os.path.join(self.test_dir, "dir1"))
+
+        # repeat the upload
+        utils.export_directory()
+
+         # assert mock bucket has correct files and directory structure
+        with tempfile.TemporaryDirectory() as mock_bucket_contents_directory:
+            self._s3_to_local_dir(mock_bucket_contents_directory)
+            trees_equal =  self._are_dir_trees_equal(self.test_dir, mock_bucket_contents_directory)
+            diff_report = ""
+            if not trees_equal:
+                # filecmp annoyingly likes to report to stdout, but we want the output as a string for the assert msg
+                with io.StringIO() as buf, redirect_stdout(buf):
+                    filecmp.dircmp(self.test_dir, mock_bucket_contents_directory).report_full_closure()
+                    diff_report = "Unpublished files were found in the uploaded S3 content: " + buf.getvalue()
+            self.assertTrue(trees_equal, diff_report)
 
 
 
-# test upload of modded files only
-# test scheduled upload
+# ToDo test upload of modded files only
+# ToDo test scheduled upload
