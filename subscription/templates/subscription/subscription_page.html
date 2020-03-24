@@ -22,6 +22,8 @@
         <label class="subscription-form__label" for="firstname">First name*</label>
 
         <input class="subscription-form__text-input" id="firstname" type="text" name="firstname">
+
+        <p class="subscription-form__error"></p>
       </div>
     </div>
 
@@ -30,6 +32,8 @@
         <label class="subscription-form__label" for="lastname">Last name*</label>
 
         <input class="subscription-form__text-input" id="lastname" type="text" name="lastname">
+
+        <p class="subscription-form__error"></p>
       </div>
     </div>
 
@@ -38,6 +42,8 @@
         <label class="subscription-form__label" for="email">Email address*</label>
 
         <input class="subscription-form__text-input" id="email" type="text" name="email">
+
+        <p class="subscription-form__error"></p>
       </div>
     </div>
 
@@ -48,6 +54,8 @@
         <input id="terms" type="checkbox" name="terms">
 
         <label class="subscription-form__terms-label" for="terms">{{ page.terms_agreement | richtext }}</label>
+
+        <p class="subscription-form__error"></p>
       </div>
     </div>
 

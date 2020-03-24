@@ -7,6 +7,10 @@
     &.terms {
       margin-top: 15px;
     }
+
+    &.error {
+      border-left: 2px solid #d4351c;
+    }
   }
 
   &__label {
@@ -64,5 +68,12 @@
     font-size: 16px;
     color: #666666;
     margin-bottom: 30px;
+  }
+
+
+  &__error {
+    display: none;
+    color: #d4351c;
+    font-size: 0.9em;
   }
 }

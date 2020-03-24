@@ -10,6 +10,55 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from core.models.pages import MethodsBasePage
 
 
+class HomePageCampaign(Orderable):
+    caption = TextField(blank=True)
+    thumbnail_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    campaign_landing_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    page = ParentalKey("HomePage", related_name="campaign_items")
+
+    panels = [
+        FieldPanel('caption'),
+        ImageChooserPanel('thumbnail_image'),
+        PageChooserPanel('campaign_landing_page'),
+    ]
+
+
+class HomePage(MethodsBasePage):
+    heading = TextField(blank=True)
+    subtitle = TextField(blank=True)
+    banner_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    signup_intro = TextField(blank=True)
+    campaign_list_header = TextField(blank=True)
+
+    content_panels = MethodsBasePage.content_panels + [
+        FieldPanel('heading'),
+        FieldPanel('subtitle'),
+        ImageChooserPanel('banner_image'),
+        FieldPanel('signup_intro'),
+        FieldPanel('campaign_list_header'),
+        InlinePanel('campaign_items', label="Campaign list")
+    ]
+
+
 class LandingPage(MethodsBasePage):
     subpage_types = [
         'contentPages.OverviewPage',  # appname.ModelName
@@ -164,7 +213,7 @@ class ResourceItemPage(MethodsBasePage):
         null=True,
         blank=True,
         related_name='+',
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         verbose_name='Upload document'
     )
 

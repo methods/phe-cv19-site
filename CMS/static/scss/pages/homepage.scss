@@ -1,0 +1,68 @@
+@import "../variables";
+
+.homepage .shelf {
+  background-color: $phe-off-white;
+}
+
+.departments {
+  padding-top: 1em;
+  padding-bottom: 2em;
+}
+
+.campaign-item {
+
+  &__link-area {
+    position: relative;
+    display: block;
+    height: 170px;
+    background-size: cover;
+  }
+
+  &__caption {
+    padding: 12px 12px;
+    font-size: 19px;
+    background-color: $white;
+    color: $phe-link-color;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: $phe-link-color 1px solid;
+    z-index: 10;
+  }
+
+  &__arrow {
+    display:block;
+    height: 40px;
+    width: 40px;
+    font-size: 19px;
+    background-color: $phe-teal;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('/static/img/right-arrow.svg');
+    background-size: 38% 38%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+  }
+
+  &__link-area:hover, &__link-area:focus {
+
+    .campaign-item__caption {
+      background-color: $phe-dark;
+      border: $phe-dark 1px solid;
+      color: $white;
+    }
+
+    .campaign-item__arrow {
+      background-color: $phe-dark;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+

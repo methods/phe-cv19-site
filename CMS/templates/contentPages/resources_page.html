@@ -1,5 +1,9 @@
 {% extends "../base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags sass_tags %}
+
+{% block extra_css %}
+    <link href="{% sass_src 'scss/all.scss' %}" rel="stylesheet" type="text/css">
+{% endblock %}
 
 {% block content %}
 
@@ -30,12 +34,9 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12 button-col">
-                        <ul class="cta-buttons">
-                            <li>
-                                <a class="btn cta-button" href="#">
-                                    <div class="cta-label">Sign up for updates</div>
-                                </a></li>
-                        </ul>
+                        <div class="col-xs-12 signup-button-wrapper">
+                            <a class="signup-button" href="{{ subscription_url }}">Sign up for updates</a>
+                        </div>
                     </div>
                 </div>
             </div>
