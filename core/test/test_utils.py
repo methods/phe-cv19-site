@@ -65,7 +65,8 @@ class TestUtilsS3Upload(MethodsTestCase):
     def _setup_test_directory(self, test_dir: str, include_non_html: bool=False) -> None:
         """
         Setup three-deep, trifurcating directory tree with unique pseudo-html
-        and pseudo-image file in each directory:
+        files in each directory. If include_non_html=True, also include unique,
+        random-content pseudo img files in each directory.
         """
         for lvl1_seed in range(1, 4):
             dirpath = os.path.join(test_dir, f"dir{lvl1_seed}")
