@@ -12980,6 +12980,11 @@ footer ul.footer-base-links li {
   border-right: 1px solid #fff
 }
 
+footer ul.footer-base-links li a:focus {
+    background: #04867B;
+    padding: 1.2rem 1.2rem 1.2rem 1.2rem;
+}
+
 footer ul.footer-base-links li a {
   color: #fff
 }
