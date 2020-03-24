@@ -5,14 +5,11 @@ import shutil
 import tempfile
 
 from contextlib import redirect_stdout
-from CMS.test.utils import MethodsTestCase
-#from unittest import TestCase as MethodsTestCase
 
 import boto3
-
 from moto import mock_s3
 
-# code under test:
+from CMS.test.utils import MethodsTestCase
 from core import utils
 
 
@@ -65,7 +62,7 @@ class TestUtilsS3Upload(MethodsTestCase):
         with open(os.path.join(dir_path, file_name), "wb") as f:
             f.write(os.urandom(1024))
 
-    def _setup_test_directory(self, test_dir: str) -> None:
+    def _setup_test_directory(self, test_dir: str, include_non_html: bool=False) -> None:
         """
         Setup three-deep, trifurcating directory tree with unique pseudo-html
         and pseudo-image file in each directory:
@@ -75,14 +72,16 @@ class TestUtilsS3Upload(MethodsTestCase):
             os.makedirs(dirpath, exist_ok=True)
             base_filename = lvl1_seed
             self._write_html_file(f"{base_filename}.html", dirpath)
-            self._write_random_bin_file(f"{base_filename}.not_jpg", dirpath)
+            if include_non_html:
+                self._write_random_bin_file(f"{base_filename}.not_jpg", dirpath)
 
             for lvl2_seed in range(1, 4):
                 dirpath = os.path.join(test_dir, f"dir{lvl1_seed}", f"dir{lvl2_seed}")
                 base_filename = f"{lvl1_seed}_{lvl2_seed}"
                 os.makedirs(dirpath, exist_ok=True)
                 self._write_html_file(f"{base_filename}.html", dirpath)
-                self._write_random_bin_file(f"{base_filename}.not_jpg", dirpath)
+                if include_non_html:
+                    self._write_random_bin_file(f"{base_filename}.not_jpg", dirpath)
 
                 for lvl3_seed in range(1, 4):
                     dirpath = os.path.join(
@@ -94,7 +93,8 @@ class TestUtilsS3Upload(MethodsTestCase):
                     base_filename = f"{lvl1_seed}_{lvl2_seed}_{lvl3_seed}"
                     os.makedirs(dirpath, exist_ok=True)
                     self._write_html_file(f"{base_filename}.html", dirpath)
-                    self._write_random_bin_file(f"{base_filename}.not_jpg", dirpath)
+                    if include_non_html:
+                        self._write_random_bin_file(f"{base_filename}.not_jpg", dirpath)
 
     def _s3_to_local_dir(self, local_dir: str) -> None:
         """
@@ -120,7 +120,6 @@ class TestUtilsS3Upload(MethodsTestCase):
     def setUp(self):
         super().setUp()
         self.test_dir = tempfile.mkdtemp()
-        self._setup_test_directory(self.test_dir)
         self.backup_utils_settings = utils.settings
         self.mock_key_id = "mock-key-ID"
         self.mock_key = "mock-key"
@@ -145,9 +144,14 @@ class TestUtilsS3Upload(MethodsTestCase):
 
     # =================== # tests # =================== #
 
-    def test_export_directory_s3(self):
+    def test_export_directory_html_only(self):
+        """
+        Assert export_directory uploads all files when just given html.
+        """
+        # setup test dir
+        self._setup_test_directory(self.test_dir)
 
-        # upload temp directory to mocked s3 bucket
+         # upload temp directory to mocked s3 bucket
         utils.export_directory()
 
         # assert mock bucket has correct files and directory structure
@@ -161,6 +165,36 @@ class TestUtilsS3Upload(MethodsTestCase):
                     filecmp.dircmp(self.test_dir, mock_bucket_contents_directory).report_full_closure()
                     diff_report = "Directory tree in s3 bucket does not match test directory tree: " + buf.getvalue()
             self.assertTrue(trees_equal, diff_report)
+
+
+    def test_export_directory_html_and_binaries(self):
+        """
+        Assert export_directory uploads only html when given a mix of html and binary image-like files.
+        """
+        # setup test dir
+        self._setup_test_directory(self.test_dir, include_non_html=True)
+
+        # upload temp directory to mocked s3 bucket
+        utils.export_directory()
+
+        # setup the same thing, without non-html
+        with tempfile.TemporaryDirectory() as test_dir_html_only:
+
+            self._setup_test_directory(test_dir_html_only)
+
+            # assert mock bucket has ONLY the html files
+            with tempfile.TemporaryDirectory() as mock_bucket_contents_directory:
+                self._s3_to_local_dir(mock_bucket_contents_directory)
+                trees_equal =  self._are_dir_trees_equal(test_dir_html_only, mock_bucket_contents_directory)
+                diff_report = ""
+                if not trees_equal:
+                    # filecmp annoyingly likes to report to stdout, but we want the output as a string for the assert msg
+                    with io.StringIO() as buf, redirect_stdout(buf):
+                        filecmp.dircmp(test_dir_html_only, mock_bucket_contents_directory).report_full_closure()
+                        diff_report = "Directory tree in s3 bucket does not match test directory tree: " + buf.getvalue()
+                self.assertTrue(trees_equal, diff_report)
+
+
 
 
 # test upload of modded files only

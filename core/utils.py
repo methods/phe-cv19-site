@@ -6,7 +6,7 @@ from django.core.management import call_command
 from django.conf import settings
 
 from os import listdir
-from os.path import isfile, join
+from os.path import isfile, join, splitext
 
 from wagtail.core.signals import page_published, page_unpublished
 
@@ -102,7 +102,9 @@ def is_s3_deployment_configured() -> bool:
 def prerender_pages(sender, **kwargs):
     call_command('build')
     if is_s3_deployment_configured():
+        print(f"Deploying site to s3 bucket: {settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT}...")
         export_directory()
+        print(f"... deployment complete.")
 
 
 def export_directory(path:str=''):
@@ -119,15 +121,28 @@ def export_directory(path:str=''):
         aws_secret_access_key = settings.AWS_SECRET_ACCESS_KEY_DEPLOYMENT
     )
     for f in directory_contents:
-        if f != 'static':
-            full_filepath = join(directory_path , f)
-            local_filepath = join(path, f)
+
+        # ignore the whole static directory and any non-html files
+        if f == 'static':
+            continue
+
+        # construct relative filepaths
+        full_filepath = join(directory_path , f)
+        local_filepath = join(path, f)
+
+        # upload files...
         if isfile(full_filepath):
+
+            # ... but ONLY html files!
+            if splitext(full_filepath)[1] != '.html':
+                continue
+
             s3_client.upload_file(
                 Filename=full_filepath,
                 Bucket=settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT,
                 Key=local_filepath
             )
+        # recursively deal with directories
         else:
             export_directory(local_filepath)
 
