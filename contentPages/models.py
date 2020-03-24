@@ -37,6 +37,16 @@ class HomePageCampaign(Orderable):
 
 
 class HomePage(MethodsBasePage):
+
+    subpage_types = [
+        'contentPages.LandingPage',
+        'subscription.SubscriptionPage',
+    ]
+
+    parent_page_type = [
+        'wagtailcore.Page'
+    ]
+
     heading = TextField(blank=True)
     subtitle = TextField(blank=True)
     banner_image = models.ForeignKey(
@@ -63,11 +73,10 @@ class LandingPage(MethodsBasePage):
     subpage_types = [
         'contentPages.OverviewPage',  # appname.ModelName
         'contentPages.ResourcesPage',  # appname.ModelName
-        'subscription.SubscriptionPage',  # appname.ModelName
     ]
 
     parent_page_type = [
-        'wagtailcore.Page'  # appname.ModelName
+        'wagtailcore.HomePage'  # appname.ModelName
     ]
 
     heading = TextField(blank=True)
