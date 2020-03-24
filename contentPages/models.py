@@ -10,6 +10,55 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from core.models.pages import MethodsBasePage
 
 
+class HomePageCampaign(Orderable):
+    caption = TextField(blank=True)
+    thumbnail_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    campaign_landing_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    page = ParentalKey("HomePage", related_name="campaign_items")
+
+    panels = [
+        FieldPanel('caption'),
+        ImageChooserPanel('thumbnail_image'),
+        PageChooserPanel('campaign_landing_page'),
+    ]
+
+
+class HomePage(MethodsBasePage):
+    heading = TextField(blank=True)
+    subtitle = TextField(blank=True)
+    banner_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    signup_intro = TextField(blank=True)
+    campaign_list_header = TextField(blank=True)
+
+    content_panels = MethodsBasePage.content_panels + [
+        FieldPanel('heading'),
+        FieldPanel('subtitle'),
+        ImageChooserPanel('banner_image'),
+        FieldPanel('signup_intro'),
+        FieldPanel('campaign_list_header'),
+        InlinePanel('campaign_items', label="Campaign list")
+    ]
+
+
 class LandingPage(MethodsBasePage):
     heading = TextField(blank=True)
     banner_image = models.ForeignKey(
@@ -123,7 +172,7 @@ class ResourcesPage(MethodsBasePage):
 
 class ResourceItemPage(MethodsBasePage):
     heading = TextField(blank=True)
-    description = TextField(blank=True)
+    description = RichTextField(blank=True, null=True, default='')
     preview_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -131,21 +180,21 @@ class ResourceItemPage(MethodsBasePage):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-    preview_image_screen_reader_text = TextField(blank=True)
+    preview_image_screen_reader_text = TextField(blank=True, default='')
 
     link_document = models.ForeignKey(
         'wagtaildocs.Document',
         null=True,
         blank=True,
         related_name='+',
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         verbose_name='Upload document'
     )
 
-    product_code = CharField(max_length=256, blank=True, null=True)
-    overview = RichTextField()
-    format = CharField(max_length=256, blank=True, null=True)
-    file_size = CharField(max_length=256, blank=True, null=True)
+    product_code = CharField(max_length=256, blank=True, null=True, default='')
+    overview = RichTextField(blank=True, default='')
+    format = CharField(max_length=256, blank=True, null=True, default='')
+    file_size = CharField(max_length=256, blank=True, null=True, default='')
 
     content_panels = MethodsBasePage.content_panels + [
 
@@ -163,3 +212,7 @@ class ResourceItemPage(MethodsBasePage):
             FieldPanel('file_size'),
         ], heading='Details'),
     ]
+
+    @property
+    def link_url(self):
+        return self.get_site().hostname + self.url_path

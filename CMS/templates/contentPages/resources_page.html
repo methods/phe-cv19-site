@@ -1,5 +1,9 @@
 {% extends "../base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags sass_tags %}
+
+{% block extra_css %}
+    <link href="{% sass_src 'scss/all.scss' %}" rel="stylesheet" type="text/css">
+{% endblock %}
 
 {% block content %}
 
@@ -19,13 +23,7 @@
 
     <div id="content">
 
-        {#    TODO: Create breadcrumb snippet#}
-        <div class='container'>
-            <ol class="breadcrumb">
-                <li class=''><a href="/">{{ page.site_heading }}</a></li>
-                <li class='active'>Resources</li>
-            </ol>
-        </div>
+        {% include 'partials/breadcrumbs.html' with ancestors=page.breadcrumbs title=page.title %}
 
         <div class="crc-shelf sign-in-shelf partners-intro">
             <div class="container odd">
@@ -36,31 +34,15 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12 button-col">
-                        <ul class="cta-buttons">
-                            <li>
-                                <a class="btn cta-button" href="#">
-                                    <div class="cta-label">Sign up for updates</div>
-                                </a></li>
-                        </ul>
+                        <div class="col-xs-12 signup-button-wrapper">
+                            <a class="signup-button" href="{{ subscription_url }}">Sign up for updates</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        {#    TODO: Tab bar snippet #}
-        <div class="crc-tab-shelf">
-            <div class="container">
-                <div class="crc-nav-tabs">
-                    <ul class='nav nav-tabs nav-justified'>
-                        <li class=""><a data-track="CRC_Resources_Navigation" data-track-item="Overview"
-                                        href="overview">Overview</a></li>
-                        <li class="active"><a data-track="CRC_Resources_Navigation" data-track-item="Resources"
-                                              href="resources">Resources</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        {% include 'partials/tabbar.html' with active='resources' %}
 
         <div class="crc-tab-content-shelf">
             <div class="container crc-nav-tab-content">

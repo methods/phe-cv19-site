@@ -11882,11 +11882,6 @@ button.btn:hover {
   padding-right: 0
 }
 
-.cta-btn-download:before {
-  font-family: "crc icons";
-  content: "\0041"
-}
-
 .cta-btn-add-to-basket {
   border-radius: 0;
   margin: 0px;
@@ -12766,10 +12761,6 @@ button.btn:hover {
   padding-right: 0
 }
 
-.cta-btn-download:before {
-  font-family: "crc icons";
-  content: "\0041"
-}
 
 .cta-btn-add-to-basket {
   border-radius: 0;
@@ -14604,7 +14595,7 @@ ul.evenly-spaced li {
 }
 
 .asset-details .asset-description {
-  height: 177px;
+  height: 207px;
   margin-bottom: 12px;
   overflow-y: auto
 }
