@@ -1,19 +1,16 @@
 import pyclamd
 
-from azure.storage.file import FileService
+import boto3
 
 from django.core.management import call_command
 from django.conf import settings
 
 from os import listdir
-from os.path import isfile, join
+from os.path import isfile, join, splitext
 
 from wagtail.core.signals import page_published, page_unpublished
 
 from errors.models import VirusException
-
-if settings.AZURE_FILE_ACCOUNT_NAME is not None and settings.AZURE_FILE_ACCOUNT_NAME != "":
-    FILE_SERVICE = FileService(account_name=settings.AZURE_FILE_ACCOUNT_NAME, account_key=settings.AZURE_FILE_ACCOUNT_KEY)
 
 
 def fallback_to(value, default_value):
@@ -88,21 +85,66 @@ def get_clam():
             raise ValueError('could not connect to clamd server either by unix or network socket')
 
 
+def is_s3_deployment_configured() -> bool:
+    """
+    Return True if all three settings needed to deploy site to S3 are set to something valid-seeming.
+    """
+    s3_settings = (
+        settings.AWS_ACCESS_KEY_ID_DEPLOYMENT,
+        settings.AWS_SECRET_ACCESS_KEY_DEPLOYMENT,
+        settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT,
+        settings.AWS_REGION_DEPLOYMENT
+    )
+    are_set = (s3_setting != None and s3_setting !="" for s3_setting in s3_settings)
+    return all(are_set)
+
+
 def prerender_pages(sender, **kwargs):
     call_command('build')
-    if settings.AZURE_FILE_ACCOUNT_NAME is not None and settings.AZURE_FILE_ACCOUNT_NAME != "":
-        export_directory('')
+    if is_s3_deployment_configured():
+        print(f"Deploying site to s3 bucket: {settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT}...")
+        export_directory()
+        print(f"... deployment complete.")
 
 
-def export_directory(path):
-    directory_contents = listdir(settings.BUILD_DIR + path)
+def export_directory(path:str=''):
+    """
+    Crawl through directory structure found at settings.BUILD_DIR/path. Upload
+    files and directories with contents only to AWS s3 (no empty dirs permitted in s3!)
+    """
+    directory_path = join(settings.BUILD_DIR, path)
+    directory_contents = listdir(directory_path)
+    s3_client = boto3.client(
+        "s3",
+        region_name = settings.AWS_REGION_DEPLOYMENT,
+        aws_access_key_id = settings.AWS_ACCESS_KEY_ID_DEPLOYMENT,
+        aws_secret_access_key = settings.AWS_SECRET_ACCESS_KEY_DEPLOYMENT
+    )
     for f in directory_contents:
-        if f != 'static':
-            if isfile(join(path, f)):
-                FILE_SERVICE.put_file_from_path(settings.AZURE_FILE_SHARE, path, f, join(path, f))
-            else:
-                FILE_SERVICE.create_directory(settings.AZURE_FILE_SHARE, path)
-                export_directory(join(path, f))
+
+        # ignore the whole static directory and any non-html files
+        if f == 'static':
+            continue
+
+        # construct relative filepaths
+        full_filepath = join(directory_path , f)
+        local_filepath = join(path, f)
+
+        # upload files...
+        if isfile(full_filepath):
+
+            # ... but ONLY html files!
+            if splitext(full_filepath)[1] != '.html':
+                continue
+
+            s3_client.upload_file(
+                Filename=full_filepath,
+                Bucket=settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT,
+                Key=local_filepath
+            )
+        # recursively deal with directories
+        else:
+            export_directory(local_filepath)
 
 
 page_published.connect(prerender_pages)
