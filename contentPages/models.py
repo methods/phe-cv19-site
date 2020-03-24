@@ -187,7 +187,7 @@ class ResourceItemPage(MethodsBasePage):
         null=True,
         blank=True,
         related_name='+',
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         verbose_name='Upload document'
     )
 
