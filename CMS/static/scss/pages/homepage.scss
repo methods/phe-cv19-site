@@ -1,0 +1,48 @@
+@import "../variables";
+
+.homepage .shelf {
+  background-color: $phe-off-white;
+}
+
+.departments {
+  padding-top: 1em;
+  padding-bottom: 2em;
+}
+
+.campaign-item {
+
+  &__link-area {
+    position: relative;
+    display: block;
+    height: 170px;
+    background-size: auto;
+  }
+
+  &__caption {
+    padding: .2em .3em;
+    font-size: 19px;
+    background-color: $white;
+    color: $phe-link-color;
+    position: absolute;
+    top: .5em;
+    left: .5em;
+    border: $phe-link-color 1px solid;
+    z-index: 10;
+  }
+
+  &__link-area:hover, &__link-area:focus {
+
+    .campaign-item__caption {
+      background-color: $phe-dark;
+      border: $phe-dark 1px solid;
+      color: $white;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
