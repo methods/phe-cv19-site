@@ -15,18 +15,34 @@
     position: relative;
     display: block;
     height: 170px;
-    background-size: auto;
+    background-size: cover;
   }
 
   &__caption {
-    padding: .2em .3em;
+    padding: 12px 12px;
     font-size: 19px;
     background-color: $white;
     color: $phe-link-color;
     position: absolute;
-    top: .5em;
-    left: .5em;
+    top: 0;
+    left: 0;
     border: $phe-link-color 1px solid;
+    z-index: 10;
+  }
+
+  &__arrow {
+    display:block;
+    height: 40px;
+    width: 40px;
+    font-size: 19px;
+    background-color: $phe-teal;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('/static/img/right-arrow.svg');
+    background-size: 38% 38%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
     z-index: 10;
   }
 
@@ -36,6 +52,10 @@
       background-color: $phe-dark;
       border: $phe-dark 1px solid;
       color: $white;
+    }
+
+    .campaign-item__arrow {
+      background-color: $phe-dark;
     }
 
     .overlay {
