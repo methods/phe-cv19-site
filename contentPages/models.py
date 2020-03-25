@@ -37,7 +37,6 @@ class HomePageCampaign(Orderable):
 
 
 class HomePage(MethodsBasePage):
-
     subpage_types = [
         'contentPages.LandingPage',
         'subscription.SubscriptionPage',
@@ -182,14 +181,28 @@ class ResourcesPage(MethodsBasePage):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-    usage_notes = TextField(blank=True, null=True)
+    sidebar_note = TextField(blank=True, null=True)
+    sidebar_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    sidebar_screenreader_text = TextField(blank=True, null=True)
+
     signup_message = TextField(blank=True, null=True)
 
     content_panels = MethodsBasePage.content_panels + [
         FieldPanel('heading'),
         ImageChooserPanel('banner_image'),
         FieldPanel('signup_message'),
-        FieldPanel('usage_notes'),
+        MultiFieldPanel(
+            [
+                ImageChooserPanel('sidebar_image'),
+                FieldPanel('sidebar_screenreader_text'),
+                FieldPanel('sidebar_note'),
+            ], 'Side bar')
     ]
 
     @property
@@ -209,6 +222,7 @@ class ResourcesPage(MethodsBasePage):
     def campaign_slug(self):
         parent = self.get_parent()
         return parent.landingpage.slug
+
 
 class ResourceItemPage(MethodsBasePage):
     subpage_types = []
