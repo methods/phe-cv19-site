@@ -1,5 +1,9 @@
 {% extends "../base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags sass_tags %}
+
+{% block extra_css %}
+    <link href="{% sass_src 'scss/pages/resourceitempage.scss' %}" rel="stylesheet" type="text/css">
+{% endblock %}
 
 {% block content %}
 
@@ -20,7 +24,7 @@
                                      style="background-image: url({{ preview_image.url }});"></div>
                             </div>
                             <div class="col-sm-8 asset-details">
-                                <h3 class="title">{{ page.heading }}</h3>
+                                <h1 class="resource-item__title">{{ page.heading }}</h1>
                                 <div class="asset-description asset-description-actions-one">{{ page.description | richtext }}</div>
                                 <div class="row row-no-padding asset-actions-panel">
                                     <div class="col-sm-6">
