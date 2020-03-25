@@ -1,0 +1,71 @@
+@import "../variables";
+
+.phe-tabbar {
+  margin: 0;
+  padding: 2em 0 0 0;
+  background-color: #e5e9ea
+}
+
+.phe-tabbar ul li {
+  background-color: $phe-teal;
+  vertical-align: middle;
+  border-right: 10px solid #e5e9ea
+}
+
+.phe-tabbar ul li.active {
+  background-color: #f5f5f5
+}
+
+.phe-tabbar ul li.active.white-bg {
+  background-color: $phe-dark
+}
+
+.phe-tabbar ul li.active a {
+  color: $phe-teal
+}
+
+.phe-tabbar ul li.inactive {
+  border-bottom: 10px solid #e5e9ea
+}
+
+.phe-tabbar ul li a {
+  color: #fff;
+  border-radius: 0px !important;
+  border: none !important;
+  background-color: transparent !important;
+
+  &:focus {
+    background-color: $phe-dark !important;
+  }
+}
+
+
+.phe-tabbar ul li .active-tab-caption {
+  font-size: 16px;
+  margin: 0;
+  padding: 10px 15px;
+}
+
+@media (max-width: 754px), (min-width: 755px) and (max-width: 991px) {
+  .phe-tabbar ul li {
+    border-right: none
+  }
+}
+
+.phe-tabbar ul li.active {
+  color: $phe-teal;
+  background-color: #f5f5f5
+}
+
+.phe-tabbar ul li.active:hover {
+  background-color: #f5f5f5
+}
+
+.phe-tabbar ul li:hover {
+  color: #fff;
+  background-color: $phe-dark
+}
+
+.phe-tabbar ul li:last-child {
+  border-right: none
+}
