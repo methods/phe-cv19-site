@@ -1,0 +1,23 @@
+@import "../variables";
+
+.download-button-wrapper {
+  text-align:left;
+  padding: 12px;
+}
+.download-button {
+  display: block;
+  font-size: 18px;
+  padding: .75em 1.5em;
+  color: $white;
+  background-color: $phe-teal;
+
+  &:active, &:visited {
+    color: $white;
+    background-color: $phe-teal;
+  }
+
+  &:hover, &:focus {
+    color: $white;
+    background-color: $phe-dark;
+  }
+}

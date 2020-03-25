@@ -1,5 +1,6 @@
 @import './variables';
 @import "components/breadcrumbs";
+@import "components/download-button";
 @import "components/signup-button";
 @import "components/tabbar";
 
@@ -42,4 +43,14 @@ a[target=_blank] {
   width: 1px;
   height: 1px;
   overflow: hidden;
+}
+
+
+.accessible-foreground--teal {
+  color: $phe-teal !important;
+}
+
+.accessible-background--teal {
+  background-color: $phe-teal !important;
+
 }
