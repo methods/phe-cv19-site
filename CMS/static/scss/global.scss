@@ -1,4 +1,9 @@
 @import './variables';
+@import "components/breadcrumbs";
+@import "components/download-button";
+@import "components/link-block";
+@import "components/signup-button";
+@import "components/tabbar";
 
 body {
   margin: 0;
@@ -30,4 +35,23 @@ a[target=_blank] {
       height: 100%;
     }
   }
+}
+
+.visibly-hidden {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+
+.accessible-foreground--teal {
+  color: $phe-teal !important;
+}
+
+.accessible-background--teal {
+  background-color: $phe-teal !important;
+
 }

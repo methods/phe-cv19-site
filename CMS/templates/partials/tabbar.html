@@ -1,10 +1,14 @@
 <div class="crc-tab-shelf">
     <div class="container">
-        <div class="crc-nav-tabs">
+        <div class="phe-tabbar">
             <ul class='nav nav-tabs nav-justified'>
-                <li class="{% if active == 'overview' %}active{% endif %}"><a href="/{{ landing_page }}/overview">Overview</a></li>
-                <li class="{% if active == 'resources' %}active{% endif %}"><a href="/{{ landing_page }}/resources">Resources</a>
-                </li>
+                {% if active == 'overview' %}
+                    <li class="active"><h2 class="active-tab-caption">Overview</h2></li>
+                    <li><a href="/{{ landing_page }}/resources">Resources</a></li>
+                {% elif active == 'resources' %}
+                    <li><a href="/{{ landing_page }}/overview">Overview</a></li>
+                    <li class="active"><h2 class="active-tab-caption">Resources</h2></li>
+                {% endif %}
             </ul>
         </div>
     </div>
