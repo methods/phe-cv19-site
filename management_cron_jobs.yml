@@ -8,6 +8,6 @@ clean_old_jobs: True
 #   - period (how often, in period_units, to run)
 cron_jobs:
   - name: "Publish Scheduled Changes"
-    command: " cd /code && python manage.py publish_scheduled_pages"
+    command: "cd /code && python manage.py publish_scheduled_pages"
     period_units: "minutes"
     period: 30
