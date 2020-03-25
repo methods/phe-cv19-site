@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-until python3 manage.py migrate
+until python manage.py makemigrations && python3 manage.py migrate
 do
   echo "Waiting for database to be migrated"
   sleep 5
@@ -10,7 +10,7 @@ done
 #Run Gunicorn
 exec gunicorn CMS.wsgi:application \
   --name methods-cms \
-  --bind 0.0.0.0:80 \
+  --bind 0.0.0.0:8000 \
   --workers 3 \
   --log-level=info \
   --log-file=- \

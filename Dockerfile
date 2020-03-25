@@ -14,3 +14,5 @@ RUN useradd wagtail
 RUN chown -R wagtail /code
 USER wagtail
 RUN chmod +x ./deploy_files/docker-entrypoint.sh
+
+ENTRYPOINT ["./deploy_files/docker-entrypoint.sh"]
