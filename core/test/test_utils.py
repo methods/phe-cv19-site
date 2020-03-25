@@ -1,4 +1,5 @@
 import filecmp
+import glob
 import io
 import os
 import shutil
@@ -74,7 +75,7 @@ class TestUtilsS3Upload(MethodsTestCase):
             base_filename = lvl1_seed
             self._write_html_file(f"{base_filename}.html", dirpath)
             if include_non_html:
-                self._write_random_bin_file(f"{base_filename}.not_jpg", dirpath)
+                self._write_random_bin_file(f"{base_filename}.jpg", dirpath)
 
             for lvl2_seed in range(1, 4):
                 dirpath = os.path.join(test_dir, f"dir{lvl1_seed}", f"dir{lvl2_seed}")
@@ -82,7 +83,7 @@ class TestUtilsS3Upload(MethodsTestCase):
                 os.makedirs(dirpath, exist_ok=True)
                 self._write_html_file(f"{base_filename}.html", dirpath)
                 if include_non_html:
-                    self._write_random_bin_file(f"{base_filename}.not_jpg", dirpath)
+                    self._write_random_bin_file(f"{base_filename}.jpg", dirpath)
 
                 for lvl3_seed in range(1, 4):
                     dirpath = os.path.join(
@@ -95,7 +96,7 @@ class TestUtilsS3Upload(MethodsTestCase):
                     os.makedirs(dirpath, exist_ok=True)
                     self._write_html_file(f"{base_filename}.html", dirpath)
                     if include_non_html:
-                        self._write_random_bin_file(f"{base_filename}.not_jpg", dirpath)
+                        self._write_random_bin_file(f"{base_filename}.jpg", dirpath)
 
     def _s3_to_local_dir(self, local_dir: str) -> None:
         """
@@ -114,6 +115,23 @@ class TestUtilsS3Upload(MethodsTestCase):
             # download file to local_dir
             self.s3_client.download_file(
                 Bucket=self.mock_bucket, Key=s3_key, Filename=local_file_path
+            )
+
+    def _all_2_s3(self, dir_2_upload: str) -> None:
+        """
+        Upload entire contents of dir_2_upload to s3, with no filtering for
+        filetypes.
+        """
+        files_in_directory = glob.glob(f"{dir_2_upload}/**/*", recursive=True)
+        files_2_upload = [
+            {"Filename": f, "Key": os.path.relpath(f, start=dir_2_upload)} for f in files_in_directory
+            if os.path.isfile(f)
+        ]
+        for f in files_2_upload:
+            self.s3_client.upload_file(
+                Filename=f["Filename"],
+                Bucket=self.mock_bucket,
+                Key=f["Key"]
             )
 
     # =================== # setup # =================== #
@@ -152,7 +170,7 @@ class TestUtilsS3Upload(MethodsTestCase):
         # setup test dir
         self._setup_test_directory(self.test_dir)
 
-         # upload temp directory to mocked s3 bucket
+         # upload test dir to mocked s3 bucket
         utils.export_directory()
 
         # assert mock bucket has correct files and directory structure
@@ -175,7 +193,7 @@ class TestUtilsS3Upload(MethodsTestCase):
         # setup test dir
         self._setup_test_directory(self.test_dir, include_non_html=True)
 
-        # upload temp directory to mocked s3 bucket
+        # upload test dir to mocked s3 bucket
         utils.export_directory()
 
         # setup the same thing, without non-html
@@ -195,35 +213,44 @@ class TestUtilsS3Upload(MethodsTestCase):
                         diff_report = "Non-html files were found in the uploaded S3 content: " + buf.getvalue()
                 self.assertTrue(trees_equal, diff_report)
 
-    def test_export_directory_removes_unpublished_resources(self):
+    def test_export_directory_removes_unpublished_html_and_leaves_other_resources(self):
         """
-        Assert export_directory will remove anything from S3 bucket that is NOT in the export directory.
+        Assert export_directory will remove any html from S3 bucket that is NOT in the export directory, BUT leaves any
+        non-html there.
         """
         # setup test dir
-        self._setup_test_directory(self.test_dir)
+        self._setup_test_directory(self.test_dir, include_non_html=True)
 
-        # upload temp directory to mocked s3 bucket
-        utils.export_directory()
+        # upload EVERYTHING (including non-html) from test dir to mocked s3 bucket
+        self._all_2_s3(self.test_dir)
 
-        # prune a subdirectory from the test dir
-        shutil.rmtree(os.path.join(self.test_dir, "dir1"))
+        with tempfile.TemporaryDirectory() as test_dir_2:
 
-        # repeat the upload
-        utils.export_directory()
+            # copy test dir to test_dir_2, nest it to avoid <3.8 copytree not being cool with things already existing
+            test_dir_2_nested = os.path.join(test_dir_2, 'nested')
+            shutil.copytree(self.test_dir, test_dir_2_nested)
 
-         # assert mock bucket has correct files and directory structure
-        with tempfile.TemporaryDirectory() as mock_bucket_contents_directory:
-            self._s3_to_local_dir(mock_bucket_contents_directory)
-            trees_equal =  self._are_dir_trees_equal(self.test_dir, mock_bucket_contents_directory)
-            diff_report = ""
-            if not trees_equal:
-                # filecmp annoyingly likes to report to stdout, but we want the output as a string for the assert msg
-                with io.StringIO() as buf, redirect_stdout(buf):
-                    filecmp.dircmp(self.test_dir, mock_bucket_contents_directory).report_full_closure()
-                    diff_report = "Unpublished files were found in the uploaded S3 content: " + buf.getvalue()
-            self.assertTrue(trees_equal, diff_report)
+            # prune entire subdirectory from test_dir and repeat upload using export_directory
+            dir_2_prune = "dir1"
+            shutil.rmtree(os.path.join(self.test_dir, dir_2_prune))
+            utils.export_directory()
 
+            # remove html files ONLY from dir_2_prune in test_dir_2
+            html_files_in_directory = glob.glob(f"{os.path.join(test_dir_2_nested, dir_2_prune)}/**/*.html", recursive=True)
+            for f in html_files_in_directory:
+                os.remove(f)
 
-
-# ToDo test upload of modded files only
-# ToDo test scheduled upload
+            # assert mock bucket has correct files and directory structure
+            with tempfile.TemporaryDirectory() as mock_bucket_contents_directory:
+                self._s3_to_local_dir(mock_bucket_contents_directory)
+                trees_equal =  self._are_dir_trees_equal(test_dir_2_nested, mock_bucket_contents_directory)
+                diff_report = ""
+                if not trees_equal:
+                    # filecmp annoyingly likes to report to stdout, but we want the output as a string for the assert msg
+                    with io.StringIO() as buf, redirect_stdout(buf):
+                        filecmp.dircmp(test_dir_2_nested, mock_bucket_contents_directory).report_full_closure()
+                        diff_report = (
+                            "Either unpublished html files were found in the uploaded S3 content, non-html files were removed from it: "
+                            f"{buf.getvalue()}"
+                        )
+                self.assertTrue(trees_equal, diff_report)
