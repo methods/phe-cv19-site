@@ -1,3 +1,4 @@
+# define cron jobs to run manage.py tasks on a schedule
 cron_user: wagtail
 clean_old_jobs: True
 # define cron jobs below. Fields are:
