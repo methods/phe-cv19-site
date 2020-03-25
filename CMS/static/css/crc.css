@@ -12975,23 +12975,22 @@ footer ul.footer-base-links {
 footer ul.footer-base-links li {
   display: inline;
   font-size: 0.8em;
-  padding: 0px 9px;
+  padding: 0px 3px;
   margin: 0;
   border-right: 1px solid #fff
 }
 
 footer ul.footer-base-links li a:focus {
     background: #04867B;
-    padding: .75rem .75rem .75rem .75rem;
 }
 
 footer ul.footer-base-links li a:hover {
     background: #04867B;
-    padding: .75rem .75rem .75rem .75rem;
 }
 
 footer ul.footer-base-links li a {
-  color: #fff
+  color: #fff;
+  padding: 6px 6px 6px 6px;
 }
 
 footer ul.footer-base-links li:first-child {
