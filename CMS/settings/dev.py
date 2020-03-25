@@ -1,5 +1,7 @@
 from .base import *
 
+from CMS.settings.management_cron_jobs import schedule_cron_jobs
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -24,6 +26,11 @@ AWS_SECRET_ACCESS_KEY_DEPLOYMENT = os.environ.get('AWS_SECRET_ACCESS_KEY_DEPLOYM
 AWS_STORAGE_BUCKET_NAME_DEPLOYMENT = os.environ.get('AWS_STORAGE_BUCKET_NAME_DEPLOYMENT')
 AWS_REGION_DEPLOYMENT = os.environ.get('AWS_REGION_DEPLOYMENT')
 
+# cron
+
+SCHEDULE_CRON_JOBS = os.environ.get('SCHEDULE_CRON_JOBS')
+if SCHEDULE_CRON_JOBS.lower() == 'true':
+    schedule_cron_jobs()
 
 try:
     from .local import *

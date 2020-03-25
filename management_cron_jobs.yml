@@ -1,0 +1,12 @@
+cron_user: wagtail
+clean_old_jobs: True
+# define cron jobs below. Fields are:
+#   - name (for logging)
+#   - command (the command or commands to run)
+#   - period_units (either second, minute, hour or day. NB will accept either singular (minute) or plural (minutes))
+#   - period (how often, in period_units, to run)
+cron_jobs:
+  - name: "Publish Scheduled Changes"
+    command: " cd /code && python manage.py publish_scheduled_pages"
+    period_units: "minutes"
+    period: 30

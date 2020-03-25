@@ -2,6 +2,8 @@ import sys
 
 from .base import *
 
+from CMS.settings.management_cron_jobs import schedule_cron_jobs
+
 DEBUG = False
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
@@ -75,6 +77,13 @@ SECURE_BROWSER_XSS_FILTER = True
 SESSION_COOKIE_SECURE = True
 
 CSRF_COOKIE_SECURE = True
+
+# cron
+
+SCHEDULE_CRON_JOBS = os.environ.get('SCHEDULE_CRON_JOBS')
+if SCHEDULE_CRON_JOBS.lower() == 'true':
+    schedule_cron_jobs()
+
 
 try:
     from .local import *
