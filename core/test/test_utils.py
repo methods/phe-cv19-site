@@ -102,7 +102,7 @@ class TestUtilsS3Upload(MethodsTestCase):
         Get objects from s3 bucket (mocked,  presumably) and replicate structure
         implied in key names as directory tree with root in local_dir.
         """
-        bucket_keys = (object["Key"] for object in self.s3_client.list_objects(Bucket=self.mock_bucket)["Contents"])
+        bucket_keys = (s3_obj["Key"] for s3_obj in self.s3_client.list_objects(Bucket=self.mock_bucket)["Contents"])
         for s3_key in bucket_keys:
             # split s3_key into directory-like component and filename-like component
             path, filename = os.path.split(s3_key)
