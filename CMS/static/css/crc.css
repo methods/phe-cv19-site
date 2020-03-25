@@ -12981,11 +12981,11 @@ footer ul.footer-base-links li {
 }
 
 footer ul.footer-base-links li a:focus {
-    background: #04867B;
+    background: #04857A;
 }
 
 footer ul.footer-base-links li a:hover {
-    background: #04867B;
+    background: #04857A;
 }
 
 footer ul.footer-base-links li a {
@@ -16563,11 +16563,11 @@ nav.crc-navbar ul.navbar-nav li a.crc-menu-item {
 
 nav.crc-navbar ul.navbar-nav li a.crc-menu-item:hover {
   color: #fff;
-  background-color: #04867B
+  background-color: #04857A
 }
 
 nav.crc-navbar ul.navbar-nav li a.crc-menu-item:focus {
-  background-color: #04867B
+  background-color: #04857A
 }
 
 nav.crc-navbar ul.crc-dropdown-menu {
