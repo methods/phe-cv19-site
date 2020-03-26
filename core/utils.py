@@ -138,7 +138,7 @@ def prerender_pages(sender, **kwargs):
                 ) if s3_setting["value"] != None and s3_setting !=""
             ]
             _log_and_print(
-                f"...AWS s3 access not configured - deployment skipped. Missing settings: {unset_s3_settings}"
+                f"...AWS s3 access not configured - deployment skipped. Missing settings: {repr(unset_s3_settings)}"
             )
     except Exception as e:
         _log_and_print(f"Deployment to s3 failed: {repr(e)}")
