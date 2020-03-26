@@ -9,7 +9,9 @@
 
 {% block content %}
   {% image page.banner_image original as banner %}
-  {% include 'partials/banner.html' with heading=page.heading banner=banner %}
+    {% convert_s3_link banner.url as banner_url %}
+
+  {% include 'partials/banner.html' with heading=page.heading banner_url=banner_url %}
 
   <form method="POST" action="#" class="subscription-form container">
     <h3>{{ page.sub_heading }}</h3>

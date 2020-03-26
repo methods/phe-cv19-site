@@ -1,11 +1,15 @@
 {% extends "../base.html" %}
-{% load wagtailcore_tags wagtailimages_tags sass_tags %}
+{% load wagtailcore_tags wagtailimages_tags sass_tags methods_tags %}
 
 {% block content %}
 
     {% image page.banner_image original as banner %}
+    {% convert_s3_link banner.url as banner_url %}
+
     {% image page.subpages_background_image original as content %}
-    {% include 'partials/banner.html' with heading=page.heading banner=banner %}
+    {% convert_s3_link content.url as content_url %}
+
+    {% include 'partials/banner.html' with heading=page.heading banner_url=banner_url %}
 
     <div id="content">
         <!-- Sign in or register shelf -->
@@ -28,7 +32,7 @@
 
         <!-- Page tabs shelf -->
         <div class="crc-shelf campaign-tabs-shelf one-you-links">
-            <div class="links-row" style="background-image: url({{ content.url }}); background-position: 25% 32%">
+            <div class="links-row" style="background-image: url({{ content_url }}); background-position: 25% 32%">
                 <div class="container">
                     <div class="col-md-6 col-xs-12">
                         {% include 'partials/links-block.html' with page=page.overview_subpage heading=page.overview_subpage_heading body=page.overview_subpage_body %}

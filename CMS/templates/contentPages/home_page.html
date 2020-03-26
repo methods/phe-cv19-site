@@ -45,10 +45,13 @@
                 <h2>Campaigns</h2>
                 <div class="spacer-top-2">
                     {% for campaign in page.campaign_items.all %}
+
                         {% image campaign.thumbnail_image original as thumbnail %}
+                        {% convert_s3_link thumbnail.url as thumbnail_url %}
+
                         <div class="campaign-item col-md-3 col-sm-6">
                             <a class="campaign-item__link-area"
-                               style="background-image: url({{ thumbnail.url }})"
+                               style="background-image: url({{ thumbnail_url }})"
                                href="{% if campaign.campaign_landing_page %}{% pageurl campaign.campaign_landing_page %}{% endif %}">
                                 <h3 class="campaign-item__caption">{{ campaign.caption }}</h3>
                                 <div class="campaign-item__arrow"></div>
