@@ -9,6 +9,8 @@
 
     <div id="content">
         <!-- Sign in or register shelf -->
+        {% include 'partials/breadcrumbs.html' with ancestors=page.breadcrumbs title=page.title %}
+
         <div class="crc-shelf sign-in-shelf partners-intro">
             <div class="container odd">
                 <div class="row">
