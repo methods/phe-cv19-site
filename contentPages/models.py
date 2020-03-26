@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.db.models.fields import TextField, CharField
 from modelcluster.fields import ParentalKey
@@ -276,4 +277,4 @@ class ResourceItemPage(MethodsBasePage):
 
     @property
     def link_url(self):
-        return self.get_site().hostname + self.url_path
+        return settings.FINAL_SITE_DOMAIN + self.url
