@@ -249,6 +249,8 @@ class ResourceItemPage(MethodsBasePage):
         verbose_name='Upload document'
     )
 
+    upload_link = TextField(blank=True, default='')
+
     product_code = CharField(max_length=256, blank=True, null=True, default='')
     overview = RichTextField(blank=True, default='')
     format = CharField(max_length=256, blank=True, null=True, default='')
@@ -259,7 +261,8 @@ class ResourceItemPage(MethodsBasePage):
         MultiFieldPanel([
             FieldPanel('heading'),
             FieldPanel('description'),
-            DocumentChooserPanel('link_document'),
+            FieldPanel('upload_link'),
+            # DocumentChooserPanel('link_document'),
             ImageChooserPanel('preview_image'),
             FieldPanel('preview_image_screen_reader_text'),
         ], heading='Header section'),

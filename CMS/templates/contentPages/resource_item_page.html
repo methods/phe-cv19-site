@@ -31,9 +31,13 @@
                                 <div class="row row-no-padding asset-actions-panel">
                                     <div class="col-sm-6">
                                         <div class="download-button-wrapper">
+                                            {% if page.upload_link %}
+                                                <a class="download-button" href="{{ page.upload_link }}">Download</a>
+                                            {% else %}
+                                                {% convert_s3_link page.link_document.url as link_document_url %}
+                                                <a class="download-button" href="{{ link_document_url }}">Download</a>
+                                            {% endif %}
 
-                                            {% convert_s3_link page.link_document.url as link_document_url %}
-                                            <a class="download-button" href="{{ link_document_url }}">Download</a>
                                         </div>
                                     </div>
                                 </div>
