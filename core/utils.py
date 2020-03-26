@@ -37,7 +37,7 @@ def find_subscription_page_url():
     page = SubscriptionPage.objects.first()
     if page is None:
         return '#'
-    return page.full_url
+    return page.url
 
 
 def check_for_virus(instance):
