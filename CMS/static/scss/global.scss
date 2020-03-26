@@ -5,6 +5,10 @@
 @import "components/signup-button";
 @import "components/tabbar";
 
+@import "pages/homepage";
+@import "pages/resourceitempage";
+@import "pages/resourcepage";
+
 body {
   margin: 0;
   font-family: sans-serif, serif;
@@ -55,3 +59,4 @@ a[target=_blank] {
   background-color: $phe-teal !important;
 
 }
+
