@@ -30,6 +30,9 @@ def title_to_id(title):
 
 
 def restructure_s3_link(s3_link, new_bucket_name=None):
+    if s3_link is None:
+        return None
+
     if s3_link.startswith('https://s3.amazonaws.com'):
         converted = s3_link[len('https://s3.amazonaws.com') + 1:]
         query_position = converted.find('?')
