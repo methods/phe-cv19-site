@@ -212,6 +212,8 @@ AZURE_FILE_SHARE = os.environ.get('AZURE_FILE_SHARE')
 
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
+DOWNLOADS_BUCKET_NAME = os.environ.get('DOWNLOADS_BUCKET_NAME', None)
+
 CORS_ORIGIN_ALLOW_ALL = True
 
 X_FRAME_OPTIONS = 'DENY'
