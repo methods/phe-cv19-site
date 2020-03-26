@@ -151,7 +151,8 @@ def export_directory(path:str=''):
         s3_client.upload_file(
             Filename=f["Filename"],
             Bucket=settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT,
-            Key=f["Key"]
+            Key=f["Key"],
+            ExtraArgs={'Metadata': {'Content-Type': 'text/html'}}
         )
 
     # remove whats being removed
