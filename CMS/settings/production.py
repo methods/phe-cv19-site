@@ -6,7 +6,8 @@ DEBUG = False
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 ALLOWED_HOSTS = [
-    "dev-covid19-248806762.eu-west-1.elb.amazonaws.com"
+    "dev-covid19-248806762.eu-west-1.elb.amazonaws.com",
+    "localhost"
 ]
 
 LOGGING = {
