@@ -1,0 +1,29 @@
+$nav-focus__underline-width: 6px;
+
+.crc-menu-item {
+  //border-top: transparent $nav-focus__underline-width solid;
+  border-bottom: transparent $nav-focus__underline-width solid;
+}
+.crc-menu-item:focus {
+  border-bottom: $white $nav-focus__underline-width solid;
+  background-color: $phe-teal !important;
+}
+
+#btn-trigger-signin {
+  border: none;
+}
+#btn-trigger-signin:focus {
+  text-decoration: underline !important;
+  border-bottom: 0px;
+  border: none;
+}
+
+
+.navbar-header a .navbar-brand {
+  border-top: transparent $nav-focus__underline-width solid;
+  border-bottom: transparent $nav-focus__underline-width solid;
+}
+
+.navbar-header a:focus .navbar-brand {
+  border-bottom: $white $nav-focus__underline-width solid;
+}
