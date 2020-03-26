@@ -52,11 +52,13 @@
                     <div class='col-sm-3 col-xs-5'>
 
                         {% image page.sidebar_image width-400 as sidebar_image %}
-                        {% convert_s3_link sidebar_image.url as sidebar_image_url %}
+                        {% if page.sidebar_image %}
+                            {% convert_s3_link sidebar_image.url as sidebar_image_url %}
+                        {% endif %}
 
                         <div class="panel-heading">Resources</div>
                         <div class="resource-sidebar__image">
-                            <img src="{{ sidebar_image_url }}" alt="{{ page.sidebar_screenreader_text }}"/>
+                            <img src="{% if page.sidebar_image %}{{ sidebar_image_url }}{% endif %}" alt="{{ page.sidebar_screenreader_text }}"/>
                         </div>
                         <div class="resource-sidebar__note">
                             {{ page.sidebar_note }}
