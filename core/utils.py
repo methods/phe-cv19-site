@@ -152,7 +152,7 @@ def export_directory(path:str=''):
             Filename=f["Filename"],
             Bucket=settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT,
             Key=f["Key"],
-            ExtraArgs={'Content-Type': 'text/html'}
+            ExtraArgs={'ContentType': 'text/html'}
         )
 
     # remove whats being removed
