@@ -22,3 +22,6 @@ exec gunicorn CMS.wsgi:application \
 
 # EXECUTE DOCKER COMMAND NOW
 exec "$@"
+
+# START CRON
+exec service cron start

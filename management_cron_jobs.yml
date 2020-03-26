@@ -10,4 +10,4 @@ cron_jobs:
   - name: "Publish Scheduled Changes"
     command: "cd /code && python manage.py publish_scheduled_pages"
     period_units: "minutes"
-    period: 30
+    period: 1
