@@ -4,10 +4,10 @@
 @import "components/link-block";
 @import "components/signup-button";
 @import "components/tabbar";
-
-@import "pages/homepage";
-@import "pages/resourceitempage";
-@import "pages/resourcepage";
+//
+//@import "pages/homepage";
+//@import "pages/resourceitempage";
+//@import "pages/resourcepage";
 
 body {
   margin: 0;
@@ -58,5 +58,163 @@ a[target=_blank] {
 .accessible-background--teal {
   background-color: $phe-teal !important;
 
+}
+
+
+.homepage .shelf {
+  background-color: $phe-off-white;
+}
+
+.departments {
+  padding-top: 1em;
+  padding-bottom: 2em;
+}
+
+.button-focus:focus {
+  border: solid 3px white;
+  border-radius: 16px;
+}
+
+.button-focus:hover {
+  border: solid 3px white;
+  border-radius: 16px;
+}
+
+.campaign-item {
+
+  &__link-area {
+    position: relative;
+    display: block;
+    height: 170px;
+    background-size: cover;
+  }
+
+  &__caption {
+    padding: 12px 12px;
+    font-size: 19px;
+    background-color: $white;
+    color: $phe-link-color;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: $phe-link-color 1px solid;
+    z-index: 10;
+  }
+
+  &__arrow {
+    display:block;
+    height: 40px;
+    width: 40px;
+    font-size: 19px;
+    background-color: $phe-teal;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('/static/img/right-arrow.svg');
+    background-size: 38% 38%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+  }
+
+  &__link-area:hover, &__link-area:focus {
+
+    .campaign-item__caption {
+      background-color: $phe-dark;
+      border: $phe-dark 1px solid;
+      color: $white;
+    }
+
+    .campaign-item__arrow {
+      background-color: $phe-dark;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+.resource-item__title {
+  margin-top: 6px;
+  font-size: 24px;
+}
+
+
+.resource-card {
+  display: block;
+  margin-bottom: 12px;
+
+  &__thumbnail-container {
+    display: block;
+    background-color: $white;
+    max-width: 260px;
+
+    &:hover, &:focus {
+      border: $phe-teal 3px solid;
+
+      .resource-card__thumbnail {
+        padding: 17px 17px 7px 17px;
+      }
+    }
+  }
+
+  &__thumbnail {
+    padding: 20px 20px 10px 20px;
+  }
+
+  &__footer {
+    padding: 10px 5px 5px 0;
+  }
+
+  &__image-wrapper {
+    background: #c4f4e4 url(/static/img/resource-bg.png) center center repeat;
+    text-align: center;
+    height: 195px;
+  }
+
+  &__title-container {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__title {
+    display: inline;
+    color: $black;
+    padding: 0;
+    font-size: .9em;
+    text-align: center;
+    margin: 0px;
+  }
+
+  &__detail {
+    color: $phe-teal;
+    font-size: 12px;
+    padding: 5px 0 10px 0;
+    text-align: left;
+  }
+
+  &__download-caption {
+    font-size: .9em;
+  }
+}
+
+.resource-sidebar {
+
+  &__image {
+    margin-top: 1em;
+
+    img {
+      height: 200px;
+    }
+  }
+
+  &__note {
+    font-size: 14px;
+    margin-top: 1em;
+  }
 }
 
