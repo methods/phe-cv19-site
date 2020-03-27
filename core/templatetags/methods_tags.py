@@ -44,12 +44,16 @@ def restructure_s3_link(s3_link, new_bucket_name=None):
         key = converted[bucket_name_length + 1:]
 
         if new_bucket_name:
-            converted = 'http://' + new_bucket_name + '/' + key
+            converted = 'https://' + new_bucket_name + '/' + key
         else:
-            converted = 'http://' + bucket_name + '.s3.amazonaws.com/' + key
+            converted = 'https://' + bucket_name + '.s3.amazonaws.com/' + key
 
         return converted
     else:
+        query_position = s3_link.find('?')
+        if query_position >= 0:
+           return s3_link[0:query_position]
+            
         return s3_link
 
 
