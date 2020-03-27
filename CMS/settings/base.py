@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 LOCAL = True if os.environ.get('LOCAL', "") == "True" else False
 
 ROOT_DOMAIN = os.environ.get('ROOT_DOMAIN', 'http://localhost:3000')
-FINAL_SITE_DOMAIN = os.environ.get('FINAL_SITE_DOMAIN', 'https://coronovirusresources.phe.gov.uk')
+FINAL_SITE_DOMAIN = os.environ.get('FINAL_SITE_DOMAIN', 'https://coronavirusresources.phe.gov.uk')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
