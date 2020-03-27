@@ -22,7 +22,7 @@ services:
       LOCAL: "${LOCAL}"
       SCHEDULE_CRON_JOBS: "${SCHEDULE_CRON_JOBS}"
     build: .
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "cron service start && python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000 && ./env_2_file.sh"
     volumes:
       - .:/code
     ports:

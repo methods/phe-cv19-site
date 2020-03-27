@@ -1,13 +1,16 @@
 # define cron jobs to run manage.py tasks on a schedule
-cron_user: wagtail
+# set cron_user to 'current_user' to have it dynamically set to whoever
+# executes CMS.settings.management_cron_jobs.py
+cron_user: current_user
 clean_old_jobs: True
 # define cron jobs below. Fields are:
 #   - name (for logging)
 #   - command (the command or commands to run)
-#   - period_units (either second, minute, hour or day. NB will accept either singular (minute) or plural (minutes))
+#   - period_units (either second, minute, hour or day. NB will accept either
+#     singular (minute) or plural (minutes))
 #   - period (how often, in period_units, to run)
 cron_jobs:
   - name: "Publish Scheduled Changes"
-    command: "cd /code && python manage.py publish_scheduled_pages"
+    command: (date && cd /code && PWD . wagtail_env.sh && echo $PYTHON_INTERPRETER manage.py publish_scheduled_pages) >> /var/log/cron.log 2>&1
     period_units: "minutes"
-    period: 30
+    period: 1

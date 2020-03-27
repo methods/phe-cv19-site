@@ -3,6 +3,7 @@ Schedule wagtail managment tasks and other admin with cron.
 """
 
 import difflib
+import getpass
 import logging
 import yaml
 
@@ -43,7 +44,7 @@ def schedule_cron_jobs():
     Load config and add jobs to cron tab. If config["clean_old_jobs"]=True, clear out old jobs first.
     """
     config = read_config()
-    cron_user = config["cron_user"]
+    cron_user = config["cron_user"] if config["cron_user"] != "current_user" else getpass.getuser()
 
     if config["clean_old_jobs"]:
         with CronTab(user=cron_user) as cron:

@@ -29,7 +29,7 @@ AWS_REGION_DEPLOYMENT = os.environ.get('AWS_REGION_DEPLOYMENT')
 # cron
 
 SCHEDULE_CRON_JOBS = os.environ.get('SCHEDULE_CRON_JOBS')
-if SCHEDULE_CRON_JOBS.lower() == 'true':
+if SCHEDULE_CRON_JOBS and SCHEDULE_CRON_JOBS.lower() == 'true':
     schedule_cron_jobs()
 
 try:

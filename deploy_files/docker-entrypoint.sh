@@ -7,6 +7,9 @@ do
   sleep 5
 done
 
+# start cron
+exec cron service start
+
 #Run Gunicorn
 exec gunicorn CMS.wsgi:application \
   --name methods-cms \
