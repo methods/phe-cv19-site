@@ -1,0 +1,38 @@
+{% extends "../base.html" %}
+{% load wagtailcore_tags wagtailimages_tags sass_tags methods_tags %}
+
+{% block content %}
+
+{% image page.banner_image original as banner %}
+    {% convert_s3_link banner.url as banner_url %}
+
+
+
+<div id="default-header" class="header " style="background-image: url({{ banner_url }})">
+    <div class="container">
+        <div class='row vcenter'>
+            <div class="col-md-8 header-block">
+                <h1>{{ page.site_heading }}</h1>
+                <span class="header-span"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="content">
+
+    {% include 'partials/breadcrumbs.html' with ancestors=page.breadcrumbs title=page.title %}
+
+    {% include 'partials/tabbar.html' with active='overview' landing_page=page.campaign_slug %}
+
+    <div class="crc-tab-content-shelf">
+        <div class="container crc-nav-tab-content">
+            <h3>{{ page.heading }}</h3>
+
+            {{ page.body | richtext }}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

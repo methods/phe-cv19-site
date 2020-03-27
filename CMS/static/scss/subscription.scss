@@ -1,0 +1,83 @@
+.subscription-form {
+  padding: 30px 0px 50px;
+
+  &__field {
+    border: none;
+
+    &.terms {
+      margin-top: 15px;
+    }
+
+    &.error {
+      border-left: 2px solid #d4351c;
+    }
+  }
+
+  &__label {
+    font-weight: initial;
+    margin-bottom: 0px;
+    color: #7d7d7d;
+    font-size: 0.9em;
+    display: block;
+  }
+
+  &__text-input {
+    height: 45px;
+    font-size: 18px;
+    width: 100%;
+  }
+
+  &__terms-label {
+    font-weight: initial;
+    margin-bottom: 0px;
+    color: #7d7d7d;
+    font-size: 0.9em;
+
+    .rich-text {
+      display: inline-block;
+
+      a {
+        color: #337ab7;
+        text-decoration: none;
+
+        &:hover, &:focus {
+          color: #646e9b;
+        }
+      }
+    }
+  }
+
+  &__btn {
+    border-radius: 0px;
+    background-color: #04867B;
+    color: #fff;
+    line-height: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 6px 12px;
+    margin-top: 30px;
+
+    &:hover {
+      color: #fff;
+      background-color: #292929;
+    }
+  }
+
+  &__required-field {
+    font-style: italic;
+    font-size: 16px;
+    color: #666666;
+    margin-bottom: 30px;
+  }
+
+
+  &__error {
+    display: none;
+    color: #d4351c;
+    font-size: 0.9em;
+  }
+}
+
+.service_pending_container {
+  margin: 1.5em 0;
+}

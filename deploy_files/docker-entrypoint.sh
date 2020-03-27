@@ -10,13 +10,13 @@ done
 #Run Gunicorn
 exec gunicorn CMS.wsgi:application \
   --name methods-cms \
-  --bind 0.0.0.0:80 \
+  --bind 0.0.0.0:8000 \
   --workers 3 \
   --log-level=info \
   --log-file=- \
   --access-logfile=- \
   --error-logfile=- \
-  --timeout 60 \
+  --timeout 300 \
   --max-requests 1000
 
 

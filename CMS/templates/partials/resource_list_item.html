@@ -1,0 +1,26 @@
+{% load wagtailcore_tags wagtailimages_tags sass_tags methods_tags %}
+
+{% image resource_page.preview_image original as preview_image %}
+{% convert_s3_link preview_image.url as preview_image_url %}
+
+<div class="resource-card col-sm-6 col-md-4">
+    <a class="resource-card__thumbnail-container" href="{% if resource_page %}{% pageurl resource_page %}{% endif %}">
+        <div class="resource-card__thumbnail">
+            <div class="resource-card__image-wrapper"
+                 style="background-image: url('/static/img/resource-bg.png')">
+                <div class="asset-thumb-container"
+                     style="background-image: url({{ preview_image_url }})"
+                     title="{{ resource_page.title }}"></div>
+            </div>
+            <div class="resource-card__footer">
+                <div class="resource-card__title-container">
+                    <h3 class="resource-card__title"
+                        title="{{ resource_page.title }}">{{ resource_page.title }}</h3>
+                    <p class="resource-card__detail" title="Coronavirus (COVID-19)">Coronavirus
+                        (COVID-19)</p>
+                </div>
+                <span class="resource-card__download-caption">Download</span>
+            </div>
+        </div>
+    </a>
+</div>

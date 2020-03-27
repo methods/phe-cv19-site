@@ -1,0 +1,77 @@
+@import "../variables";
+
+.resource-card {
+  display: block;
+  margin-bottom: 12px;
+
+  &__thumbnail-container {
+    display: block;
+    background-color: $white;
+    max-width: 260px;
+
+    &:hover, &:focus {
+      border: $phe-teal 3px solid;
+
+      .resource-card__thumbnail {
+        padding: 17px 17px 7px 17px;
+      }
+    }
+  }
+
+  &__thumbnail {
+    padding: 20px 20px 10px 20px;
+  }
+
+  &__footer {
+    padding: 10px 5px 5px 0;
+  }
+
+  &__image-wrapper {
+    background: #c4f4e4 url(/static/img/resource-bg.png) center center repeat;
+    text-align: center;
+    height: 195px;
+  }
+
+  &__title-container {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__title {
+    display: inline;
+    color: $black;
+    padding: 0;
+    font-size: .9em;
+    text-align: center;
+    margin: 0px;
+  }
+
+  &__detail {
+    color: $phe-teal;
+    font-size: 12px;
+    padding: 5px 0 10px 0;
+    text-align: left;
+  }
+
+  &__download-caption {
+    font-size: .9em;
+  }
+}
+
+.resource-sidebar {
+
+  &__image {
+    margin-top: 1em;
+
+    img {
+      height: 200px;
+    }
+  }
+
+  &__note {
+    font-size: 14px;
+    margin-top: 1em;
+  }
+}
+

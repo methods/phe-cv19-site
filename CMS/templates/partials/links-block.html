@@ -1,0 +1,14 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<div class="phe-links-block">
+<a href="{% if page %}{% pageurl page %}{% endif %}">
+    <div class="block">
+        <div class="row title">
+            <h2>{{ heading }}</h2>
+        </div>
+        <div class="row overview">
+            {{ body }}
+        </div>
+        <div class="phe-links-block__arrow"></div>
+    </div>
+</a>
+</div>

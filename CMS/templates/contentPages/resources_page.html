@@ -1,0 +1,87 @@
+{% extends "../base.html" %}
+{% load wagtailcore_tags wagtailimages_tags sass_tags methods_tags %}
+
+{% block content %}
+
+    {% image page.banner_image original as banner %}
+    {% convert_s3_link banner.url as banner_url %}
+
+
+    <div id="default-header" class="header " style="background-image: url({{ banner_url }})">
+        <div class="container">
+            <div class='row vcenter'>
+                <div class="col-md-8 header-block">
+                    <h1>{{ page.site_heading }}</h1>
+                    <span class="header-span"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="content">
+
+        {% include 'partials/breadcrumbs.html' with ancestors=page.breadcrumbs title=page.title %}
+
+        <div class="crc-shelf sign-in-shelf partners-intro">
+            <div class="container odd">
+                <div class="row">
+                    <div class="col-xs-offset-2 col-xs-8 text-center">
+                        {{ page.signup_message }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 button-col">
+                        <div class="col-xs-12 signup-button-wrapper">
+                            <a class="signup-button" href="{{ subscription_url }}">Subscribe for updates</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'partials/tabbar.html' with active='resources'  landing_page=page.campaign_slug %}
+
+        <div class="crc-tab-content-shelf">
+            <div class="container crc-nav-tab-content">
+
+                <div class="row">
+                    <div class='col-sm-3 col-xs-5'>
+
+                        {% image page.sidebar_image width-400 as sidebar_image %}
+                        {% if page.sidebar_image %}
+                            {% convert_s3_link sidebar_image.url as sidebar_image_url %}
+                        {% endif %}
+
+                        <div class="panel-heading">Resources</div>
+                        <div class="resource-sidebar__image">
+                            <img src="{% if page.sidebar_image %}{{ sidebar_image_url }}{% endif %}" alt="{{ page.sidebar_screenreader_text }}"/>
+                        </div>
+                        <div class="resource-sidebar__note">
+                            {{ page.sidebar_note }}
+                        </div>
+                    </div>
+                    <div class='col-sm-9 col-xs-7'>
+                        <div id="search-results-summary">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="panel-heading">{{ page.resource_count }} items matching</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="search-results" class="spacer-top-1">
+                            <div class="row">
+                                <div class="crc-thumbnails">
+                                    {% for resource_page in page.resource_list %}
+                                        {% include 'partials/resource_list_item.html' with resource_page=resource_page %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

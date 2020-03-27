@@ -1,0 +1,12 @@
+<div class='container'>
+    <ol class="phe-breadcrumb">
+        {% for ancestor in ancestors %}
+            <li>
+                <a href="{{ancestor.url}}">
+                    {{ ancestor.title }}
+                </a>
+            </li>
+        {% endfor %}
+        <li class='active'>{{ title }}</li>
+    </ol>
+</div>
