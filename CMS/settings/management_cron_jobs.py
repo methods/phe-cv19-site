@@ -5,6 +5,10 @@ Schedule wagtail managment tasks and other admin with cron.
 import difflib
 import getpass
 import logging
+import os
+import shutil
+import subprocess
+import sys
 import yaml
 
 from crontab import CronTab
@@ -39,25 +43,95 @@ def _set_job_schedule(job, period_units, period):
         job.day.every(period)
 
 
+def write_mgmt_task_runner(mgmt_command: str, working_dir: str, runner_dir: str,
+                           logging: bool=False, logfile: str="") -> str:
+    """
+    Write executable shell script to run management task with cron.
+    This will be written to the directory this script was called from, which is
+    presumed to be the project root.
+
+    The runner script will include:
+        - all env vars found in the env this script was executed from
+        - a call to manage.py to run the mgmt_task, using the python interpreter
+        that was used to execute this script.
+
+    Return a shell command to run the script for writing into the crontab.
+    """
+    runner_file_lines = ["#!/bin/bash"]
+
+    # append export statements for complete env to runner file
+    runner_file_lines += [f"export {k}={v}" for k, v in os.environ.items()]
+
+    # get cwd and path to python intepreter in use by the script caller
+    python_interpreter = sys.executable
+
+    # add the execution command
+    log_start_str = f'(echo "=== $(date) ===> Executing {mgmt_command}" &&' if logging else ""
+    log_stop_str = f') >> {logfile} 2>1&' if logging else ""
+    execute_str = f"{log_start_str} cd {working_dir} && {python_interpreter} manage.py {mgmt_command} {log_stop_str} "
+    runner_file_lines.append(execute_str)
+
+    # add empty line for luck
+    runner_file_lines.append("")
+
+    # write file to runner_dir
+    runner_filename = f"run_{mgmt_command}.sh"
+    runner_filepath = os.path.join(runner_dir, runner_filename)
+
+    with open(runner_filepath, 'w') as f:
+        f.write('\n'.join(runner_file_lines))
+
+    # make file x-able
+    subprocess.call(f"chmod +x {runner_filepath}", shell=True)
+
+    _log_and_print(f"Job runner added to {runner_filepath}")
+
+    # output cron command string
+    return f"cd {working_dir} && {runner_filepath}"
+
+
+
 def schedule_cron_jobs():
     """
     Load config and add jobs to cron tab. If config["clean_old_jobs"]=True, clear out old jobs first.
     """
+
+    # dir setup
+    working_dir = os.getcwd()
+    runner_dir = os.path.join(working_dir, "cron_jobs")
+    os.makedirs(runner_dir, exist_ok=True)
+
+    # get config
     config = read_config()
     cron_user = config["cron_user"] if config["cron_user"] != "current_user" else getpass.getuser()
+    logfile = config["logfile"]
 
     if config["clean_old_jobs"]:
+
+        _log_and_print(f"Clearing job runners from {runner_dir}")
+        shutil.rmtree(runner_dir)
+        os.makedirs(runner_dir, exist_ok=True)
+
+        _log_and_print(f"Clearing crontab for user {cron_user}")
         with CronTab(user=cron_user) as cron:
-            _log_and_print(f"Clearing crontab for user {cron_user}")
             cron.remove_all()
 
     for cron_job in config["cron_jobs"]:
+
+        job_name = cron_job["name"]
+        period_units = cron_job["period_units"]
+        period = cron_job["period"]
+        cron_command = write_mgmt_task_runner(
+            mgmt_command=cron_job["mgmt_command"],
+            working_dir=working_dir,
+            runner_dir=runner_dir,
+            logging=cron_job["logging"],
+            logfile=logfile
+        )
+
         with CronTab(user=cron_user) as cron:
-            job_name = cron_job["name"]
-            job_command = cron_job["command"]
-            period_units = cron_job["period_units"]
-            period = cron_job["period"]
-            job = cron.new(command=job_command, comment=job_name)
+
+            job = cron.new(command=cron_command, comment=job_name)
             _set_job_schedule(job, cron_job["period_units"], cron_job["period"])
             _log_and_print(f"Cron job {job_name} added to crontab for user {cron_user}")
 

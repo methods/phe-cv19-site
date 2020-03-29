@@ -12,7 +12,3 @@ RUN apt-get install cron vim -y
 RUN touch /var/log/cron.log
 
 COPY . /code/
-
-# RUN useradd wagtail
-# RUN chown -R wagtail /code
-# USER wagtail
