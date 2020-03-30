@@ -61,7 +61,7 @@ def write_mgmt_task_runner(mgmt_command: str, working_dir: str, runner_dir: str,
     # append export statements for complete env to runner file
     runner_file_lines += [f"export {k}={v}" for k, v in os.environ.items()]
 
-    # get cwd and path to python intepreter in use by the script caller
+    # get path to python intepreter in use by the script caller
     python_interpreter = sys.executable
 
     # add the execution command
