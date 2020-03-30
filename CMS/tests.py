@@ -1,3 +1,5 @@
+from unittest import TestCase
+
 from CMS.test.utils import MethodsTestCase
 
 
@@ -120,3 +122,4 @@ class MethodsTestUtilsTests(MethodsTestCase):
             self.assertFalse('Test failed to produce expected key error')
         except KeyError:
             self.assertTrue('Test produced expected key error')
+

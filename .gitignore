@@ -12,6 +12,7 @@ db.sqlite3
 # Env stuff
 .env
 env.sh
+env_file
 
 # Unit test / coverage reports
 htmlcov/

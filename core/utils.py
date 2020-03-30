@@ -37,7 +37,7 @@ def find_subscription_page_url():
     page = SubscriptionPage.objects.first()
     if page is None:
         return '#'
-    return page.full_url
+    return page.url
 
 
 def check_for_virus(instance):
@@ -151,7 +151,8 @@ def export_directory(path:str=''):
         s3_client.upload_file(
             Filename=f["Filename"],
             Bucket=settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT,
-            Key=f["Key"]
+            Key=f["Key"],
+            ExtraArgs={'ContentType': 'text/html'}
         )
 
     # remove whats being removed

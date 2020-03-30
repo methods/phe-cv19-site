@@ -12,3 +12,9 @@ RUN apt-get install cron vim -y
 RUN touch /var/log/cron.log
 
 COPY . /code/
+
+RUN python manage.py compilescss
+RUN python manage.py  collectstatic --ignore=*.scss --no-input
+RUN chmod +x ./deploy_files/docker-entrypoint.sh
+
+ENTRYPOINT ["./deploy_files/docker-entrypoint.sh"]

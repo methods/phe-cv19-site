@@ -21,6 +21,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 LOCAL = True if os.environ.get('LOCAL', "") == "True" else False
 
 ROOT_DOMAIN = os.environ.get('ROOT_DOMAIN', 'http://localhost:3000')
+FINAL_SITE_DOMAIN = os.environ.get('FINAL_SITE_DOMAIN', 'https://coronavirusresources.phe.gov.uk')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -211,6 +212,8 @@ AZURE_FILE_SHARE = os.environ.get('AZURE_FILE_SHARE')
 # File upload settings
 
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
+DOWNLOADS_BUCKET_NAME = os.environ.get('DOWNLOADS_BUCKET_NAME', None)
 
 CORS_ORIGIN_ALLOW_ALL = True
 

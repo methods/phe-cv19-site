@@ -7,9 +7,11 @@ from CMS.settings.management_cron_jobs import schedule_cron_jobs
 DEBUG = False
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-ALLOWED_HOSTS = [
-    # add the site domain name in here
-]
+# ALLOWED_HOSTS = [
+#     "dev-covid19-248806762.eu-west-1.elb.amazonaws.com",
+#     "localhost"
+# ]
+ALLOWED_HOSTS = ['*']
 
 LOGGING = {
     'version': 1,
@@ -74,9 +76,9 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 
 SECURE_BROWSER_XSS_FILTER = True
 
-SESSION_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
 
-CSRF_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
 
 try:
     from .local import *

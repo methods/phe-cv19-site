@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.db.models.fields import TextField, CharField
 from modelcluster.fields import ParentalKey
@@ -249,6 +250,8 @@ class ResourceItemPage(MethodsBasePage):
         verbose_name='Upload document'
     )
 
+    upload_link = TextField(blank=True, default='')
+
     product_code = CharField(max_length=256, blank=True, null=True, default='')
     overview = RichTextField(blank=True, default='')
     format = CharField(max_length=256, blank=True, null=True, default='')
@@ -259,7 +262,8 @@ class ResourceItemPage(MethodsBasePage):
         MultiFieldPanel([
             FieldPanel('heading'),
             FieldPanel('description'),
-            DocumentChooserPanel('link_document'),
+            FieldPanel('upload_link'),
+            # DocumentChooserPanel('link_document'),
             ImageChooserPanel('preview_image'),
             FieldPanel('preview_image_screen_reader_text'),
         ], heading='Header section'),
@@ -273,4 +277,4 @@ class ResourceItemPage(MethodsBasePage):
 
     @property
     def link_url(self):
-        return self.get_site().hostname + self.url_path
+        return settings.FINAL_SITE_DOMAIN + self.url
