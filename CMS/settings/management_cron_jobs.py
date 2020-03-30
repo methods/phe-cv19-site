@@ -106,13 +106,13 @@ def schedule_cron_jobs():
 
     if config["clean_old_jobs"]:
 
-        _log_and_print(f"Clearing job runners from {runner_dir}")
-        shutil.rmtree(runner_dir)
-        os.makedirs(runner_dir, exist_ok=True)
-
         _log_and_print(f"Clearing crontab for user {cron_user}")
         with CronTab(user=cron_user) as cron:
             cron.remove_all()
+
+        _log_and_print(f"Clearing job runners from {runner_dir}")
+        shutil.rmtree(runner_dir)
+        os.makedirs(runner_dir, exist_ok=True)
 
     for cron_job in config["cron_jobs"]:
 
@@ -135,4 +135,8 @@ def schedule_cron_jobs():
 
 
 if __name__ == "__main__":
-    schedule_cron_jobs()
+    SCHEDULE_CRON_JOBS = os.environ.get('SCHEDULE_CRON_JOBS')
+    if SCHEDULE_CRON_JOBS and SCHEDULE_CRON_JOBS.lower() == 'true':
+        schedule_cron_jobs()
+    else:
+        _log_and_print("SCHEDULE_CRON_JOBS env var is unset or false, skipping scheduling of management tasks with cron.")

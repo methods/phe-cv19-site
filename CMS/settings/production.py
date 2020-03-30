@@ -52,7 +52,7 @@ BAKERY_VIEWS = (
 
 # File upload settings
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'storages.b1ackends.s3boto3.S3Boto3Storage'
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
@@ -77,14 +77,6 @@ SECURE_BROWSER_XSS_FILTER = True
 SESSION_COOKIE_SECURE = True
 
 CSRF_COOKIE_SECURE = True
-
-
-# cron
-
-SCHEDULE_CRON_JOBS = os.environ.get('SCHEDULE_CRON_JOBS')
-if SCHEDULE_CRON_JOBS and SCHEDULE_CRON_JOBS.lower() == 'true':
-    schedule_cron_jobs()
-
 
 try:
     from .local import *

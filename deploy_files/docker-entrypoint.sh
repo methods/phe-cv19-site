@@ -7,8 +7,10 @@ do
   sleep 5
 done
 
-# start cron
-exec cron service start
+# start cron & schedule cron jobs
+echo "Starting cron..."
+cron service start
+python3 CMS/settings/management_cron_jobs.py
 
 #Run Gunicorn
 exec gunicorn CMS.wsgi:application \

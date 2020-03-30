@@ -15,7 +15,7 @@ clean_old_jobs: True
 #     django or wagtail management tasks ONLY, rather than loose shell statements.
 #     see CMS.settings.management_cron_jobs.py for more details.
 #   - period_units (either second, minute, hour or day. NB will accept either
-#     singular (minute) or plural (minutes))
+#     singular (minute) or plural (minutes)).
 #   - period (how often, in period_units, to run)
 #   - logging: True or False to write logs to the logfile set above.
 cron_jobs:
@@ -23,4 +23,4 @@ cron_jobs:
     mgmt_command: "publish_scheduled_pages"
     period_units: "minutes"
     period: 30
-    logging: False
+    logging: True
