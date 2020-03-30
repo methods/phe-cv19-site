@@ -1,6 +1,5 @@
 from .base import *
 
-from CMS.settings.management_cron_jobs import schedule_cron_jobs
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -25,6 +24,7 @@ AWS_ACCESS_KEY_ID_DEPLOYMENT = os.environ.get('AWS_ACCESS_KEY_ID_DEPLOYMENT')
 AWS_SECRET_ACCESS_KEY_DEPLOYMENT = os.environ.get('AWS_SECRET_ACCESS_KEY_DEPLOYMENT')
 AWS_STORAGE_BUCKET_NAME_DEPLOYMENT = os.environ.get('AWS_STORAGE_BUCKET_NAME_DEPLOYMENT')
 AWS_REGION_DEPLOYMENT = os.environ.get('AWS_REGION_DEPLOYMENT')
+
 
 try:
     from .local import *
