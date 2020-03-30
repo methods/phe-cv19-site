@@ -47,11 +47,11 @@ def write_mgmt_task_runner(mgmt_command: str, working_dir: str, runner_dir: str,
                            logging: bool=False, logfile: str="") -> str:
     """
     Write executable shell script to run management task with cron, and return
-    bash statment to run it. The job runnder will be written to the runner_dir,
+    bash statement to run it. The task runner will be written to the runner_dir,
     but the returned bash statement will execute it from the working_dir
     (presumed to be the project root).
 
-    The runner bash script does this:
+    The task runner bash script does this:
         - exports all env vars found in the env this script was executed from.
         - cds to working_dir and calls manage.py to run the mgmt_task, using
         the python interpreter that was used to execute this script.
