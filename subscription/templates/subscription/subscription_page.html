@@ -9,8 +9,17 @@
 
 {% block content %}
   {% image page.banner_image original as banner %}
-  {% include 'partials/banner.html' with heading=page.heading banner=banner %}
+    {% convert_s3_link banner.url as banner_url %}
 
+  {% include 'partials/banner.html' with heading=page.heading banner_url=banner_url %}
+
+    {% if page.subscription_service_pending_message %}
+        <div class="container ">
+        <div class="service_pending_container">
+        {{ page.subscription_service_pending_message | richtext }}
+        </div>
+        </div>
+    {% else %}
   <form method="POST" action="#" class="subscription-form container">
     <h3>{{ page.sub_heading }}</h3>
     <p>{{ page.intro }}</p>
@@ -47,7 +56,7 @@
       </div>
     </div>
 
-    {{ signup_details | richtext }}
+    {{ page.signup_details | richtext }}
 
     <div class="row">
       <div class="subscription-form__field terms col-sm-12 col-md-6">
@@ -61,4 +70,5 @@
 
     <button class="subscription-form__btn">Subscribe</button>
   </form>
+    {% endif %}
 {% endblock content %}

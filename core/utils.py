@@ -1,3 +1,4 @@
+import glob
 import pyclamd
 
 import boto3
@@ -5,8 +6,7 @@ import boto3
 from django.core.management import call_command
 from django.conf import settings
 
-from os import listdir
-from os.path import isfile, join, splitext
+from os.path import isfile, join, relpath, splitext
 
 from wagtail.core.signals import page_published, page_unpublished
 
@@ -37,7 +37,7 @@ def find_subscription_page_url():
     page = SubscriptionPage.objects.first()
     if page is None:
         return '#'
-    return page.full_url
+    return page.url
 
 
 def check_for_virus(instance):
@@ -109,43 +109,58 @@ def prerender_pages(sender, **kwargs):
 
 def export_directory(path:str=''):
     """
-    Crawl through directory structure found at settings.BUILD_DIR/path. Upload
-    files and directories with contents only to AWS s3 (no empty dirs permitted in s3!)
+    Glob directory structure found at settings.BUILD_DIR/path for html files.
+    Upload html files and directory structure to AWS s3 bucket at settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT
+    (NB no empty dirs permitted in s3, so only directories with contents will be sent).
+    Remove any .html files from settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT that are NOT in settings.BUILD_DIR/path.
     """
+    # get list of dicts with relative and absolute paths for each html files to upload
     directory_path = join(settings.BUILD_DIR, path)
-    directory_contents = listdir(directory_path)
+    html_files_in_directory = glob.glob(f"{directory_path}/**/*.html", recursive=True)
+    html_files_2_upload = [ {"Filename": f, "Key": relpath(f, start=directory_path)} for f in html_files_in_directory]
+
+    # get S3 keys only as set
+    s3_html_keys_2_upload = { f["Key"] for f in html_files_2_upload }
+
     s3_client = boto3.client(
         "s3",
         region_name = settings.AWS_REGION_DEPLOYMENT,
         aws_access_key_id = settings.AWS_ACCESS_KEY_ID_DEPLOYMENT,
         aws_secret_access_key = settings.AWS_SECRET_ACCESS_KEY_DEPLOYMENT
     )
-    for f in directory_contents:
 
-        # ignore the whole static directory and any non-html files
-        if f == 'static':
+    # get complete set of bucket keys FOR HTML ONLY!
+    paginator = s3_client.get_paginator('list_objects')
+    page_iterator = paginator.paginate(Bucket=settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT)
+    bucket_html_keys = set()
+    for page in page_iterator:
+        try:
+            page_files = {
+                s3_obj["Key"]  for s3_obj in page["Contents"]
+                if splitext(s3_obj["Key"])[1] == '.html'
+            }
+            bucket_html_keys.update(page_files)
+        except KeyError:
             continue
 
-        # construct relative filepaths
-        full_filepath = join(directory_path , f)
-        local_filepath = join(path, f)
+    # get diff of bucket keys vs uploaded s3 keys
+    bucket_html_keys_2_remove = bucket_html_keys.difference(s3_html_keys_2_upload)
 
-        # upload files...
-        if isfile(full_filepath):
+    # upload whats being uploaded
+    for f in html_files_2_upload:
+        s3_client.upload_file(
+            Filename=f["Filename"],
+            Bucket=settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT,
+            Key=f["Key"],
+            ExtraArgs={'ContentType': 'text/html'}
+        )
 
-            # ... but ONLY html files!
-            if splitext(full_filepath)[1] != '.html':
-                continue
-
-            s3_client.upload_file(
-                Filename=full_filepath,
-                Bucket=settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT,
-                Key=local_filepath
-            )
-        # recursively deal with directories
-        else:
-            export_directory(local_filepath)
-
+    # remove whats being removed
+    for key in bucket_html_keys_2_remove:
+        s3_client.delete_object(
+            Bucket=settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT,
+            Key=key
+        )
 
 page_published.connect(prerender_pages)
 page_unpublished.connect(prerender_pages)

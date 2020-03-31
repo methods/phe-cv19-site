@@ -27,11 +27,14 @@ class SubscriptionPage(MethodsBasePage):
     signup_details = RichTextField(blank=True)
     terms_agreement = RichTextField(blank=True)
 
+    subscription_service_pending_message = RichTextField(blank=True, null=True)
+
     content_panels = MethodsBasePage.content_panels + [
         FieldPanel('heading'),
         ImageChooserPanel('banner_image'),
         FieldPanel('sub_heading'),
-        FieldPanel('intro'),
-        FieldPanel('signup_details'),
-        FieldPanel('terms_agreement'),
+        # FieldPanel('intro'),
+        # FieldPanel('signup_details'),
+        # FieldPanel('terms_agreement'),
+        FieldPanel('subscription_service_pending_message'),
     ]

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.db.models.fields import TextField, CharField
 from modelcluster.fields import ParentalKey
@@ -37,7 +38,6 @@ class HomePageCampaign(Orderable):
 
 
 class HomePage(MethodsBasePage):
-
     subpage_types = [
         'contentPages.LandingPage',
         'subscription.SubscriptionPage',
@@ -182,14 +182,28 @@ class ResourcesPage(MethodsBasePage):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-    usage_notes = TextField(blank=True, null=True)
+    sidebar_note = TextField(blank=True, null=True)
+    sidebar_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    sidebar_screenreader_text = TextField(blank=True, null=True)
+
     signup_message = TextField(blank=True, null=True)
 
     content_panels = MethodsBasePage.content_panels + [
         FieldPanel('heading'),
         ImageChooserPanel('banner_image'),
         FieldPanel('signup_message'),
-        FieldPanel('usage_notes'),
+        MultiFieldPanel(
+            [
+                ImageChooserPanel('sidebar_image'),
+                FieldPanel('sidebar_screenreader_text'),
+                FieldPanel('sidebar_note'),
+            ], 'Side bar')
     ]
 
     @property
@@ -209,6 +223,7 @@ class ResourcesPage(MethodsBasePage):
     def campaign_slug(self):
         parent = self.get_parent()
         return parent.landingpage.slug
+
 
 class ResourceItemPage(MethodsBasePage):
     subpage_types = []
@@ -235,6 +250,8 @@ class ResourceItemPage(MethodsBasePage):
         verbose_name='Upload document'
     )
 
+    upload_link = TextField(blank=True, default='')
+
     product_code = CharField(max_length=256, blank=True, null=True, default='')
     overview = RichTextField(blank=True, default='')
     format = CharField(max_length=256, blank=True, null=True, default='')
@@ -245,7 +262,8 @@ class ResourceItemPage(MethodsBasePage):
         MultiFieldPanel([
             FieldPanel('heading'),
             FieldPanel('description'),
-            DocumentChooserPanel('link_document'),
+            FieldPanel('upload_link'),
+            # DocumentChooserPanel('link_document'),
             ImageChooserPanel('preview_image'),
             FieldPanel('preview_image_screen_reader_text'),
         ], heading='Header section'),
@@ -259,4 +277,4 @@ class ResourceItemPage(MethodsBasePage):
 
     @property
     def link_url(self):
-        return self.get_site().hostname + self.url_path
+        return settings.FINAL_SITE_DOMAIN + self.url

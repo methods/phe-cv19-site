@@ -1,5 +1,9 @@
+version: 0.2
 phases:
   build:
     commands:
-        - docker-compose up -d
-
+        - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 845280847960.dkr.ecr.eu-west-1.amazonaws.com/dev-ecr-phe-covid-19
+        - docker build -t dev-ecr-phe-covid-19 .
+        - docker tag dev-ecr-phe-covid-19:latest 845280847960.dkr.ecr.eu-west-1.amazonaws.com/dev-ecr-phe-covid-19:latest
+        - docker push 845280847960.dkr.ecr.eu-west-1.amazonaws.com/dev-ecr-phe-covid-19:latest
+          
