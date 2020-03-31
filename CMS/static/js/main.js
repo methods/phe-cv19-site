@@ -1,5 +1,5 @@
 (function($) {
-  var SUBSCRIPTION_URL = "https://api-live-crc.paragon-cc.co.uk/api/CRC/CoronaRegistration";
+  var SUBSCRIPTION_URL = {{url_address}};
 
   var NewTabLink = function(link) {
     this.link = link;
