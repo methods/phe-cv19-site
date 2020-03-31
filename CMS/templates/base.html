@@ -29,7 +29,9 @@
     {% endblock %}
 
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-     <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+     {% compress js %}
+        <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+     {% endcompress %}
      {% block extra_js %}
        {# Override this in templates to add extra javascript #}
      {% endblock %}
