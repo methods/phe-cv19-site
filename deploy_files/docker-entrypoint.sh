@@ -7,6 +7,12 @@ do
   sleep 5
 done
 
+# start redis
+service redis-server start
+
+# start celery worker pool for 'core' app, logging INFO to /var/log/celery.log
+celery multi start worker -A core -l INFO -f /var/log/celery.log
+
 #Run Gunicorn
 exec gunicorn CMS.wsgi:application \
   --name methods-cms \

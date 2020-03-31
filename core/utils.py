@@ -12,6 +12,7 @@ from wagtail.core.signals import page_published, page_unpublished
 
 from errors.models import VirusException
 
+from celery.decorators import task as celery_background_task
 
 def fallback_to(value, default_value):
     return value if value is not None else default_value
@@ -100,6 +101,14 @@ def is_s3_deployment_configured() -> bool:
 
 
 def prerender_pages(sender, **kwargs):
+    build_publish.delay()
+
+
+@celery_background_task
+def build_publish():
+    """
+    Run build and deploy as a background task in celery.
+    """
     call_command('build')
     if is_s3_deployment_configured():
         print(f"Deploying site to s3 bucket: {settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT}...")

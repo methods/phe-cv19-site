@@ -2,14 +2,13 @@ from django.core.management import call_command
 from django.db import transaction
 
 from wagtail.core.models import Page
-from wagailbakery.models import AutoPublishingWagtailBakeryModel
 
 from CMS.enums import enums
 from core.models.nav import Menu, Footer
 from core.utils import parse_menu_item, find_subscription_page_url
 
 
-class MethodsBasePage(Page, AutoPublishingWagtailBakeryModel):
+class MethodsBasePage(Page):
     class Meta:
         abstract = True
 
