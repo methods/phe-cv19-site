@@ -13,62 +13,66 @@
 
   {% include 'partials/banner.html' with heading=page.heading banner_url=banner_url %}
 
-    {% if page.subscription_service_pending_message %}
-        <div class="container ">
-        <div class="service_pending_container">
+  {% if page.subscription_service_pending_message %}
+    <div class="container ">
+      <div class="service_pending_container">
         {{ page.subscription_service_pending_message | richtext }}
+      </div>
+    </div>
+  {% else %}
+    <form method="POST" action="#" class="subscription-form container">
+      <h3>{{ page.sub_heading }}</h3>
+      <p>{{ page.intro }}</p>
+
+      <p class="subscription-form__required-field">* Required fields</p>
+
+      <p class="subscription-form__success">You have successfully been signed up for automated updates</p>
+
+      <p class="subscription-form__fail">Sign up failed please try again</p>
+
+      <div class="row">
+        <div class="subscription-form__field col-sm-12 col-md-6">
+          <label class="subscription-form__label" for="firstname">First name*</label>
+
+          <input class="subscription-form__text-input" id="firstname" type="text" name="firstname">
+
+          <p class="subscription-form__error"></p>
         </div>
+      </div>
+
+      <div class="row">
+        <div class="subscription-form__field col-sm-12 col-md-6">
+          <label class="subscription-form__label" for="lastname">Last name*</label>
+
+          <input class="subscription-form__text-input" id="lastname" type="text" name="lastname">
+
+          <p class="subscription-form__error"></p>
         </div>
-    {% else %}
-  <form method="POST" action="#" class="subscription-form container">
-    <h3>{{ page.sub_heading }}</h3>
-    <p>{{ page.intro }}</p>
-
-    <p class="subscription-form__required-field">* Required fields</p>
-
-    <div class="row">
-      <div class="subscription-form__field col-sm-12 col-md-6">
-        <label class="subscription-form__label" for="firstname">First name*</label>
-
-        <input class="subscription-form__text-input" id="firstname" type="text" name="firstname">
-
-        <p class="subscription-form__error"></p>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="subscription-form__field col-sm-12 col-md-6">
-        <label class="subscription-form__label" for="lastname">Last name*</label>
+      <div class="row">
+        <div class="subscription-form__field col-sm-12 col-md-6">
+          <label class="subscription-form__label" for="email">Email address*</label>
 
-        <input class="subscription-form__text-input" id="lastname" type="text" name="lastname">
+          <input class="subscription-form__text-input" id="email" type="text" name="email">
 
-        <p class="subscription-form__error"></p>
+          <p class="subscription-form__error"></p>
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="subscription-form__field col-sm-12 col-md-6">
-        <label class="subscription-form__label" for="email">Email address*</label>
+      {{ page.signup_details | richtext }}
 
-        <input class="subscription-form__text-input" id="email" type="text" name="email">
+      <div class="row">
+        <div class="subscription-form__field terms col-sm-12 col-md-6">
+          <input id="terms" type="checkbox" name="terms">
 
-        <p class="subscription-form__error"></p>
+          <label class="subscription-form__terms-label" for="terms">{{ page.terms_agreement | richtext }}</label>
+
+          <p class="subscription-form__error"></p>
+        </div>
       </div>
-    </div>
 
-    {{ page.signup_details | richtext }}
-
-    <div class="row">
-      <div class="subscription-form__field terms col-sm-12 col-md-6">
-        <input id="terms" type="checkbox" name="terms">
-
-        <label class="subscription-form__terms-label" for="terms">{{ page.terms_agreement | richtext }}</label>
-
-        <p class="subscription-form__error"></p>
-      </div>
-    </div>
-
-    <button class="subscription-form__btn">Subscribe</button>
-  </form>
-    {% endif %}
+      <button class="subscription-form__btn">Subscribe</button>
+    </form>
+  {% endif %}
 {% endblock content %}

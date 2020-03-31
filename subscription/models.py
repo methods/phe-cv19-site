@@ -33,8 +33,8 @@ class SubscriptionPage(MethodsBasePage):
         FieldPanel('heading'),
         ImageChooserPanel('banner_image'),
         FieldPanel('sub_heading'),
-        # FieldPanel('intro'),
-        # FieldPanel('signup_details'),
-        # FieldPanel('terms_agreement'),
+        FieldPanel('intro'),
+        FieldPanel('signup_details'),
+        FieldPanel('terms_agreement'),
         FieldPanel('subscription_service_pending_message'),
     ]
