@@ -36,7 +36,12 @@ def parse_menu_item(menu_item):
         item_dict['sub_items'] = sub_items
     else:
         item_dict['sub_items'] = None
-        item_dict['url'] = menu_item.value.get('link_page').url
+        if menu_item.value.get('link_page'):
+            item_dict['url'] = menu_item.value.get('link_page').url
+        elif menu_item.value.get('link_url'):
+            item_dict['url'] = menu_item.value.get('link_url')
+        else:
+            item_dict['url'] = '#'
 
     return item_dict
 
@@ -104,7 +109,7 @@ def is_s3_deployment_configured() -> bool:
         settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT,
         settings.AWS_REGION_DEPLOYMENT
     )
-    are_set = (s3_setting != None and s3_setting !="" for s3_setting in s3_settings)
+    are_set = (s3_setting != None and s3_setting != "" for s3_setting in s3_settings)
     return all(are_set)
 
 
@@ -144,7 +149,7 @@ def prerender_pages(sender, **kwargs):
         _log_and_print(f"Deployment to s3 failed: {repr(e)}")
 
 
-def export_directory(path:str=''):
+def export_directory(path: str = ''):
     """
     Glob directory structure found at settings.BUILD_DIR/path for html files.
     Upload html files and directory structure to AWS s3 bucket at settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT
@@ -154,16 +159,16 @@ def export_directory(path:str=''):
     # get list of dicts with relative and absolute paths for each html files to upload
     directory_path = join(settings.BUILD_DIR, path)
     html_files_in_directory = glob.glob(f"{directory_path}/**/*.html", recursive=True)
-    html_files_2_upload = [ {"Filename": f, "Key": relpath(f, start=directory_path)} for f in html_files_in_directory]
+    html_files_2_upload = [{"Filename": f, "Key": relpath(f, start=directory_path)} for f in html_files_in_directory]
 
     # get S3 keys only as set
-    s3_html_keys_2_upload = { f["Key"] for f in html_files_2_upload }
+    s3_html_keys_2_upload = {f["Key"] for f in html_files_2_upload}
 
     s3_client = boto3.client(
         "s3",
-        region_name = settings.AWS_REGION_DEPLOYMENT,
-        aws_access_key_id = settings.AWS_ACCESS_KEY_ID_DEPLOYMENT,
-        aws_secret_access_key = settings.AWS_SECRET_ACCESS_KEY_DEPLOYMENT
+        region_name=settings.AWS_REGION_DEPLOYMENT,
+        aws_access_key_id=settings.AWS_ACCESS_KEY_ID_DEPLOYMENT,
+        aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY_DEPLOYMENT
     )
 
     # get complete set of bucket keys FOR HTML ONLY!
@@ -173,7 +178,7 @@ def export_directory(path:str=''):
     for page in page_iterator:
         try:
             page_files = {
-                s3_obj["Key"]  for s3_obj in page["Contents"]
+                s3_obj["Key"] for s3_obj in page["Contents"]
                 if splitext(s3_obj["Key"])[1] == '.html'
             }
             bucket_html_keys.update(page_files)
@@ -198,6 +203,7 @@ def export_directory(path:str=''):
             Bucket=settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT,
             Key=key
         )
+
 
 page_published.connect(prerender_pages)
 page_unpublished.connect(prerender_pages)
