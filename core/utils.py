@@ -1,4 +1,5 @@
 import glob
+import logging
 import pyclamd
 
 import boto3
@@ -13,6 +14,14 @@ from wagtail.core.signals import page_published, page_unpublished
 from errors.models import VirusException
 
 from celery.decorators import task as celery_background_task
+
+logger = logging.getLogger(__name__)
+
+
+def _log_and_print(msg: str):
+    print(msg)
+    logger.info(msg)
+
 
 def fallback_to(value, default_value):
     return value if value is not None else default_value
@@ -109,11 +118,39 @@ def build_publish():
     """
     Run build and deploy as a background task in celery.
     """
-    call_command('build')
-    if is_s3_deployment_configured():
-        print(f"Deploying site to s3 bucket: {settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT}...")
-        export_directory()
-        print(f"... deployment complete.")
+    try:
+        call_command('build')
+        _log_and_print("Attempting site deployment...")
+        if is_s3_deployment_configured():
+            _log_and_print(f"...deploying site to s3 bucket: {settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT}...")
+            export_directory()
+            _log_and_print(f"... deployment to s3 complete.")
+        else:
+            unset_s3_settings = [
+                s3_setting["name"] for s3_setting in (
+                    {
+                        "name": "AWS_ACCESS_KEY_ID_DEPLOYMENT",
+                        "value": settings.AWS_ACCESS_KEY_ID_DEPLOYMENT,
+                    },
+                    {
+                        "name": "AWS_SECRET_ACCESS_KEY_DEPLOYMENT",
+                        "value": settings.AWS_SECRET_ACCESS_KEY_DEPLOYMENT,
+                    },
+                    {
+                        "name": "AWS_STORAGE_BUCKET_NAME_DEPLOYMENT",
+                        "value": settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT,
+                    },
+                    {
+                        "name": "AWS_REGION_DEPLOYMENT",
+                        "value": settings.AWS_REGION_DEPLOYMENT
+                    }
+                ) if s3_setting["value"] != None and s3_setting !=""
+            ]
+            _log_and_print(
+                f"...AWS s3 access not configured - deployment skipped. Missing settings: {repr(unset_s3_settings)}"
+            )
+    except Exception as e:
+        _log_and_print(f"Deployment to s3 failed: {repr(e)}")
 
 
 def export_directory(path:str=''):
