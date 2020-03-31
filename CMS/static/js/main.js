@@ -1,5 +1,5 @@
 (function($) {
-  // add you javascript here
+  var SUBSCRIPTION_URL = {{url_address}};
 
   var NewTabLink = function(link) {
     this.link = link;
@@ -59,6 +59,8 @@
       this.emailErrorSpace = this.emailField.siblings().filter('.subscription-form__error');
       this.termsField = this.form.find('#terms');
       this.termsErrorSpace = this.termsField.siblings().filter('.subscription-form__error');
+      this.signUpSuccessMessage = this.form.find('.subscription-form__success');
+      this.signUpFailMessage = this.form.find('.subscription-form__fail');
       this.errors = {};
       this.startWatcher();
     },
@@ -66,17 +68,19 @@
     clearErrors: function() {
       this.errors = {};
       this.firstNameErrorSpace.text('');
-      this.firstNameErrorSpace.show();
+      this.firstNameErrorSpace.hide();
       this.firstNameErrorSpace.parent().removeClass('error');
       this.lastNameErrorSpace.text('');
-      this.lastNameErrorSpace.show();
+      this.lastNameErrorSpace.hide();
       this.lastNameErrorSpace.parent().removeClass('error');
       this.emailErrorSpace.text('');
-      this.emailErrorSpace.show();
+      this.emailErrorSpace.hide();
       this.emailErrorSpace.parent().removeClass('error');
       this.termsErrorSpace.text('');
-      this.termsErrorSpace.show();
+      this.termsErrorSpace.hide();
       this.termsErrorSpace.parent().removeClass('error');
+      this.signUpFailMessage.hide();
+      this.signUpSuccessMessage.hide();
     },
 
     startWatcher: function() {
@@ -85,10 +89,21 @@
         evt.preventDefault();
         that.clearErrors();
         if (that.validateForm()){
-          console.log('form valid -> submit');
+          var formData = {
+            "ProductToken": "C17E9070-417E-44FF-8F98-C0ADB81507A8",
+            "Email": that.emailField.val(),
+            "Firstname": that.firstNameField.val(),
+            "Lastname": that.lastNameField.val()
+          }
+          $.post(SUBSCRIPTION_URL, formData, function(data, status) {
+            if (status === success) {
+              that.signUpSuccessMessage.show();
+            } else {
+              that.signUpFailMessage.show();
+            }
+          });
         } else {
           that.showErrors();
-          console.log('form invalid -> show errors');
         }
       });
     },
