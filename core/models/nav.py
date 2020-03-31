@@ -7,7 +7,8 @@ from wagtail.snippets.models import register_snippet
 
 class SimpleMenuItem(blocks.StructBlock):
     label = blocks.CharBlock(required=False, help_text='Leave blank to use the page name')
-    link_page = blocks.PageChooserBlock(required=False)
+    link_page = blocks.PageChooserBlock(required=False, help_text='Link to an internal page')
+    link_url = blocks.CharBlock(required=False, help_text='Link to an external page')
 
     class Meta:
         icon = 'link'
