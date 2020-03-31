@@ -144,7 +144,7 @@ def build_publish():
                         "name": "AWS_REGION_DEPLOYMENT",
                         "value": settings.AWS_REGION_DEPLOYMENT
                     }
-                ) if s3_setting["value"] != None and s3_setting !=""
+                ) if s3_setting["value"] in [None, ""]
             ]
             _log_and_print(
                 f"...AWS s3 access not configured - deployment skipped. Missing settings: {repr(unset_s3_settings)}"
