@@ -30,21 +30,23 @@ def _log_and_print(msg: str):
 
 
 def _set_job_schedule(job, period_units, period):
-    period_units = difflib.get_close_matches(
-        period_units, ("second", "minute", "hour", "day"), n=1
-    )[0]
     if period_units == "second":
         job.second.every(period)
-    if period_units == "minute":
+    elif period_units == "minute":
         job.minute.every(period)
-    if period_units == "hour":
+    elif period_units == "hour":
         job.hour.every(period)
-    if period_units == "day":
+    elif period_units == "day":
         job.day.every(period)
 
 
-def write_mgmt_task_runner(mgmt_command: str, working_dir: str, runner_dir: str,
-                           logging: bool=False, logfile: str="") -> str:
+def write_mgmt_task_runner(
+    mgmt_command: str,
+    working_dir: str,
+    runner_dir: str,
+    logging: bool = False,
+    logfile: str = "",
+) -> str:
     """
     Write executable shell script to run management task with cron, and return
     bash statement to run it. The task runner will be written to the runner_dir,
@@ -65,8 +67,10 @@ def write_mgmt_task_runner(mgmt_command: str, working_dir: str, runner_dir: str,
     python_interpreter = sys.executable
 
     # add the execution command
-    log_start_str = f'(echo "=== $(date) ===> Executing {mgmt_command}" &&' if logging else ""
-    log_stop_str = f') >> {logfile} 2>1&' if logging else ""
+    log_start_str = (
+        f'(echo "=== $(date) ===> Executing {mgmt_command}" &&' if logging else ""
+    )
+    log_stop_str = f") >> {logfile} 2>&1" if logging else ""
     execute_str = f"{log_start_str} cd {working_dir} && {python_interpreter} manage.py {mgmt_command} {log_stop_str} "
     runner_file_lines.append(execute_str)
 
@@ -77,8 +81,8 @@ def write_mgmt_task_runner(mgmt_command: str, working_dir: str, runner_dir: str,
     runner_filename = f"run_{mgmt_command}.sh"
     runner_filepath = os.path.join(runner_dir, runner_filename)
 
-    with open(runner_filepath, 'w') as f:
-        f.write('\n'.join(runner_file_lines))
+    with open(runner_filepath, "w") as f:
+        f.write("\n".join(runner_file_lines))
 
     # make file x-able
     subprocess.call(f"chmod +x {runner_filepath}", shell=True)
@@ -101,7 +105,11 @@ def schedule_cron_jobs():
 
     # get config
     config = read_config()
-    cron_user = config["cron_user"] if config["cron_user"] != "current_user" else getpass.getuser()
+    cron_user = (
+        config["cron_user"]
+        if config["cron_user"] != "current_user"
+        else getpass.getuser()
+    )
     logfile = config["logfile"]
 
     if config["clean_old_jobs"]:
@@ -117,26 +125,38 @@ def schedule_cron_jobs():
     for cron_job in config["cron_jobs"]:
 
         job_name = cron_job["name"]
-        period_units = cron_job["period_units"]
+
+        try:
+            period_units = difflib.get_close_matches(
+                cron_job["period_units"], ("second", "minute", "hour", "day"), n=1
+            )[0]
+        except IndexError:
+            _log_and_print(
+                f"Unrecognised period_units ({cron_job['period_units']}) for cron job {job_name} - job could not be added. Skipped."
+            )
+            continue
+
         period = cron_job["period"]
         cron_command = write_mgmt_task_runner(
             mgmt_command=cron_job["mgmt_command"],
             working_dir=working_dir,
             runner_dir=runner_dir,
             logging=cron_job["logging"],
-            logfile=logfile
+            logfile=logfile,
         )
 
         with CronTab(user=cron_user) as cron:
 
             job = cron.new(command=cron_command, comment=job_name)
-            _set_job_schedule(job, cron_job["period_units"], cron_job["period"])
+            _set_job_schedule(job, period_units, period)
             _log_and_print(f"Cron job {job_name} added to crontab for user {cron_user}")
 
 
 if __name__ == "__main__":
-    SCHEDULE_CRON_JOBS = os.environ.get('SCHEDULE_CRON_JOBS')
-    if SCHEDULE_CRON_JOBS and SCHEDULE_CRON_JOBS.lower() == 'true':
+    SCHEDULE_CRON_JOBS = os.environ.get("SCHEDULE_CRON_JOBS")
+    if SCHEDULE_CRON_JOBS and SCHEDULE_CRON_JOBS.lower() == "true":
         schedule_cron_jobs()
     else:
-        _log_and_print("SCHEDULE_CRON_JOBS env var is unset or false, skipping scheduling of management tasks with cron.")
+        _log_and_print(
+            "SCHEDULE_CRON_JOBS env var is unset or false, skipping scheduling of management tasks with cron."
+        )
