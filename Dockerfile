@@ -18,3 +18,4 @@ RUN python manage.py  collectstatic --ignore=*.scss
 RUN chmod +x ./deploy_files/docker-entrypoint.sh
 
 ENTRYPOINT ["./deploy_files/docker-entrypoint.sh"]
+

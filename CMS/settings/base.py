@@ -109,7 +109,6 @@ WSGI_APPLICATION = 'CMS.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
 if LOCAL:
     DATABASES = {
         'default': {
@@ -128,7 +127,6 @@ else:
             'PASSWORD': os.environ.get('DBPASSWORD')
         }
     }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
