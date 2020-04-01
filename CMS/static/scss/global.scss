@@ -218,3 +218,20 @@ a[target=_blank] {
   }
 }
 
+a.skip-main {
+  position: absolute;
+  left: -999px;
+  width: 1px;
+  height: 1px;
+  top: auto;
+
+   &:focus {
+    display: inline-block;
+    height: auto;
+    width: auto;
+    position: static;
+    margin-left: 15px;
+   }
+}
+
+
