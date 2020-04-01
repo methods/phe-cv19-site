@@ -1,5 +1,5 @@
 (function($) {
-  var SUBSCRIPTION_URL = {{url_address}};
+  var SUBSCRIPTION_URL = "{{url_address}}";
 
   var NewTabLink = function(link) {
     this.link = link;
