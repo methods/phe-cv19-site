@@ -1,11 +1,17 @@
 #!/bin/bash
 set -e
 
-until python3 manage.py migrate
+until python manage.py makemigrations && python3 manage.py migrate
 do
   echo "Waiting for database to be migrated"
   sleep 5
 done
+
+# start cron & schedule cron jobs
+echo "Starting cron..."
+cron service start
+echo "Scheduling management cron jobs..."
+python3 CMS/settings/management_cron_jobs.py
 
 #Run Gunicorn
 exec gunicorn CMS.wsgi:application \

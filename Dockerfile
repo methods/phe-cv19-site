@@ -6,14 +6,15 @@ WORKDIR /code
 COPY ./requirements.txt /code/
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+RUN apt-get update
+RUN apt-get install cron vim -y
+RUN touch /var/log/cron.log
 
 COPY . /code/
 
-RUN useradd wagtail
-RUN chown -R wagtail /code
-USER wagtail
 RUN python manage.py compilescss
-RUN python manage.py  collectstatic --ignore=*.scss
+RUN python manage.py  collectstatic --ignore=*.scss --no-input
 RUN chmod +x ./deploy_files/docker-entrypoint.sh
 
 ENTRYPOINT ["./deploy_files/docker-entrypoint.sh"]
+

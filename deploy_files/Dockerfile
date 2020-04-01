@@ -10,3 +10,7 @@ RUN python manage.py compilescss
 RUN python manage.py  collectstatic --ignore=*.scss
 
 RUN chmod +x ./deploy_files/docker-entrypoint.sh
+
+RUN apt-get update
+RUN apt-get install cron vim -y
+RUN touch /var/log/cron.log

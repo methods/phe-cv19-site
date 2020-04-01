@@ -2,6 +2,7 @@ import sys
 
 from .base import *
 
+
 DEBUG = False
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
@@ -77,6 +78,7 @@ SECURE_BROWSER_XSS_FILTER = True
 # SESSION_COOKIE_SECURE = True
 
 # CSRF_COOKIE_SECURE = True
+
 
 try:
     from .local import *
