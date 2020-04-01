@@ -224,13 +224,14 @@ a.skip-main {
   width: 1px;
   height: 1px;
   top: auto;
+
+   &:focus {
+    display: inline-block;
+    height: auto;
+    width: auto;
+    position: static;
+    margin-left: 15px;
+   }
 }
 
-a.skip-main:focus {
-  display: inline-block;
-  height: auto;
-  width: auto;
-  position: static;
-  margin-left: 15px;
-}
 
