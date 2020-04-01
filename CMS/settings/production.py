@@ -57,7 +57,12 @@ AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 
-# Site deployment settings
+# Additional site deployment settings (official, using AutoPublishingWagtailBakeryModel)
+
+AWS_BUCKET_NAME = os.environ.get('AWS_BUCKET_NAME')
+AWS_REGION = os.environ.get('AWS_REGION')
+
+# Alternative site deployment settings (unofficial, using core.utils.export_directory)
 
 AWS_ACCESS_KEY_ID_DEPLOYMENT = os.environ.get('AWS_ACCESS_KEY_ID_DEPLOYMENT')
 AWS_SECRET_ACCESS_KEY_DEPLOYMENT = os.environ.get('AWS_SECRET_ACCESS_KEY_DEPLOYMENT')

@@ -8,9 +8,11 @@ do
 done
 
 # start redis
+echo "Starting Redis message broker for celery..."
 service redis-server start
 
 # start single, non-concurrent celery worker for 'core' app, logging INFO to /var/log/celery.log
+echo "Starting celery..."
 celery worker -A core -l INFO -f /var/log/celery.log -c 1 --detach
 
 #Run Gunicorn

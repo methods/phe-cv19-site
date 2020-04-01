@@ -17,7 +17,14 @@ BAKERY_VIEWS = (
     'wagtailbakery.views.AllPublishedPagesView',
 )
 
-# Site deployment settings
+# Site deployment settings (official, using AutoPublishingWagtailBakeryModel)
+
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_BUCKET_NAME = os.environ.get('AWS_BUCKET_NAME')
+AWS_REGION = os.environ.get('AWS_REGION')
+
+# Alternative site deployment settings (unofficial, using core.utils.export_directory)
 
 AWS_ACCESS_KEY_ID_DEPLOYMENT = os.environ.get('AWS_ACCESS_KEY_ID_DEPLOYMENT')
 AWS_SECRET_ACCESS_KEY_DEPLOYMENT = os.environ.get('AWS_SECRET_ACCESS_KEY_DEPLOYMENT')

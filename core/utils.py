@@ -208,5 +208,6 @@ def export_directory(path:str=''):
             Key=key
         )
 
-page_published.connect(prerender_pages)
-page_unpublished.connect(prerender_pages)
+# uncomment below to use export_directory for site deployment
+# page_published.connect(prerender_pages)
+# page_unpublished.connect(prerender_pages)
