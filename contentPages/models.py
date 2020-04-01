@@ -263,7 +263,7 @@ class ResourceItemPage(MethodsBasePage):
             FieldPanel('heading'),
             FieldPanel('description'),
             FieldPanel('upload_link'),
-            # DocumentChooserPanel('link_document'),
+            DocumentChooserPanel('link_document'),
             ImageChooserPanel('preview_image'),
             FieldPanel('preview_image_screen_reader_text'),
         ], heading='Header section'),
