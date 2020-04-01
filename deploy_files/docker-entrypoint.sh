@@ -10,8 +10,8 @@ done
 # start redis
 service redis-server start
 
-# start celery worker pool for 'core' app, logging INFO to /var/log/celery.log
-celery multi start worker -A core -l INFO -f /var/log/celery.log
+# start single, non-concurrent celery worker for 'core' app, logging INFO to /var/log/celery.log
+celery worker -A core -l INFO -f /var/log/celery.log -c 1 --detach
 
 #Run Gunicorn
 exec gunicorn CMS.wsgi:application \
