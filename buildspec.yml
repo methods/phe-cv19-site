@@ -10,14 +10,14 @@ phases:
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
-          - echo Build started on `date`
-          - echo Building the Docker image...
-          - docker build -t $REPOSITORY_URI:latest .
-          - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t 845280847960.dkr.ecr.eu-west-1.amazonaws.com/dev-ecr-phe-covid-19:latest .
+      - docker tag 845280847960.dkr.ecr.eu-west-1.amazonaws.com/dev-ecr-phe-covid-19:latest 845280847960.dkr.ecr.eu-west-1.amazonaws.com/dev-ecr-phe-covid-19:$IMAGE_TAG
   
   post_build:
     commands:
-          - echo Build completed on `date`
-          - echo Pushing the Docker images...
-          - docker push $REPOSITORY_URI:latest
-          - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - echo Build completed on `date`
+      - echo Pushing the Docker images...
+      - docker push 845280847960.dkr.ecr.eu-west-1.amazonaws.com/dev-ecr-phe-covid-19:latest
+      - docker push 845280847960.dkr.ecr.eu-west-1.amazonaws.com/dev-ecr-phe-covid-19:$IMAGE_TAG
