@@ -11,11 +11,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 ALLOWED_HOSTS = ['*']
 
 WAGTAILFRONTENDCACHE = {
-    'cloudflare': {
-        'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
-        'EMAIL': os.environ.get('CLOUDFLARE_EMAIL'),
-        'TOKEN': os.environ.get('CLOUDFLARE_TOKEN'),
-        'ZONEID': os.environ.get('CLOUDFLARE_ZONEID'),
+    'cloudfront': {
+        'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
+        'DISTRIBUTION_ID': os.environ.get('AWS_DISTRIBUTION_ID'),
     },
 }
 
