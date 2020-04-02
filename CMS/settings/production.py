@@ -1,4 +1,4 @@
-import sys
+import sys, logging
 
 from boto3.session import Session
 
