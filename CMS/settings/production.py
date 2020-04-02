@@ -1,4 +1,4 @@
-import sys, logging
+import sys, logging, watchtower
 
 from boto3.session import Session
 
