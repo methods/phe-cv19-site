@@ -178,10 +178,21 @@ SASS_PROCESSOR_ROOT = os.path.join(PROJECT_DIR, 'static/css')
 
 SASS_PROCESSOR_INCLUDE_FILE_PATTERN = r'^.+\.scss$'
 
+# STATICFILES_FINDERS = [
+#     'django.contrib.staticfiles.finders.FileSystemFinder',
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#     'sass_processor.finders.CssFinder',
+# ]
+
 STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'sass_processor.finders.CssFinder',
+    'core.custom_static_finders.FileSystemFinderIgnore',
+    'core.custom_static_finders.AppDirectoriesFinderIgnore',
+    'core.custom_static_finders.CssFinderIgnore',
+]
+
+STATICFILES_FINDERS_IGNORE = [
+    '.*\/admin\/.*',
+    '.*\/wagtail.*\/*',
 ]
 
 STATICFILES_DIRS = [
