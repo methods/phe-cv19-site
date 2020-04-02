@@ -52,8 +52,8 @@ def restructure_s3_link(s3_link, new_bucket_name=None):
     else:
         query_position = s3_link.find('?')
         if query_position >= 0:
-           return s3_link[0:query_position]
-            
+            return s3_link[0:query_position]
+
         return s3_link
 
 
@@ -63,3 +63,22 @@ def convert_s3_link(s3_link):
         return restructure_s3_link(s3_link, settings.DOWNLOADS_BUCKET_NAME)
     else:
         return restructure_s3_link(s3_link)
+
+
+@register.simple_tag
+def convert_s3_document_link(s3_link):
+    converted = convert_s3_link(s3_link)
+
+    documents_position = converted.find('/documents/')
+    if documents_position < 0:
+        return converted
+
+    documents_end_position = documents_position + len('/documents/')
+    start_path = converted[:documents_end_position]
+    end_path = converted[documents_end_position:]
+
+    slash_position = end_path.find('/')
+    if slash_position > 0:
+        return start_path + end_path[slash_position + 1:]
+    else:
+        return start_path + end_path
