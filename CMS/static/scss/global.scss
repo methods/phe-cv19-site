@@ -1,4 +1,4 @@
-@import './variables';
+@import "./variables";
 @import "components/breadcrumbs";
 @import "components/download-button";
 @import "components/link-block";
@@ -18,7 +18,7 @@ a {
   color: $link-blue;
 }
 
-a[target=_blank] {
+a[target="_blank"] {
   img {
     height: 0.75em;
     margin-left: 10px;
@@ -31,7 +31,8 @@ a[target=_blank] {
   .responsive-object {
     position: relative;
 
-    iframe, object {
+    iframe,
+    object {
       position: absolute;
       top: 0;
       left: 0;
@@ -50,16 +51,13 @@ a[target=_blank] {
   overflow: hidden;
 }
 
-
 .accessible-foreground--teal {
   color: $phe-teal !important;
 }
 
 .accessible-background--teal {
   background-color: $phe-teal !important;
-
 }
-
 
 .homepage .shelf {
   background-color: $phe-off-white;
@@ -71,17 +69,16 @@ a[target=_blank] {
 }
 
 .button-focus:focus {
-  border: solid 3px white;
+  box-shadow: 0 0 0 3px white;
   border-radius: 16px;
 }
 
 .button-focus:hover {
-  border: solid 3px white;
+  box-shadow: 0 0 0 3px white;
   border-radius: 16px;
 }
 
 .campaign-item {
-
   &__link-area {
     position: relative;
     display: block;
@@ -102,14 +99,14 @@ a[target=_blank] {
   }
 
   &__arrow {
-    display:block;
+    display: block;
     height: 40px;
     width: 40px;
     font-size: 19px;
     background-color: $phe-teal;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url('/static/img/right-arrow.svg');
+    background-image: url("/static/img/right-arrow.svg");
     background-size: 38% 38%;
     position: absolute;
     bottom: 0;
@@ -117,8 +114,8 @@ a[target=_blank] {
     z-index: 10;
   }
 
-  &__link-area:hover, &__link-area:focus {
-
+  &__link-area:hover,
+  &__link-area:focus {
     .campaign-item__caption {
       background-color: $phe-dark;
       border: $phe-dark 1px solid;
@@ -131,7 +128,10 @@ a[target=_blank] {
 
     .overlay {
       position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background-color: rgba(0, 0, 0, 0.3);
     }
   }
@@ -142,7 +142,6 @@ a[target=_blank] {
   font-size: 24px;
 }
 
-
 .resource-card {
   display: block;
   margin-bottom: 12px;
@@ -152,7 +151,8 @@ a[target=_blank] {
     background-color: $white;
     max-width: 260px;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       border: $phe-teal 3px solid;
 
       .resource-card__thumbnail {
@@ -185,7 +185,7 @@ a[target=_blank] {
     display: inline;
     color: $black;
     padding: 0;
-    font-size: .9em;
+    font-size: 0.9em;
     text-align: center;
     margin: 0px;
   }
@@ -198,12 +198,11 @@ a[target=_blank] {
   }
 
   &__download-caption {
-    font-size: .9em;
+    font-size: 0.9em;
   }
 }
 
 .resource-sidebar {
-
   &__image {
     margin-top: 1em;
 
@@ -225,13 +224,11 @@ a.skip-main {
   height: 1px;
   top: auto;
 
-   &:focus {
+  &:focus {
     display: inline-block;
     height: auto;
     width: auto;
     position: static;
     margin-left: 15px;
-   }
+  }
 }
-
-
