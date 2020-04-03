@@ -22,7 +22,7 @@ exec gunicorn CMS.wsgi:application \
   --log-file=- \
   --access-logfile=- \
   --error-logfile=- \
-  --timeout 300 \
+  --timeout 600 \
   --max-requests 1000
 
 
