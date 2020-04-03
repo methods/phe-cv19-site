@@ -30,7 +30,7 @@ AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 # max in-memory size for s3 uploads. Anything bigger than this rolled over into a temp file.
-AWS_S3_MAX_MEMORY_SIZE = int(2.5 * 1000000) # 2.5MB
+AWS_S3_MAX_MEMORY_SIZE = os.environ.get('AWS_S3_MAX_MEMORY_SIZE', int(2.5 * 1000000)) # default 2.5MB
 
 # Site deployment settings
 
