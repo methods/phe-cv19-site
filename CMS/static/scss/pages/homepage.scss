@@ -10,17 +10,16 @@
 }
 
 .button-focus:focus {
-  border: solid 3px white;
+  box-shadow: 0 0 0 3px white;
   border-radius: 16px;
 }
 
 .button-focus:hover {
-  border: solid 3px white;
+  box-shadow: 0 0 0 3px white;
   border-radius: 16px;
 }
 
 .campaign-item {
-
   &__link-area {
     position: relative;
     display: block;
@@ -41,14 +40,14 @@
   }
 
   &__arrow {
-    display:block;
+    display: block;
     height: 40px;
     width: 40px;
     font-size: 19px;
     background-color: $phe-teal;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url('/static/img/right-arrow.svg');
+    background-image: url("/static/img/right-arrow.svg");
     background-size: 38% 38%;
     position: absolute;
     bottom: 0;
@@ -56,8 +55,8 @@
     z-index: 10;
   }
 
-  &__link-area:hover, &__link-area:focus {
-
+  &__link-area:hover,
+  &__link-area:focus {
     .campaign-item__caption {
       background-color: $phe-dark;
       border: $phe-dark 1px solid;
@@ -70,9 +69,11 @@
 
     .overlay {
       position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background-color: rgba(0, 0, 0, 0.3);
     }
   }
 }
-
