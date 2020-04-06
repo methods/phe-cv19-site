@@ -5,7 +5,8 @@ WORKDIR /code
 COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 
-RUN apt-get update && apt-get install redis-server -y
+RUN apt-get update && apt-get install redis-server cron vim -y
+RUN touch /var/log/cron.log
 
 COPY . /code/
 
@@ -13,3 +14,4 @@ RUN python manage.py compilescss
 RUN python manage.py  collectstatic --ignore=*.scss
 
 RUN chmod +x ./deploy_files/docker-entrypoint.sh
+

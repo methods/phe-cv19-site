@@ -15,6 +15,12 @@ service redis-server start
 echo "Starting celery..."
 celery worker -A core -l INFO -f /var/log/celery.log -c 1 --detach
 
+# start cron & schedule cron jobs
+echo "Starting cron..."
+cron service start
+echo "Scheduling management cron jobs..."
+python3 CMS/settings/management_cron_jobs.py
+
 #Run Gunicorn
 exec gunicorn CMS.wsgi:application \
   --name methods-cms \
@@ -24,7 +30,7 @@ exec gunicorn CMS.wsgi:application \
   --log-file=- \
   --access-logfile=- \
   --error-logfile=- \
-  --timeout 300 \
+  --timeout 600 \
   --max-requests 1000
 
 

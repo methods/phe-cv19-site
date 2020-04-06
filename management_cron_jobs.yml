@@ -1,0 +1,26 @@
+# define cron jobs to run manage.py tasks on a schedule
+# set cron_user to 'current_user' to have it dynamically set to whoever
+# executes CMS.settings.management_cron_jobs.py
+cron_user: current_user
+
+# set logging path. Logging is controlled on a per-job basis, see below.
+logfile: /var/log/cron.log
+
+# empty the crontab for cron_user before adding new tasks
+clean_old_jobs: True
+
+# define cron jobs below. Fields are:
+#   - name (for logging)
+#   - mgmt_command (the command or commands to run). NB, these are assumed to be
+#     django or wagtail management tasks ONLY, rather than loose shell statements.
+#     see CMS.settings.management_cron_jobs.py for more details.
+#   - period_units (either second, minute, hour or day. NB will accept either
+#     singular (minute) or plural (minutes)).
+#   - period (how often, in period_units, to run)
+#   - logging: True or False to write logs to the logfile set above.
+cron_jobs:
+  - name: "Publish Scheduled Pages"
+    mgmt_command: "publish_scheduled_pages"
+    period_units: "minutes"
+    period: 30
+    logging: True

@@ -250,7 +250,7 @@ class TestUtilsS3Upload(MethodsTestCase):
                     with io.StringIO() as buf, redirect_stdout(buf):
                         filecmp.dircmp(test_dir_2_nested, mock_bucket_contents_directory).report_full_closure()
                         diff_report = (
-                            "Either unpublished html files were found in the uploaded S3 content, non-html files were removed from it: "
+                            "Either unpublished html files were found in the uploaded S3 content, or non-html files were removed from it: "
                             f"{buf.getvalue()}"
                         )
                 self.assertTrue(trees_equal, diff_report)

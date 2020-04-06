@@ -1,6 +1,7 @@
-import sys
+import sys, logging, watchtower
 
 from .base import *
+
 
 DEBUG = False
 SECRET_KEY = os.environ.get('SECRET_KEY')
@@ -36,11 +37,9 @@ LOGGING = {
 }
 
 WAGTAILFRONTENDCACHE = {
-    'cloudflare': {
-        'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
-        'EMAIL': os.environ.get('CLOUDFLARE_EMAIL'),
-        'TOKEN': os.environ.get('CLOUDFLARE_TOKEN'),
-        'ZONEID': os.environ.get('CLOUDFLARE_ZONEID'),
+    'cloudfront': {
+        'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
+        'DISTRIBUTION_ID': os.environ.get('AWS_DISTRIBUTION_ID'),
     },
 }
 
@@ -56,6 +55,8 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+# max in-memory size for s3 uploads. Anything bigger than this rolled over into a temp file.
+AWS_S3_MAX_MEMORY_SIZE = os.environ.get('AWS_S3_MAX_MEMORY_SIZE', int(2.5 * 1000000)) # default 2.5MB
 
 # Additional site deployment settings (official, using AutoPublishingWagtailBakeryModel)
 
@@ -90,6 +91,7 @@ SECURE_BROWSER_XSS_FILTER = True
 # SESSION_COOKIE_SECURE = True
 
 # CSRF_COOKIE_SECURE = True
+
 
 try:
     from .local import *
