@@ -191,8 +191,15 @@ STATICFILES_FINDERS = [
 ]
 
 STATICFILES_FINDERS_IGNORE = [
-    '.*\/admin\/.*',
-    '.*\/wagtail.*\/*',
+    'admin',
+    'wagtailimages',
+    'wagtaildocs',
+    'wagtailusers',
+    'wagtailsearch',
+    'wagtailmodeladmin',
+    'wagtailadmin',
+    'wagtailembeds',
+    'wagtailsnippets'
 ]
 
 STATICFILES_DIRS = [
