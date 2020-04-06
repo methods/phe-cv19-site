@@ -96,7 +96,7 @@
             "Lastname": that.lastNameField.val()
           }
           $.post(SUBSCRIPTION_URL, formData, function(data, status) {
-            if (status === success) {
+            if (status === 'success') {
               that.signUpSuccessMessage.show();
             } else {
               that.signUpFailMessage.show();
