@@ -4,20 +4,27 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
-      - $(aws ecr get-login --region eu-west-1--no-include-email)
-      - REPOSITORY_URI=0845280847960.dkr.ecr.eu-west-1.amazonaws.com/dev-ecr-phe-covid-19
+      - $(aws ecr get-login --region eu-west-1 --no-include-email) 
+      - REPOSITORY_URI=845280847960.dkr.ecr.eu-west-1.amazonaws.com/dev-ecr-phe-covid-19
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
-          - echo Build started on `date`
-          - echo Building the Docker image...
-          - docker build -t $REPOSITORY_URI:latest .
-          - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker --version
+      - docker ps -a 
+      - docker build -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   
   post_build:
     commands:
-          - echo Build completed on `date`
-          - echo Pushing the Docker images...
-          - docker push $REPOSITORY_URI:latest
-          - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - echo Build completed on `date`
+      - echo Pushing the Docker images...
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - echo Writing image definition file .....
+      - printf '[{"name":"phe-cov19","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+
+artifacts:
+  files: imagedefinitions.json
