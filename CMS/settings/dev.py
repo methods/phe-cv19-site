@@ -26,6 +26,9 @@ AWS_STORAGE_BUCKET_NAME_DEPLOYMENT = os.environ.get('AWS_STORAGE_BUCKET_NAME_DEP
 AWS_REGION_DEPLOYMENT = os.environ.get('AWS_REGION_DEPLOYMENT')
 
 
+COMPRESS_ENABLED = False
+COMPRESS_OFFLINE = False
+
 try:
     from .local import *
 except ImportError:
