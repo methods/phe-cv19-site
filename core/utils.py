@@ -115,6 +115,8 @@ def is_s3_deployment_configured() -> bool:
 
 def prerender_pages(sender, **kwargs):
     try:
+        if settings.COMPRESS_OFFLINE and settings.COMPRESS_ENABLED:
+            call_command('compress')
         call_command('build')
         _log_and_print("Attempting site deployment...")
         if is_s3_deployment_configured():
