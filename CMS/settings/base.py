@@ -108,7 +108,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'CMS.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 if LOCAL:
@@ -147,7 +146,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -203,7 +201,6 @@ WAGTAIL_SITE_NAME = "CMS"
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
 
-
 # Bakery settings
 
 BUILD_DIR = os.path.join(BASE_DIR, 'tmp/build/')
@@ -211,7 +208,6 @@ BUILD_DIR = os.path.join(BASE_DIR, 'tmp/build/')
 AZURE_FILE_ACCOUNT_NAME = os.environ.get('AZURE_FILE_ACCOUNT_NAME')
 AZURE_FILE_ACCOUNT_KEY = os.environ.get('AZURE_FILE_ACCOUNT_KEY')
 AZURE_FILE_SHARE = os.environ.get('AZURE_FILE_SHARE')
-
 
 # File upload settings
 
