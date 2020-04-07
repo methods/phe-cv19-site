@@ -207,7 +207,8 @@ a[target="_blank"] {
     margin-top: 1em;
 
     img {
-      height: 200px;
+      max-width: 100%;
+      max-height: 200px;
     }
   }
 
