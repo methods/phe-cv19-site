@@ -1,4 +1,5 @@
 {% load static wagtailuserbar methods_tags sass_tags %}
+{% load compress %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -16,14 +17,20 @@
     </title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="{% sass_src 'scss/global.scss' %}" rel="stylesheet" type="text/css" >
-    <link href="{% sass_src 'scss/crc.scss' %}" rel="stylesheet" type="text/css" >
+
+    {% compress css %}
+        <link href="{% sass_src 'scss/crc.scss' %}" rel="stylesheet" type="text/css" >
+        <link href="{% sass_src 'scss/global.scss' %}" rel="stylesheet" type="text/css" >
+    {% endcompress %}
+
     {% block extra_css %}
       {# Override this in templates to add extra stylesheets #}
     {% endblock %}
 
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-     <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+     {% compress js %}
+        <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+     {% endcompress %}
      {% block extra_js %}
        {# Override this in templates to add extra javascript #}
      {% endblock %}
