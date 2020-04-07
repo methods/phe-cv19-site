@@ -49,7 +49,7 @@
                         {% image campaign.thumbnail_image original as thumbnail %}
                         {% convert_s3_link thumbnail.url as thumbnail_url %}
 
-                        <div class="campaign-item col-md-3 col-sm-6">
+                        <div class="campaign-item col-md-3 col-sm-6" style="margin-bottom:1rem">
                             <a class="campaign-item__link-area"
                                style="background-image: url({{ thumbnail_url }})"
                                href="{% if campaign.campaign_landing_page %}{% pageurl campaign.campaign_landing_page %}{% endif %}">
