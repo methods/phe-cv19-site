@@ -30,7 +30,7 @@
                                             {% if page.upload_link %}
                                                 <a class="download-button" href="{{ page.upload_link }}">Download</a>
                                             {% elif page.link_document %}
-                                                {% convert_s3_document_link page.link_document.url as link_document_url %}
+                                                {% convert_s3_document_link page.link_document as link_document_url %}
                                                 <a class="download-button" href="{{ link_document_url }}">Download</a>
                                             {% endif %}
 

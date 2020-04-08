@@ -66,19 +66,8 @@ def convert_s3_link(s3_link):
 
 
 @register.simple_tag
-def convert_s3_document_link(s3_link):
-    converted = convert_s3_link(s3_link)
-
-    documents_position = converted.find('/documents/')
-    if documents_position < 0:
-        return converted
-
-    documents_end_position = documents_position + len('/documents/')
-    start_path = converted[:documents_end_position]
-    end_path = converted[documents_end_position:]
-
-    slash_position = end_path.find('/')
-    if slash_position > 0:
-        return start_path + end_path[slash_position + 1:]
+def convert_s3_document_link(doc):
+    if settings.DOWNLOADS_BUCKET_NAME:
+        return 'https://' + settings.DOWNLOADS_BUCKET_NAME + '/' + doc.file.name
     else:
-        return start_path + end_path
+        return doc.url
