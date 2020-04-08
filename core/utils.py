@@ -11,7 +11,7 @@ from os.path import isfile, join, relpath, splitext
 
 from wagtail.core.signals import page_published, page_unpublished
 
-from errors.models import VirusException
+from errors.models.types import VirusException
 
 
 logger = logging.getLogger(__name__)

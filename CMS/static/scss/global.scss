@@ -233,3 +233,12 @@ a.skip-main {
     margin-left: 15px;
   }
 }
+
+.error-screen {
+  min-height: 75vh;
+
+  .error-message {
+    font-size: 60px;
+    margin-top: 1.5em
+  }
+}

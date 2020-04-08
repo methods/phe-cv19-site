@@ -5,8 +5,6 @@
   <link href="{% sass_src 'scss/subscription.scss' %}" rel="stylesheet" type="text/css" >
 {% endblock %}
 
-{% block body_class %}template-demopage{% endblock %}
-
 {% block content %}
   {% image page.banner_image original as banner %}
     {% convert_s3_link banner.url as banner_url %}
