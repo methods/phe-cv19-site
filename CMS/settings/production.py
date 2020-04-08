@@ -39,7 +39,7 @@ LOGGING = {
 WAGTAILFRONTENDCACHE = {
     'cloudfront': {
         'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
-        'DISTRIBUTION_ID': os.environ.get('AWS_DISTRIBUTION_ID'),
+        'DISTRIBUTION_ID': os.environ.get('DISTRIBUTION_ID'),
     },
 }
 
