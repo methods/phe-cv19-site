@@ -41,6 +41,7 @@ class HomePage(MethodsBasePage):
     subpage_types = [
         'contentPages.LandingPage',
         'subscription.SubscriptionPage',
+        'errors.ErrorPage',
     ]
 
     parent_page_type = [
