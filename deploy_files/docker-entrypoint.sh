@@ -13,7 +13,7 @@ service redis-server start
 
 # start single, non-concurrent celery worker for 'core' app, logging INFO to /var/log/celery.log
 echo "Starting celery..."
-celery worker -A core -l INFO -f /var/log/celery.log -c 1 --detach
+celery worker -A core -l INFO -f /var/log/celery.log -c 1 --detach --pidfile=/opt/celeryd.pid
 
 #Run Gunicorn
 exec gunicorn CMS.wsgi:application \
