@@ -68,6 +68,6 @@ def convert_s3_link(s3_link):
 @register.simple_tag
 def convert_s3_document_link(doc):
     if settings.DOWNLOADS_BUCKET_NAME:
-        return settings.DOWNLOADS_BUCKET_NAME + '/' + doc.file.name
+        return 'https://' + settings.DOWNLOADS_BUCKET_NAME + '/' + doc.file.name
     else:
         return doc.url
