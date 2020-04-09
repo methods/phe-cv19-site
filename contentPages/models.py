@@ -96,8 +96,8 @@ class LandingPage(MethodsBasePage):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-
-    overview_subpage_heading = TextField(blank=True)
+    OVERVIEW_HEADING = 'Overview'
+    overview_subpage_heading = TextField(default=OVERVIEW_HEADING)
     overview_subpage_body = TextField(blank=True)
     overview_subpage = models.ForeignKey(
         'wagtailcore.Page',
@@ -106,8 +106,8 @@ class LandingPage(MethodsBasePage):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-
-    resources_subpage_heading = TextField(blank=True)
+    RESOURCES_HEADING = 'Resources'
+    resources_subpage_heading = TextField(default=RESOURCES_HEADING)
     resources_subpage_body = TextField(blank=True)
     resources_subpage = models.ForeignKey(
         'wagtailcore.Page',
