@@ -285,7 +285,7 @@ class ResourceItemPage(MethodsBasePage):
 @register_snippet
 class SharedContent(models.Model):
 
-    title = CharField(max_length=100, default='', blank=True)
+    title = CharField(max_length=500, default='', blank=True)
     content_body = RichTextField(default='', blank=True)
 
     panels = [
@@ -300,6 +300,6 @@ class SharedContent(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = "Shared Content"
+        verbose_name = "Shared Content Snippet"
 
 
