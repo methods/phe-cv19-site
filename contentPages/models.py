@@ -7,6 +7,7 @@ from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.models import register_snippet
 
 from core.models.pages import MethodsBasePage
 
@@ -279,3 +280,26 @@ class ResourceItemPage(MethodsBasePage):
     @property
     def link_url(self):
         return settings.FINAL_SITE_DOMAIN + self.url
+
+
+@register_snippet
+class SharedContent(models.Model):
+
+    title = CharField(max_length=100, default='', blank=True)
+    content_body = RichTextField(default='', blank=True)
+
+    panels = [
+
+        MultiFieldPanel([
+                FieldPanel("title"),
+                FieldPanel("content_body")
+            ], heading='Shared Content')
+    ]
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "Shared Content"
+
+
