@@ -124,6 +124,7 @@ def prerender_pages(sender, **kwargs):
             _log_and_print(f"... deployment to s3 complete.")
             _log_and_print(f"... clearing CloudFront cache.")
             invalidate_cache(settings.AWS_DISTRIBUTION_ID)
+            invalidate_cache(settings.AWS_DOWNLOAD_DISTRIBUTION_ID)
             _log_and_print(f"... CloudFront cache successfully cleared.")
         else:
             unset_s3_settings = [
@@ -154,19 +155,20 @@ def prerender_pages(sender, **kwargs):
 
 
 def invalidate_cache(distribution_id):
-    cache_client = boto3.client('cloudfront')
-    caller_reference = '{:%Y%m%d%H%M%S}'.format(datetime.datetime.now())
-    response = cache_client.create_invalidation(
-    DistributionId=distribution_id,
-    InvalidationBatch={
-        'Paths': {
-            'Quantity': 1,
-            'Items': [
-                '/*',
-            ]
-        },
-        'CallerReference': caller_reference
-    }
+    if (distribution_id):
+        cache_client = boto3.client('cloudfront')
+        caller_reference = '{:%Y%m%d%H%M%S}'.format(datetime.datetime.now())
+        response = cache_client.create_invalidation(
+        DistributionId=distribution_id,
+        InvalidationBatch={
+            'Paths': {
+                'Quantity': 1,
+                'Items': [
+                    '/*',
+                ]
+            },
+            'CallerReference': caller_reference
+        }
 )
 
 
