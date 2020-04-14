@@ -12,6 +12,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # ]
 ALLOWED_HOSTS = ['*']
 
+AWS_DISTRIBUTION_ID = os.environ.get('DISTRIBUTION_ID')
+AWS_DOWNLOAD_DISTRIBUTION_ID = os.environ.get('DOWNLOAD_DISTRIBUTION_ID')
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -36,12 +39,12 @@ LOGGING = {
     },
 }
 
-WAGTAILFRONTENDCACHE = {
-    'cloudfront': {
-        'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
-        'DISTRIBUTION_ID': os.environ.get('DISTRIBUTION_ID'),
-    },
-}
+# WAGTAILFRONTENDCACHE = {
+#     'cloudfront': {
+#         'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
+#         'DISTRIBUTION_ID': AWS_DISTRIBUTION_ID,
+#     },
+# }
 
 # Bakery settings
 

@@ -1,3 +1,4 @@
+import datetime
 import glob
 import logging
 import pyclamd
@@ -121,6 +122,10 @@ def prerender_pages(sender, **kwargs):
             _log_and_print(f"...deploying site to s3 bucket: {settings.AWS_STORAGE_BUCKET_NAME_DEPLOYMENT}...")
             export_directory()
             _log_and_print(f"... deployment to s3 complete.")
+            _log_and_print(f"... clearing CloudFront cache.")
+            invalidate_cache(settings.AWS_DISTRIBUTION_ID)
+            invalidate_cache(settings.AWS_DOWNLOAD_DISTRIBUTION_ID)
+            _log_and_print(f"... CloudFront cache successfully cleared.")
         else:
             unset_s3_settings = [
                 s3_setting["name"] for s3_setting in (
@@ -147,6 +152,24 @@ def prerender_pages(sender, **kwargs):
             )
     except Exception as e:
         _log_and_print(f"Deployment to s3 failed: {repr(e)}")
+
+
+def invalidate_cache(distribution_id):
+    if (distribution_id):
+        cache_client = boto3.client('cloudfront')
+        caller_reference = '{:%Y%m%d%H%M%S}'.format(datetime.datetime.now())
+        response = cache_client.create_invalidation(
+        DistributionId=distribution_id,
+        InvalidationBatch={
+            'Paths': {
+                'Quantity': 1,
+                'Items': [
+                    '/*',
+                ]
+            },
+            'CallerReference': caller_reference
+        }
+)
 
 
 def export_directory(path: str = ''):
