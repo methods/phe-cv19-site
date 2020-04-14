@@ -7,6 +7,7 @@ from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
 from core.models.pages import MethodsBasePage
@@ -99,7 +100,13 @@ class LandingPage(MethodsBasePage):
     )
     OVERVIEW_HEADING = 'Overview'
     overview_subpage_heading = TextField(default=OVERVIEW_HEADING)
-    overview_subpage_body = TextField(blank=True)
+    overview_subpage_body = models.ForeignKey(
+        'contentPages.SharedContent',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
     overview_subpage = models.ForeignKey(
         'wagtailcore.Page',
         null=True,
@@ -126,7 +133,7 @@ class LandingPage(MethodsBasePage):
         FieldPanel('signup_intro'),
         ImageChooserPanel('subpages_background_image'),
         FieldPanel('overview_subpage_heading'),
-        FieldPanel('overview_subpage_body'),
+        SnippetChooserPanel('overview_subpage_body'),
         PageChooserPanel('overview_subpage'),
         FieldPanel('resources_subpage_heading'),
         FieldPanel('resources_subpage_body'),
