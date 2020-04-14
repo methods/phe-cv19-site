@@ -5,6 +5,7 @@ from urllib.parse import urlencode
 
 from django import template
 from django.conf import settings
+from contentPages.models import SharedContent
 
 from CMS.enums import enums
 
@@ -71,3 +72,11 @@ def convert_s3_document_link(doc):
         return 'https://' + settings.DOWNLOADS_BUCKET_NAME + '/' + doc.file.name
     else:
         return doc.url
+
+
+@register.inclusion_tag('templates/contentPages/landing_page.html', takes_context=True)
+def overview_snippet(context):
+    return {
+        'overview': SharedContent.objects.all(),
+        'request': context['request']
+    }
