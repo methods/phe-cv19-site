@@ -6,10 +6,6 @@ from .base import *
 DEBUG = False
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# ALLOWED_HOSTS = [
-#     "dev-covid19-248806762.eu-west-1.elb.amazonaws.com",
-#     "localhost"
-# ]
 ALLOWED_HOSTS = ['*']
 
 AWS_DISTRIBUTION_ID = os.environ.get('DISTRIBUTION_ID')
@@ -38,13 +34,6 @@ LOGGING = {
         },
     },
 }
-
-# WAGTAILFRONTENDCACHE = {
-#     'cloudfront': {
-#         'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
-#         'DISTRIBUTION_ID': AWS_DISTRIBUTION_ID,
-#     },
-# }
 
 # Bakery settings
 
@@ -78,9 +67,9 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 
 SECURE_BROWSER_XSS_FILTER = True
 
-# SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
-# CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 
 try:
