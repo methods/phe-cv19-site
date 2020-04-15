@@ -253,11 +253,16 @@ a.skip-main {
         font-size: 19px;
         font-family: "HelveticaNeueMedium", Helvetica, Arial, sans-serif;
         color: #fff;
+        text-decoration: underline
+    }
+
+    a:visited {
+        color: #fff;
+        text-decoration: none
     }
 
     p.message {
         color: #fff;
-        text-decoration: underline;
-        font-weight: bold
+        font-weight: bold;
     }
 }
