@@ -116,7 +116,13 @@ class LandingPage(MethodsBasePage):
     )
     RESOURCES_HEADING = 'Resources'
     resources_subpage_heading = TextField(default=RESOURCES_HEADING)
-    resources_subpage_body = TextField(blank=True)
+    resources_subpage_body = models.ForeignKey(
+        'contentPages.SharedContent',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
     resources_subpage = models.ForeignKey(
         'wagtailcore.Page',
         null=True,
@@ -136,7 +142,7 @@ class LandingPage(MethodsBasePage):
         SnippetChooserPanel('overview_subpage_body'),
         PageChooserPanel('overview_subpage'),
         FieldPanel('resources_subpage_heading'),
-        FieldPanel('resources_subpage_body'),
+        SnippetChooserPanel('resources_subpage_body'),
         PageChooserPanel('resources_subpage'),
         FieldPanel('body'),
     ]
