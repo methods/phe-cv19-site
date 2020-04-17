@@ -1,8 +1,6 @@
 Code Formatting
 =======================
 
-_This documentation is for the Methods Wagtail base repository and should be replaced with project specific documentation_
-
 The code in this project is developed to the PyFlakes and pycodestyle coding standards, with the following exceptions:
 * line length extended to 120 characters
 * rule W605 disabled (invalid escape sequence)
