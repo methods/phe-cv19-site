@@ -101,6 +101,9 @@
             } else {
               that.signUpFailMessage.show();
             }
+          })
+          .fail(function(response) {
+            that.signUpFailMessage.show();
           });
         } else {
           that.showErrors();
