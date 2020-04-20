@@ -21,6 +21,7 @@
       - [Useful commands](#useful-commands)
       - [Adding new dependencies](#adding-new-dependencies)
 - [Contributing](#contributing)
+- [Data Reporting](#data-reporting)
 - [License](#license)
 
 <!-- vim-markdown-toc -->
@@ -207,6 +208,10 @@ docker-compose up
 ## Contributing
 
 See [CONTRIBUTING](docs/CONTRIBUTING.md) for details.
+
+## Producing Usage Reports
+
+See [Data Reporting](docs/data_reporting/DataReporting.md) for details.
 
 ## License
 
