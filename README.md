@@ -26,7 +26,7 @@
 
 ### Purpose of this app
 
-The purpose of this site is to provide PHE with a performant platform to distribute their advice and guideance related to the Coronavirus outbreak.
+The purpose of this site is to provide PHE with a performant platform to distribute their advice and guidance related to the Coronavirus outbreak.
 
 ### Tech stack
 
