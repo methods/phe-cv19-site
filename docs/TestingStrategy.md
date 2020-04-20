@@ -9,8 +9,6 @@ Testing
 
 <!-- vim-markdown-toc -->
 
-_This documentation is for the Methods Wagtail base repository and should be replaced with project specific documentation_
-
 ## Strategy
 
 The project is developed using the TDD approach, using the unittest module for writing unit tests.
