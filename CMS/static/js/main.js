@@ -61,6 +61,7 @@
       this.termsErrorSpace = this.termsField.siblings().filter('.subscription-form__error');
       this.signUpSuccessMessage = this.form.find('.subscription-form__success');
       this.signUpFailMessage = this.form.find('.subscription-form__fail');
+      this.alreadySignedUpMessage = this.form.find('.subscription-form__already');
       this.errors = {};
       this.startWatcher();
     },
@@ -81,6 +82,7 @@
       this.termsErrorSpace.parent().removeClass('error');
       this.signUpFailMessage.hide();
       this.signUpSuccessMessage.hide();
+      this.alreadySignedUpMessage.hide();
     },
 
     startWatcher: function() {
@@ -98,6 +100,13 @@
           $.post(SUBSCRIPTION_URL, formData, function(data, status) {
             if (status === 'success') {
               that.signUpSuccessMessage.show();
+            } else {
+              that.signUpFailMessage.show();
+            }
+          })
+          .fail(function(response) {
+            if (response.responseJSON === "Email address already registered") {
+              that.alreadySignedUpMessage.show();  
             } else {
               that.signUpFailMessage.show();
             }
