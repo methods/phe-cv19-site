@@ -1,8 +1,6 @@
 Releases
 =======================
 
-_This documentation is an example for use in projects not the process for the Methods Wagtail base repository._
-
 <!-- vim-markdown-toc GitLab -->
 
 * [Releases](#releases)

@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'wagtail.users',
     'wagtail.snippets',
     'wagtail.documents',
+
+    'core.apps.CoreConfig',
+    
     'wagtail.images',
     'wagtail.search',
     'wagtail.admin',
@@ -59,7 +62,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
 
-    'core.apps.CoreConfig',
     'errors.apps.ErrorsConfig',
     'search.apps.SearchConfig',
     'contentPages.apps.ContentpagesConfig',
