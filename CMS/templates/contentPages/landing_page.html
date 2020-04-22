@@ -35,10 +35,10 @@
             <div class="links-row" style="background-image: url({{ content_url }}); background-position: 25% 32%">
                 <div class="container">
                     <div class="col-md-6 col-xs-12">
-                        {% include 'partials/links-block.html' with page=page.overview_subpage heading=page.overview_subpage_heading body=page.overview_subpage_body %}
+                        {% include 'partials/links-block.html' with page=page.overview_subpage heading=page.overview_subpage_heading body=page.overview_subpage_body.content_body %}
                     </div>
                     <div class="col-md-6 col-xs-12">
-                        {% include 'partials/links-block.html' with page=page.resources_subpage heading=page.resources_subpage_heading body=page.resources_subpage_body %}
+                        {% include 'partials/links-block.html' with page=page.resources_subpage heading=page.resources_subpage_heading body=page.resources_subpage_body.content_body %}
                     </div>
                 </div>
             </div>
