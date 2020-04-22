@@ -28,10 +28,10 @@
                                     <div class="col-sm-6">
                                         <div class="download-button-wrapper">
                                             {% if page.upload_link %}
-                                                <a class="download-button" href="{{ page.upload_link }}">Downloadable</a>
+                                                <a class="download-button" href="{{ page.upload_link }}">Download</a>
                                             {% elif page.link_document %}
                                                 {% convert_s3_document_link page.link_document as link_document_url %}
-                                                <a class="download-button" href="{{ link_document_url }}">Downloadable</a>
+                                                <a class="download-button" href="{{ link_document_url }}">Download</a>
                                             {% endif %}
 
                                         </div>
