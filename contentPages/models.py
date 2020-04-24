@@ -265,6 +265,16 @@ class ResourceItemPage(MethodsBasePage):
         verbose_name='Upload document'
     )
 
+    ASSET_TYPES = (
+            ('posters', 'Poster'),
+            ('digital_screens', 'Digital Screen'),
+            ('social_media', 'Social Media Resource'),
+            ('web_banners', 'Web Banner'),
+            ('alternative_resources', 'Alternative Resource')
+        )
+
+    document_type = models.CharField(max_length=25, choices=ASSET_TYPES, default='posters')
+
     upload_link = TextField(blank=True, default='')
 
     product_code = CharField(max_length=256, blank=True, null=True, default='')
@@ -279,6 +289,7 @@ class ResourceItemPage(MethodsBasePage):
             FieldPanel('description'),
             FieldPanel('upload_link'),
             DocumentChooserPanel('link_document'),
+            FieldPanel('document_type'),
             ImageChooserPanel('preview_image'),
             FieldPanel('preview_image_screen_reader_text'),
         ], heading='Header section'),
