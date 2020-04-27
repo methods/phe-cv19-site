@@ -94,13 +94,11 @@ class AllResourcesTile(Orderable):
 
 class AllResourcesPage(MethodsBasePage):
     subpage_types = [
-        'contentPages.LandingPage',
-        'subscription.SubscriptionPage',
-        'errors.ErrorPage',
+        'contentPages.AssetTypePage',
     ]
 
     parent_page_type = [
-        'wagtailcore.Page'
+        'contentPages.HomePage'
     ]
 
     heading = TextField(blank=True)
@@ -124,6 +122,39 @@ class AllResourcesPage(MethodsBasePage):
         FieldPanel('signup_intro'),
         FieldPanel('asset_list_header'),
         InlinePanel('asset_types', label='Asset Types')
+    ]
+
+    def get_child_of_type(self, asset_type):
+        
+
+
+class AssetTypePage(MethodsBasePage):
+    subpage_types = []
+
+    parent_page_type = ['contentPages.AllResourcesPage']
+
+    heading = TextField(blank=True)
+    subtitle = TextField(blank=True)
+    banner_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    ASSET_TYPE_HEADER = 'Type Resources'
+    signup_intro = TextField(blank=True)
+    asset_type_header = TextField(default=ASSET_TYPE_HEADER)
+    document_type = models.CharField(max_length=25, choices=enums.asset_types, default='posters')
+
+    content_panels = MethodsBasePage.content_panels + [
+        FieldPanel('heading'),
+        FieldPanel('subtitle'),
+        ImageChooserPanel('banner_image'),
+        FieldPanel('signup_intro'),
+        FieldPanel('asset_type_header'),
+        FieldPanel('document_type')
     ]
 
 
