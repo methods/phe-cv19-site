@@ -9,6 +9,7 @@ from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
+from CMS.enums import enums
 
 from core.models.pages import MethodsBasePage
 
@@ -73,6 +74,24 @@ class HomePage(MethodsBasePage):
     ]
 
 
+class AllResourcesTile(Orderable):
+    caption = models.CharField(max_length=25, choices=enums.asset_types, default='posters')
+    thumbnail_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    page = ParentalKey("AllResourcesPage", related_name="asset_types")
+
+    panels = [
+        FieldPanel('caption'),
+        ImageChooserPanel('thumbnail_image')
+    ]
+
+
 class AllResourcesPage(MethodsBasePage):
     subpage_types = [
         'contentPages.LandingPage',
@@ -103,7 +122,8 @@ class AllResourcesPage(MethodsBasePage):
         FieldPanel('subtitle'),
         ImageChooserPanel('banner_image'),
         FieldPanel('signup_intro'),
-        FieldPanel('asset_list_header')
+        FieldPanel('asset_list_header'),
+        InlinePanel('asset_types', label='Asset Types')
     ]
 
 
@@ -300,15 +320,7 @@ class ResourceItemPage(MethodsBasePage):
         verbose_name='Upload document'
     )
 
-    ASSET_TYPES = (
-            ('posters', 'Poster'),
-            ('digital_screens', 'Digital Screen'),
-            ('social_media', 'Social Media Resource'),
-            ('web_banners', 'Web Banner'),
-            ('alternative_resources', 'Alternative Resource')
-        )
-
-    document_type = models.CharField(max_length=25, choices=ASSET_TYPES, default='posters')
+    document_type = models.CharField(max_length=25, choices=enums.asset_types, default='posters')
 
     upload_link = TextField(blank=True, default='')
 
