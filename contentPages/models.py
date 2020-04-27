@@ -44,6 +44,7 @@ class HomePage(MethodsBasePage):
         'contentPages.LandingPage',
         'subscription.SubscriptionPage',
         'errors.ErrorPage',
+        'contentPages.AllResourcesPage'
     ]
 
     parent_page_type = [
@@ -72,25 +73,7 @@ class HomePage(MethodsBasePage):
     ]
 
 
-class AssetType(Orderable):
-    caption = TextField(blank=True)
-    thumbnail_image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-
-    page = ParentalKey("AllResources", related_name="asset_types")
-
-    panels = [
-        FieldPanel('caption'),
-        ImageChooserPanel('thumbnail_image'),
-    ]
-
-
-class AllResources(MethodsBasePage):
+class AllResourcesPage(MethodsBasePage):
     subpage_types = [
         'contentPages.LandingPage',
         'subscription.SubscriptionPage',
@@ -110,16 +93,17 @@ class AllResources(MethodsBasePage):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+
+    ASSET_LIST_HEADER = 'Resources List'
     signup_intro = TextField(blank=True)
-    asset_list_header = TextField(blank=True)
+    asset_list_header = TextField(default=ASSET_LIST_HEADER)
 
     content_panels = MethodsBasePage.content_panels + [
         FieldPanel('heading'),
         FieldPanel('subtitle'),
         ImageChooserPanel('banner_image'),
         FieldPanel('signup_intro'),
-        FieldPanel('asset_list_header'),
-        InlinePanel('asset_types', label="Resources list")
+        FieldPanel('asset_list_header')
     ]
 
 
