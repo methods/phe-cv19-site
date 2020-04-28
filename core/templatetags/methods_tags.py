@@ -13,7 +13,6 @@ register = template.Library()
 
 @register.simple_tag
 def get_child_of_type(page, child_type):
-    print(child_type)
     return page.get_child_of_type(child_type)
 
 
