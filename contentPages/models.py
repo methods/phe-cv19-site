@@ -125,7 +125,10 @@ class AllResourcesPage(MethodsBasePage):
     ]
 
     def get_child_of_type(self, asset_type):
-        
+        children = self.get_children()
+        for child in children:
+            if child.specific.document_type == asset_type:
+                return child
 
 
 class AssetTypePage(MethodsBasePage):
