@@ -46,6 +46,7 @@ class UsageReport():
       QueryString=sql_command,
       ResultConfiguration={
         'OutputLocation': settings.ATHENA_OUTPUT_BUCKET,
+        # Possibly specify directory for data for that date, to save renaming the file.
       },
       WorkGroup=settings.ATHENA_WORKGROUP
     )
