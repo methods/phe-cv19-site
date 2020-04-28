@@ -9,12 +9,12 @@ class UsageReport():
 
   CONFIG = {
     "page_views": {
-      "sql_file": "/data_reports/scripts/page_views_export_report.sql",
+      "sql_file": "/data_reports/scripts/page_views_export_script.sql",
       "results_file": "Page views"
 
     },
     "downloads": {
-      "sql_file": "/data_reports/scripts/downloads_export_report.sql",
+      "sql_file": "/data_reports/scripts/downloads_export_script.sql",
       "results_file": "Downloads"
     }
   }
@@ -65,7 +65,7 @@ class UsageReport():
     processed_results = cls.process_results(results['Rows'])
     
     yesterday = date.today() - timedelta(days=1).strftime('%d-%m-%y')
-    filename = "{0} {1}.csv".format(results_file, yesterday)
+    filename = settings.BASE_DIR + "/tmp/{0} {1}.csv".format(results_file, yesterday)
 
     with open(filename, 'wb') as csvfile:
       filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
