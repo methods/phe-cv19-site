@@ -44,16 +44,16 @@
             <div class="container">
                 <h2>Resources</h2>
                 <div class="spacer-top-2">
-                    {% for campaign in page.campaign_items.all %}
+                    {% for asset_type in page.asset_types.all %}
 
-                        {% image campaign.thumbnail_image original as thumbnail %}
+                        {% image asset_type.thumbnail_image original as thumbnail %}
                         {% convert_s3_link thumbnail.url as thumbnail_url %}
-
+                        {% get_child_of_type page asset_type.caption as asset_type_page %}
                         <div class="campaign-item col-md-3 col-sm-6" style="margin-bottom:1rem">
                             <a class="campaign-item__link-area"
                                style="background-image: url({{ thumbnail_url }})"
-                               href="{% if campaign.campaign_landing_page %}{% pageurl campaign.campaign_landing_page %}{% endif %}">
-                                <h3 class="campaign-item__caption">{{ campaign.caption }}</h3>
+                               href="{% pageurl asset_type_page %}">
+                                <h3 class="campaign-item__caption">{{ asset_type.caption }}</h3>
                                 <div class="campaign-item__arrow"></div>
 
                                 <div class="overlay"></div>

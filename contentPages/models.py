@@ -160,6 +160,9 @@ class AssetTypePage(MethodsBasePage):
         FieldPanel('document_type')
     ]
 
+    def resource_item_pages(self):
+        return ResourceItemPage.objects.filter(document_type=self.document_type)
+
 
 class LandingPage(MethodsBasePage):
     subpage_types = [
