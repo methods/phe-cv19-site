@@ -35,7 +35,7 @@
                             <a class="campaign-item__link-area"
                                style="background-image: url({{ thumbnail_url }})"
                                href="{% pageurl asset_type_page %}">
-                                <h3 class="campaign-item__caption">{{ asset_type.caption }}</h3>
+                                <h3 class="campaign-item__caption">{{ asset_type.get_asset_string }}</h3>
                                 <div class="campaign-item__arrow"></div>
 
                                 <div class="overlay"></div>
