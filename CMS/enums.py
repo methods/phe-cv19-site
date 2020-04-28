@@ -9,9 +9,14 @@ class Enums:
     asset_types = (
         ('posters', 'Poster'),
         ('digital_screens', 'Digital Screen'),
-        ('social_media', 'Social Media Resource'),
-        ('web_banners', 'Web Banner'),
-        ('alternative_resources', 'Alternative Resource')
+        ('alternative_formats', 'Alternative Format'),
+        ('digital_out_of_home', 'Digital out-of-home'),
+        ('email_signatures', 'Email Signature'),
+        ('fact_sheets', 'Fact Sheet'),
+        ('leaflet', 'Leaflet'),
+        ('lockup', 'Lockup'),
+        ('pm_letter', 'PM Letter'),
+        ('press_release', 'Press Release')
     )
 
 
