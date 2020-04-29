@@ -10,12 +10,12 @@ class UsageReport():
   CONFIG = {
     "page_views": {
       "sql_file": "/data_reports/scripts/page_views_export_script.sql",
-      "results_file": "Page views"
+      "directory_name": "page_views_reports"
 
     },
     "downloads": {
       "sql_file": "/data_reports/scripts/downloads_export_script.sql",
-      "results_file": "Downloads"
+      "directory_name": "downloads_reports"
     }
   }
   
@@ -26,13 +26,7 @@ class UsageReport():
 
     sql_command = cls.get_sql_command(report_config['sql_file'])
     
-    query_id = cls.run_query(athena_client, sql_command)
-
-    query_results = cls.get_results(athena_client, query_id)
-
-    filename = cls.generate_csv(query_results, report_config['results_file'])
-
-    return filename
+    cls.run_query(athena_client, sql_command, report_config['directory_name'])
 
 
   @classmethod
@@ -41,54 +35,14 @@ class UsageReport():
     return file.read()
 
   @classmethod
-  def run_query(cls, client, sql_command):
+  def run_query(cls, client, sql_command, report_type):
+    yesterday = date.today() - timedelta(days=1).strftime('%d-%m-%y')
+    output_location = "{0}/{1}/{2}/".format(settings.ATHENA_OUTPUT_BUCKET, report_type, yesterday)
+
     response = client.start_query_execution(
       QueryString=sql_command,
       ResultConfiguration={
-        'OutputLocation': settings.ATHENA_OUTPUT_BUCKET,
-        # Possibly specify directory for data for that date, to save renaming the file.
+        'OutputLocation': output_location,
       },
       WorkGroup=settings.ATHENA_WORKGROUP
     )
-
-    return response['QueryExecutionId']
-
-  @classmethod
-  def get_results(cls, client, query_id):
-    response = client.get_query_results(
-      QueryExecutionId=query_id
-    )
-    return response['ResultSet']
-
-  @classmethod
-  def generate_csv(cls, results, results_file):
-    headers = cls.get_headers(results['ResultSetMetadata']['ColumnInfo'])
-    processed_results = cls.process_results(results['Rows'])
-    
-    yesterday = date.today() - timedelta(days=1).strftime('%d-%m-%y')
-    filename = settings.BASE_DIR + "/tmp/{0} {1}.csv".format(results_file, yesterday)
-
-    with open(filename, 'wb') as csvfile:
-      filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-      filewriter.writerow(headers)
-      for row in processed_results:
-        filewriter.writerow(row)
-
-    return filename
-
-  @classmethod
-  def get_headers(cls, column_info):
-    headers = []
-    for column in column_info:
-      headers.push(column['Label'])
-    return headers
-
-  @classmethod
-  def process_results(cls, rows):
-    processed_results = []
-    for row in rows:
-      data = []
-      for field in row['Data']:
-        data.push(field['VarCharValue'])
-      processed_results.push(data)
-    return processed_results
