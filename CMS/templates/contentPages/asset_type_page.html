@@ -1,0 +1,49 @@
+{% extends "../base.html" %}
+{% load wagtailcore_tags wagtailimages_tags sass_tags methods_tags %}
+
+{% block content %}
+
+{% image page.banner_image original as banner %}
+{% convert_s3_link banner.url as banner_url %}
+
+<main id="main-content" tabindex="-1">
+    <div id="content">
+        <div class="row">
+            {% include 'partials/breadcrumbs.html' with ancestors=page.breadcrumbs title=page.title %}
+        </div>
+
+
+        <div class="crc-tab-content-shelf">
+            <div class="container crc-nav-tab-content">
+                <div class="resources-search-panel">
+                    <div class="row">
+                        <div class="col-sm-9 col-xs-7">
+                            <div class="row">
+                                <div class="col-sm-9 col-xs-12">
+                                    <div id="search-results-summary">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="panel-heading">{{ page.asset_count }} items matching</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="search-results" class="spacer-top-1">
+                                <div class="row">
+                                    <ul class="crc-thumbnails">
+                                        {% for resource_item_page in page.resource_item_pages  %}
+                                        {% include 'partials/resource_list_item.html' with resource_page=resource_item_page %}
+                                    {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
