@@ -398,6 +398,14 @@ class ResourceItemPage(MethodsBasePage):
     def link_url(self):
         return settings.FINAL_SITE_DOMAIN + self.url
 
+    @property
+    def get_selected_asset_types(self):
+        asset_choices = []
+        selected_assets = ResourceItemPage.objects.filter(document_type=self.document_type)
+        if selected_assets:
+            asset_choices.append(selected_assets)
+            return asset_choices
+
 
 @register_snippet
 class SharedContent(models.Model):
