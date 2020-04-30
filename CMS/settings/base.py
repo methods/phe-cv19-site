@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'wagtail.users',
     'wagtail.snippets',
     'wagtail.documents',
+    "django.contrib.sitemaps",
 
     'core.apps.CoreConfig',
     
