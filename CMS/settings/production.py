@@ -39,6 +39,7 @@ LOGGING = {
 
 BAKERY_VIEWS = (
     'wagtailbakery.views.AllPublishedPagesView',
+    'static_views.views.SitemapView',
 )
 
 # File upload settings
