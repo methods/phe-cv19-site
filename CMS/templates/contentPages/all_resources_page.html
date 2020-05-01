@@ -31,16 +31,17 @@
                         {% image asset_type.thumbnail_image original as thumbnail %}
                         {% convert_s3_link thumbnail.url as thumbnail_url %}
                         {% get_child_of_type page asset_type.caption as asset_type_page %}
-                        <div class="campaign-item col-md-3 col-sm-6" style="margin-bottom:1rem">
-                            <a class="campaign-item__link-area"
-                               style="background-image: url({{ thumbnail_url }})"
-                               href="{% pageurl asset_type_page %}">
-                                <h3 class="campaign-item__caption">{{ asset_type.get_asset_string }}</h3>
-                                <div class="campaign-item__arrow"></div>
-
-                                <div class="overlay"></div>
-                            </a>
-                        </div>
+                        {% if asset_type_page %}
+                            <div class="campaign-item col-md-3 col-sm-6" style="margin-bottom:1rem">
+                                <a class="campaign-item__link-area"
+                                    style="background-image: url({{ thumbnail_url }})"
+                                    href="{% pageurl asset_type_page %}">
+                                    <h3 class="campaign-item__caption">{{ asset_type.get_asset_string }}</h3>
+                                    <div class="campaign-item__arrow"></div>
+                                    <div class="overlay"></div>
+                                </a>
+                            </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>
