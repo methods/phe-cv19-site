@@ -11,6 +11,10 @@ from CMS.enums import enums
 
 register = template.Library()
 
+@register.simple_tag
+def get_child_of_type(page, child_type):
+    return page.get_child_of_type(child_type)
+
 
 @register.simple_tag
 def queryparams(*_, **kwargs):

@@ -56,7 +56,7 @@ AWS_S3_MAX_MEMORY_SIZE = os.environ.get('AWS_S3_MAX_MEMORY_SIZE', int(2.5 * 1000
 AWS_ACCESS_KEY_ID_DEPLOYMENT = os.environ.get('AWS_ACCESS_KEY_ID_DEPLOYMENT')
 AWS_SECRET_ACCESS_KEY_DEPLOYMENT = os.environ.get('AWS_SECRET_ACCESS_KEY_DEPLOYMENT')
 AWS_STORAGE_BUCKET_NAME_DEPLOYMENT = os.environ.get('AWS_STORAGE_BUCKET_NAME_DEPLOYMENT')
-AWS_REGION_DEPLOYMENT = os.environ.get('AWS_REGION_DEPLOYMENT')
+AWS_REGION_DEPLOYMENT = os.environ.get('AWS_REGION_DEPLOYMENT', 'eu-west-1')
 
 # Security settings
 
@@ -78,7 +78,7 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
 EMAIL_HOST = os.environ.get('EMAIL_HOST', 'email-smtp.eu-west-1.amazonaws.com')
 EMAIL_PORT = os.environ.get('EMAIL_PORT', 25)
-EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', True) 
+EMAIL_USE_TLS = True 
 EMAIL_SUBJECT_PREFIX = '[Coronavirus Resources ] '
 WAGTAILADMIN_NOTIFICATION_FROM_EMAIL = os.environ.get('FROM_EMAIL', 'partnerships@phe.gov.uk')
 WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS = False

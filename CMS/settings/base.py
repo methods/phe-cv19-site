@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'errors.apps.ErrorsConfig',
     'search.apps.SearchConfig',
     'contentPages.apps.ContentpagesConfig',
+    'data_reports.apps.DataReportsConfig',
     'subscription.apps.SubscriptionConfig',
     'static_views.apps.StaticViewsConfig',
 

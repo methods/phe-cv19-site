@@ -38,6 +38,8 @@ def _set_job_schedule(job, period_units, period):
         job.hour.every(period)
     elif period_units == "day":
         job.day.every(period)
+    elif period_units == "daily":
+        job.hour.on(period)
 
 
 def write_mgmt_task_runner(
