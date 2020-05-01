@@ -74,8 +74,18 @@ class HomePage(MethodsBasePage):
     ]
 
 
+def get_selected_asset_types():
+    asset_choices = []
+    selected_assets = ResourceItemPage.objects.all()
+    for selected_asset in selected_assets:
+        for item in enums.asset_types:
+            if selected_asset.document_type == item[0]:
+                asset_choices.append(item)
+    return asset_choices
+
+
 class AllResourcesTile(Orderable):
-    caption = models.CharField(max_length=25, choices=enums.asset_types, default='posters')
+    caption = models.CharField(max_length=25, choices=get_selected_asset_types(), default='')
     thumbnail_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -96,7 +106,7 @@ class AllResourcesTile(Orderable):
             if asset_type[0] == self.caption:
                 return asset_type[1]
 
-
+    
 class AllResourcesPage(MethodsBasePage):
     subpage_types = [
         'contentPages.AssetTypePage',
@@ -397,14 +407,6 @@ class ResourceItemPage(MethodsBasePage):
     @property
     def link_url(self):
         return settings.FINAL_SITE_DOMAIN + self.url
-
-    @property
-    def get_selected_asset_types(self):
-        asset_choices = []
-        selected_assets = ResourceItemPage.objects.filter(document_type=self.document_type)
-        if selected_assets:
-            asset_choices.append(selected_assets)
-            return asset_choices
 
 
 @register_snippet
