@@ -24,3 +24,8 @@ cron_jobs:
     period_units: "minutes"
     period: 30
     logging: True
+  - name: "Generate Usage Reports"
+    mgmt_command: "generate_usage_reports"
+    period_units: "daily"
+    period: 5
+    logging: True

@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'search.apps.SearchConfig',
     'contentPages.apps.ContentpagesConfig',
     'subscription.apps.SubscriptionConfig',
+    'data_reports.apps.DataReportsConfig',
 
     'sass_processor',
     'storages',
