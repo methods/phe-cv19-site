@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'wagtail.users',
     'wagtail.snippets',
     'wagtail.documents',
+    "django.contrib.sitemaps",
 
     'core.apps.CoreConfig',
     
@@ -65,8 +66,9 @@ INSTALLED_APPS = [
     'errors.apps.ErrorsConfig',
     'search.apps.SearchConfig',
     'contentPages.apps.ContentpagesConfig',
-    'subscription.apps.SubscriptionConfig',
     'data_reports.apps.DataReportsConfig',
+    'subscription.apps.SubscriptionConfig',
+    'static_views.apps.StaticViewsConfig',
 
     'sass_processor',
     'storages',
