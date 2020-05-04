@@ -10,9 +10,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RenameField(
+        migrations.RemoveField(
             model_name='resourceitempage',
-            old_name='asset_type',
-            new_name='document_type',
+            name='asset_type',
         ),
+
     ]

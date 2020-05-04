@@ -31,21 +31,21 @@ class Migration(migrations.Migration):
             },
             bases=('wagtailcore.page',),
         ),
-        migrations.RenameModel(
-            old_name='AssetType',
-            new_name='AllResourcesTile',
-        ),
-        migrations.AlterField(
-            model_name='allresourcestile',
-            name='page',
-            field=modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='asset_types', to='contentPages.AllResourcesPage'),
-        ),
-        migrations.AlterField(
-            model_name='resourceitempage',
-            name='document_type',
-            field=models.CharField(choices=[('posters', 'Poster'), ('digital_screens', 'Digital Screen'), ('social_media', 'Social Media Resource'), ('web_banners', 'Web Banner'), ('alternative_resources', 'Alternative Resource')], default='posters', max_length=25),
-        ),
-        migrations.DeleteModel(
-            name='AllResources',
+        migrations.CreateModel(
+            name='AllResourcesTile',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
+                ('caption', models.TextField(blank=True)),
+                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE,
+                                                         related_name='asset_types', to='contentPages.AllResourcesPage')),
+                ('thumbnail_image',
+                 models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL,
+                                   related_name='+', to='wagtailimages.Image')),
+            ],
+            options={
+                'ordering': ['sort_order'],
+                'abstract': False,
+            },
         ),
     ]

@@ -2,6 +2,7 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
+import modelcluster.fields
 
 
 class Migration(migrations.Migration):
@@ -13,6 +14,14 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.AddField(
+            model_name='resourceitempage',
+            name='document_type',
+            field=models.CharField(choices=[('posters', 'Poster'), ('digital_screens', 'Digital Screens'),
+                                            ('social_media', 'Social Media Resources'), ('web_banners', 'Web Banners'),
+                                            ('alternative_resources', 'Alternative Resources')], default='posters',
+                                   max_length=25),
+        ),
         migrations.AlterField(
             model_name='allresourcestile',
             name='caption',
