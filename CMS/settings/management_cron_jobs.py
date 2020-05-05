@@ -155,7 +155,7 @@ def schedule_cron_jobs():
 
 
 if __name__ == "__main__":
-    SCHEDULE_CRON_JOBS = os.environ.get("SCHEDULE_CRON_JOBS")
+    SCHEDULE_CRON_JOBS = os.environ.get("SCHEDULE_CRON_JOBS", "true")
     if SCHEDULE_CRON_JOBS and SCHEDULE_CRON_JOBS.lower() == "true":
         schedule_cron_jobs()
     else:
