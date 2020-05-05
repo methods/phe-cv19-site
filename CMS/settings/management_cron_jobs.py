@@ -39,7 +39,7 @@ def _set_job_schedule(job, period_units, period):
     elif period_units == "day":
         job.day.every(period)
     elif period_units == "daily":
-        job.hour.on(period)
+        job.setall(f'0 {period} * * *')
 
 
 def write_mgmt_task_runner(
@@ -63,7 +63,7 @@ def write_mgmt_task_runner(
     runner_file_lines = ["#!/bin/bash"]
 
     # append export statements for complete env to runner file
-    runner_file_lines += [f"export {k}={v}" for k, v in os.environ.items()]
+    runner_file_lines += [f'export {k}="{v}"' for k, v in os.environ.items()]
 
     # get path to python intepreter in use by the script caller
     python_interpreter = sys.executable
@@ -130,7 +130,7 @@ def schedule_cron_jobs():
 
         try:
             period_units = difflib.get_close_matches(
-                cron_job["period_units"], ("second", "minute", "hour", "day"), n=1
+                cron_job["period_units"], ("second", "minute", "hour", "day", "daily"), n=1
             )[0]
         except IndexError:
             _log_and_print(
@@ -155,7 +155,7 @@ def schedule_cron_jobs():
 
 
 if __name__ == "__main__":
-    SCHEDULE_CRON_JOBS = os.environ.get("SCHEDULE_CRON_JOBS")
+    SCHEDULE_CRON_JOBS = os.environ.get("SCHEDULE_CRON_JOBS", "true")
     if SCHEDULE_CRON_JOBS and SCHEDULE_CRON_JOBS.lower() == "true":
         schedule_cron_jobs()
     else:
