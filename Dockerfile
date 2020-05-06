@@ -9,7 +9,7 @@ RUN pip install -r requirements.txt
 RUN apt-get update
 RUN apt-get install cron vim -y
 RUN touch /var/log/cron.log
-RUN export TZ=Europe/London
+ENV TZ=Europe/London
 
 COPY . /code/
 
