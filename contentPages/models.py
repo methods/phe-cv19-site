@@ -10,6 +10,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from CMS.enums import enums
+from django.contrib.contenttypes.models import ContentType
 
 from core.models.pages import MethodsBasePage
 
@@ -418,3 +419,48 @@ class AssetTypePage(MethodsBasePage):
     def asset_count(self):
         resource_count = len(ResourceItemPage.objects.filter(document_type=self.document_type))
         return resource_count
+
+
+class CreateCampaign(MethodsBasePage):
+    root = MethodsBasePage.get_first_root_node()
+
+    landing_page_content_type = ContentType.objects.get_for_model(
+        LandingPage
+    )
+    landing_page = LandingPage(
+        title='skeleton campaign',
+        draft_title='skeleton campaign',
+        slug='skeleton campaign',
+        content_type=landing_page_content_type,
+        show_in_menus=True
+    )
+
+    parent_page = LandingPage.objects.first()
+    overview_content_type = ContentType.objects.get_for_model(
+        OverviewPage
+    )
+    overview_page = OverviewPage(
+        title='skeleton campaign',
+        draft_title='skeleton campaign',
+        slug='skeleton-overview',
+        content_type=overview_content_type,
+        show_in_menus=True
+    )
+
+    resources_content_type = ContentType.objects.get_for_model(
+        ResourcesPage
+    )
+    resources_page = ResourcesPage(
+        title='skeleton campaign',
+        draft_title='skeleton campaign',
+        slug='skeleton-resources',
+        content_type=resources_content_type,
+        show_in_menus=True
+    )
+
+    root.add_child(instance=landing_page)
+    parent_page.add_child(instance=overview_page)
+    parent_page.add_child(instance=resources_page)
+    landing_page.save_revision()
+    overview_page.save()
+    resources_page.save()
