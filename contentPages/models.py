@@ -36,6 +36,13 @@ class HomePageCampaign(Orderable):
         PageChooserPanel('campaign_landing_page'),
     ]
 
+    @property
+    def show_tile(self):
+        if self.campaign_landing_page:
+            return self.campaign_landing_page.live
+        return True
+    
+
 
 class HomePage(MethodsBasePage):
     subpage_types = [
@@ -57,7 +64,7 @@ class HomePage(MethodsBasePage):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-    signup_intro = TextField(blank=True)
+    signup_intro = RichTextField(null=True, blank=True)
     campaign_list_header = TextField(blank=True)
 
     content_panels = MethodsBasePage.content_panels + [
