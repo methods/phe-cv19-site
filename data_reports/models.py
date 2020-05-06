@@ -36,7 +36,7 @@ class UsageReport():
 
   @classmethod
   def run_query(cls, client, sql_command, report_type):
-    yesterday = date.today() - timedelta(days=1).strftime('%d-%m-%y')
+    yesterday = (date.today() - timedelta(days=1)).strftime('%d-%m-%y')
     output_location = "{0}/{1}/{2}/".format(settings.ATHENA_OUTPUT_BUCKET, report_type, yesterday)
 
     response = client.start_query_execution(
