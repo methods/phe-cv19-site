@@ -83,6 +83,9 @@ EMAIL_SUBJECT_PREFIX = '[Coronavirus Resources ] '
 WAGTAILADMIN_NOTIFICATION_FROM_EMAIL = os.environ.get('FROM_EMAIL', 'partnerships@phe.gov.uk')
 WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS = False
 
+ATHENA_WORKGROUP = os.environ.get('ATHENA_WORKGROUP', 'primary')
+ATHENA_OUTPUT_BUCKET = os.environ.get('ATHENA_OUTPUT_BUCKET')
+
 
 try:
     from .local import *
