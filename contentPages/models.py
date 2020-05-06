@@ -36,6 +36,13 @@ class HomePageCampaign(Orderable):
         PageChooserPanel('campaign_landing_page'),
     ]
 
+    @property
+    def show_tile(self):
+        if self.campaign_landing_page:
+            return self.campaign_landing_page.live
+        return True
+    
+
 
 class HomePage(MethodsBasePage):
     subpage_types = [
