@@ -1,0 +1,31 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailimages_tags wagtailadmin_tags static i18n l10n methods_tags %}
+{% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
+{% block extra_css %}
+    {{ block.super }}
+
+    <!-- Focal point chooser -->
+    <link rel="stylesheet" href="{% static 'wagtailimages/css/vendor/jquery.Jcrop.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'wagtailimages/css/focal-point-chooser.css' %}" type="text/css">
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
+    <script>
+        $(function() {
+            $('#id_tags').tagit({
+                autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
+            });
+        });
+    </script>
+
+{% endblock %}
+
+{% block content %}
+    {% trans "Editing" as editing_str %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=image.title icon="image" %}
+
+{% endblock %}
+
