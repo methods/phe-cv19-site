@@ -147,6 +147,18 @@ class LandingPage(MethodsBasePage):
         FieldPanel('body'),
     ]
 
+    def get_resources_subpage(self):
+        children = self.get_children().specific()
+        for child in children:
+            if type(child) == ResourcesPage:
+                return child
+
+    def get_overview_subpage(self):
+        children = self.get_children().specific()
+        for child in children:
+            if type(child) == OverviewPage:
+                return child
+
 
 class OverviewPage(MethodsBasePage):
     subpage_types = []
