@@ -142,10 +142,8 @@ class LandingPage(MethodsBasePage):
         ImageChooserPanel('subpages_background_image'),
         FieldPanel('overview_subpage_heading'),
         SnippetChooserPanel('overview_subpage_body'),
-        PageChooserPanel('overview_subpage'),
         FieldPanel('resources_subpage_heading'),
         SnippetChooserPanel('resources_subpage_body'),
-        PageChooserPanel('resources_subpage'),
         FieldPanel('body'),
     ]
 
