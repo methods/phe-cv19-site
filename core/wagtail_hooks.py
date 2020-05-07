@@ -53,7 +53,7 @@ modeladmin_register(AccessAttemptAdmin)
 def page_listing_buttons(page, page_perms, is_parent=False):
     yield wagtailadmin_widgets.PageListingButton(
         'Create Campaign',
-        '',
+        '/admin/create-campaign/',
         priority=60
     )
 
@@ -61,3 +61,4 @@ def page_listing_buttons(page, page_perms, is_parent=False):
 @hooks.register('register_rich_text_features')
 def unregister_document_feature(features):
     features.default_features.remove('document-link')
+
