@@ -42,7 +42,7 @@
 
         <div class="shelf departments">
             <div class="container">
-                <h2>{{ page.campaign_list_header }}</h2>
+                <h2>{{ page.campaign_list_header | richtext }}</h2>
                 <div class="spacer-top-2">
                     {% for campaign in page.campaign_items.all %}
 
