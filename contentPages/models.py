@@ -65,7 +65,7 @@ class HomePage(MethodsBasePage):
         related_name='+'
     )
     signup_intro = RichTextField(null=True, blank=True)
-    campaign_list_header = TextField(blank=True)
+    campaign_list_header = RichTextField(null=True, blank=True)
 
     content_panels = MethodsBasePage.content_panels + [
         FieldPanel('heading'),
