@@ -421,46 +421,47 @@ class AssetTypePage(MethodsBasePage):
         return resource_count
 
 
-class CreateCampaign(MethodsBasePage):
-    root = MethodsBasePage.get_first_root_node()
-
-    landing_page_content_type = ContentType.objects.get_for_model(
-        LandingPage
-    )
-    landing_page = LandingPage(
-        title='skeleton campaign',
-        draft_title='skeleton campaign',
-        slug='skeleton campaign',
-        content_type=landing_page_content_type,
-        show_in_menus=True
-    )
-
-    parent_page = LandingPage.objects.first()
-    overview_content_type = ContentType.objects.get_for_model(
-        OverviewPage
-    )
-    overview_page = OverviewPage(
-        title='skeleton campaign',
-        draft_title='skeleton campaign',
-        slug='skeleton-overview',
-        content_type=overview_content_type,
-        show_in_menus=True
-    )
-
-    resources_content_type = ContentType.objects.get_for_model(
-        ResourcesPage
-    )
-    resources_page = ResourcesPage(
-        title='skeleton campaign',
-        draft_title='skeleton campaign',
-        slug='skeleton-resources',
-        content_type=resources_content_type,
-        show_in_menus=True
-    )
-
-    root.add_child(instance=landing_page)
-    parent_page.add_child(instance=overview_page)
-    parent_page.add_child(instance=resources_page)
-    landing_page.save_revision()
-    overview_page.save()
-    resources_page.save()
+# class CreateCampaign(MethodsBasePage):
+#     parent_page_type = [
+#         'wagtailcore.HomePage'
+#     ]
+#
+#     #homepage = HomePage.get_first_root_node()
+#
+#     landing_page_content_type = ContentType.objects.get_for_model(
+#         LandingPage
+#     )
+#     landing_page = LandingPage(
+#         title='skeleton campaign',
+#         draft_title='skeleton campaign',
+#         slug='skeleton-campaign',
+#         content_type=landing_page_content_type,
+#         show_in_menus=True
+#     )
+#
+#     parent_page = LandingPage.objects.first()
+#     overview_content_type = ContentType.objects.get_for_model(
+#         OverviewPage
+#     )
+#     overview_page = OverviewPage(
+#         title='skeleton campaign',
+#         draft_title='skeleton campaign',
+#         slug='skeleton-overview',
+#         content_type=overview_content_type,
+#         show_in_menus=True
+#     )
+#
+#     resources_content_type = ContentType.objects.get_for_model(
+#         ResourcesPage
+#     )
+#     resources_page = ResourcesPage(
+#         title='skeleton campaign',
+#         draft_title='skeleton campaign',
+#         slug='skeleton-resources',
+#         content_type=resources_content_type,
+#         show_in_menus=True
+#     )
+#
+#     #homepage.add_child(instance=landing_page)
+#     parent_page.add_child(instance=overview_page)
+#     parent_page.add_child(instance=resources_page)
