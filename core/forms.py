@@ -11,6 +11,12 @@ class CreateForm:
             return True
         return False
 
+    def get_image(self):
+        existing_landingpage = LandingPage.objects.first()
+        if existing_landingpage:
+            return existing_landingpage.subpages_background_image
+        return None
+
     def save(self):
         homepage = HomePage.objects.all()[0]
         landing_page_content_type = ContentType.objects.get_for_model(
@@ -25,6 +31,7 @@ class CreateForm:
             show_in_menus=True,
             live=False,
             banner_image=homepage.banner_image,
+            subpages_background_image=self.get_image()
         )
 
         overview_content_type = ContentType.objects.get_for_model(
