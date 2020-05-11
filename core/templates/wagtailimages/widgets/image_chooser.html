@@ -1,0 +1,19 @@
+{% extends "wagtailadmin/widgets/chooser.html" %}
+{% load wagtailimages_tags methods_tags %}
+
+{% block chooser_class %}image-chooser{% endblock %}
+
+{% block chosen_state_view %}
+    <div class="preview-image">
+        {% if image %}
+          {% image image max-165x165 as thumbnail %}
+          {% convert_s3_link thumbnail.url as thumbnail_url %}
+
+          <img src="{{thumbnail_url}}" class="show-transparency" alt="" title="{{image.title}}" />
+        {% else %}
+            <img alt="">
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block edit_chosen_item_url %}{% if image %}{% url 'wagtailimages:edit' image.id %}{% endif %}{% endblock %}

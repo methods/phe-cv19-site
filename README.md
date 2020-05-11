@@ -1,7 +1,4 @@
-# Methods Wagtail Base
-
-<!-- Build status badges from the chosen pipeline -->
-
+# PHE Coronavirus Resource Centre
 ---
 
 <!-- vim-markdown-toc GitLab -->
@@ -21,6 +18,7 @@
       - [Useful commands](#useful-commands)
       - [Adding new dependencies](#adding-new-dependencies)
 - [Contributing](#contributing)
+- [Data Reporting](#data-reporting)
 - [License](#license)
 
 <!-- vim-markdown-toc -->
@@ -29,7 +27,7 @@
 
 ### Purpose of this app
 
-The purpose of this app is to provide a project base point for us to deliver CMS projects using Wagtail.
+The purpose of this site is to provide PHE with a performant platform to distribute their advice and guidance related to the Coronavirus outbreak.
 
 ### Tech stack
 
@@ -207,6 +205,10 @@ docker-compose up
 ## Contributing
 
 See [CONTRIBUTING](docs/CONTRIBUTING.md) for details.
+
+## Producing Usage Reports
+
+See [Data Reporting](docs/data_reporting/DataReporting.md) for details.
 
 ## License
 

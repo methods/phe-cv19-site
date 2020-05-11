@@ -1,8 +1,6 @@
 Branching
 =======================
 
-_This documentation is for the Methods Wagtail base repository and should be replaced with project specific documentation_
-
 <!-- vim-markdown-toc GitLab -->
 
 * [Naming Conventions](#naming-conventions)
@@ -34,4 +32,4 @@ Refactoring branches should be named using the following pattern 'refactor/`tick
 
 ### Releases
 
-Release branches should be named using the following pattern 'release/v`release-number`'
+Release tags should be named using the following pattern 'v`release-number`'

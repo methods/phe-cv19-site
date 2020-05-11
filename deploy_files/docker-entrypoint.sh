@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-until python manage.py makemigrations && python3 manage.py migrate
+until python3 manage.py migrate
 do
   echo "Waiting for database to be migrated"
   sleep 5

@@ -242,3 +242,27 @@ a.skip-main {
     margin-top: 1.5em
   }
 }
+
+.global-alert {
+    padding-bottom: 15px;
+    padding-top: 24px;
+    background-color: #d4351c;
+    -webkit-font-smoothing: antialiased;
+
+    a {
+        font-size: 19px;
+        font-family: "HelveticaNeueMedium", Helvetica, Arial, sans-serif;
+        color: #fff;
+        text-decoration: underline
+    }
+
+    a:visited {
+        color: #fff;
+        text-decoration: none
+    }
+
+    p.message {
+        color: #fff;
+        font-weight: bold;
+    }
+}

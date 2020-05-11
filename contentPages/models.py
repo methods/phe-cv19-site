@@ -7,6 +7,9 @@ from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.snippets.models import register_snippet
+from CMS.enums import enums
 
 from core.models.pages import MethodsBasePage
 
@@ -42,6 +45,7 @@ class HomePage(MethodsBasePage):
         'contentPages.LandingPage',
         'subscription.SubscriptionPage',
         'errors.ErrorPage',
+        'contentPages.AllResourcesPage'
     ]
 
     parent_page_type = [
@@ -98,7 +102,13 @@ class LandingPage(MethodsBasePage):
     )
     OVERVIEW_HEADING = 'Overview'
     overview_subpage_heading = TextField(default=OVERVIEW_HEADING)
-    overview_subpage_body = TextField(blank=True)
+    overview_subpage_body = models.ForeignKey(
+        'contentPages.SharedContent',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
     overview_subpage = models.ForeignKey(
         'wagtailcore.Page',
         null=True,
@@ -108,7 +118,13 @@ class LandingPage(MethodsBasePage):
     )
     RESOURCES_HEADING = 'Resources'
     resources_subpage_heading = TextField(default=RESOURCES_HEADING)
-    resources_subpage_body = TextField(blank=True)
+    resources_subpage_body = models.ForeignKey(
+        'contentPages.SharedContent',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
     resources_subpage = models.ForeignKey(
         'wagtailcore.Page',
         null=True,
@@ -125,10 +141,10 @@ class LandingPage(MethodsBasePage):
         FieldPanel('signup_intro'),
         ImageChooserPanel('subpages_background_image'),
         FieldPanel('overview_subpage_heading'),
-        FieldPanel('overview_subpage_body'),
+        SnippetChooserPanel('overview_subpage_body'),
         PageChooserPanel('overview_subpage'),
         FieldPanel('resources_subpage_heading'),
-        FieldPanel('resources_subpage_body'),
+        SnippetChooserPanel('resources_subpage_body'),
         PageChooserPanel('resources_subpage'),
         FieldPanel('body'),
     ]
@@ -251,6 +267,8 @@ class ResourceItemPage(MethodsBasePage):
         verbose_name='Upload document'
     )
 
+    document_type = models.CharField(max_length=25, choices=enums.asset_types, default='posters')
+
     upload_link = TextField(blank=True, default='')
 
     product_code = CharField(max_length=256, blank=True, null=True, default='')
@@ -265,6 +283,7 @@ class ResourceItemPage(MethodsBasePage):
             FieldPanel('description'),
             FieldPanel('upload_link'),
             DocumentChooserPanel('link_document'),
+            FieldPanel('document_type'),
             ImageChooserPanel('preview_image'),
             FieldPanel('preview_image_screen_reader_text'),
         ], heading='Header section'),
@@ -279,3 +298,123 @@ class ResourceItemPage(MethodsBasePage):
     @property
     def link_url(self):
         return settings.FINAL_SITE_DOMAIN + self.url
+
+
+@register_snippet
+class SharedContent(models.Model):
+
+    title = CharField(max_length=500, default='', blank=True)
+    content_body = RichTextField(default='', blank=True)
+
+    panels = [
+
+        MultiFieldPanel([
+                FieldPanel("title"),
+                FieldPanel("content_body")
+            ], heading='Shared Content')
+    ]
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "Shared Content Snippet"
+
+
+class AllResourcesTile(Orderable):
+    caption = models.CharField(max_length=25, choices=enums.asset_types, default='')
+    thumbnail_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    page = ParentalKey("AllResourcesPage", related_name="asset_types")
+
+    panels = [
+        FieldPanel('caption'),
+        ImageChooserPanel('thumbnail_image')
+    ]
+
+    def get_asset_string(self):
+        for asset_type in enums.asset_types:
+            if asset_type[0] == self.caption:
+                return asset_type[1]
+
+
+class AllResourcesPage(MethodsBasePage):
+    subpage_types = [
+        'contentPages.AssetTypePage',
+    ]
+
+    parent_page_type = [
+        'contentPages.HomePage'
+    ]
+
+    heading = TextField(blank=True)
+    subtitle = TextField(blank=True)
+    banner_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    ASSET_LIST_HEADER = 'Resources List'
+    signup_intro = TextField(blank=True)
+    asset_list_header = TextField(default=ASSET_LIST_HEADER)
+
+    content_panels = MethodsBasePage.content_panels + [
+        FieldPanel('heading'),
+        FieldPanel('subtitle'),
+        ImageChooserPanel('banner_image'),
+        FieldPanel('signup_intro'),
+        FieldPanel('asset_list_header'),
+        InlinePanel('asset_types', label='Asset Types')
+    ]
+
+    def get_child_of_type(self, asset_type):
+        children = self.get_children()
+        for child in children:
+            if child.specific.document_type == asset_type:
+                return child
+
+
+class AssetTypePage(MethodsBasePage):
+    subpage_types = []
+
+    parent_page_type = ['contentPages.AllResourcesPage']
+
+    heading = TextField(blank=True)
+    subtitle = TextField(blank=True)
+    banner_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    ASSET_TYPE_HEADER = 'Type Resources'
+    signup_intro = TextField(blank=True)
+    asset_type_header = TextField(default=ASSET_TYPE_HEADER)
+    document_type = models.CharField(max_length=25, choices=enums.asset_types, default='posters')
+
+    content_panels = MethodsBasePage.content_panels + [
+        FieldPanel('heading'),
+        FieldPanel('subtitle'),
+        ImageChooserPanel('banner_image'),
+        FieldPanel('signup_intro'),
+        FieldPanel('asset_type_header'),
+        FieldPanel('document_type')
+    ]
+
+    def resource_item_pages(self):
+        return ResourceItemPage.objects.filter(document_type=self.document_type)
+
+    def asset_count(self):
+        resource_count = len(ResourceItemPage.objects.filter(document_type=self.document_type))
+        return resource_count
