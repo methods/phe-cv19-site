@@ -1,12 +1,9 @@
 {% extends "wagtailadmin/base.html" %}
 {% load wagtailimages_tags wagtailadmin_tags static i18n l10n methods_tags %}
-{% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans %}Creating campaign{% endblocktrans %}{% endblock %}
 {% block extra_css %}
     {{ block.super }}
 
-    <!-- Focal point chooser -->
-    <link rel="stylesheet" href="{% static 'wagtailimages/css/vendor/jquery.Jcrop.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'wagtailimages/css/focal-point-chooser.css' %}" type="text/css">
 {% endblock %}
 
 {% block extra_js %}
@@ -24,8 +21,26 @@
 {% endblock %}
 
 {% block content %}
-    {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=image.title icon="image" %}
+    {% trans "Creating Campaign" as editing_str %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=image.title icon="form" %}
+
+    <form action="/admin/create-campaign/" method="POST">
+        {% csrf_token %}
+        <div class="row row-flush nice-padding">
+            <div class="col6">
+                <ul class="fields">
+                    <li>
+                        <label>Page title:</label>
+                        <input type="text" name="page-title" id="page-title">
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+
+
+    </form>
 
 {% endblock %}
 
