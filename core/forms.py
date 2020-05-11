@@ -11,10 +11,16 @@ class CreateForm:
             return True
         return False
 
-    def get_image(self):
+    def get_subpage_background_image(self):
         existing_landingpage = LandingPage.objects.first()
         if existing_landingpage:
             return existing_landingpage.subpages_background_image
+        return None
+
+    def get_sidebar_image(self):
+        existing_resourcespage = ResourcesPage.objects.first()
+        if existing_resourcespage:
+            return existing_resourcespage.sidebar_image
         return None
 
     def save(self):
@@ -31,7 +37,7 @@ class CreateForm:
             show_in_menus=True,
             live=False,
             banner_image=homepage.banner_image,
-            subpages_background_image=self.get_image()
+            subpages_background_image=self.get_subpage_background_image()
         )
 
         overview_content_type = ContentType.objects.get_for_model(
@@ -59,7 +65,8 @@ class CreateForm:
             content_type=resources_content_type,
             show_in_menus=True,
             live=False,
-            banner_image=homepage.banner_image
+            banner_image=homepage.banner_image,
+            sidebar_image=self.get_sidebar_image()
         )
 
         homepage.add_child(instance=landing_page)
