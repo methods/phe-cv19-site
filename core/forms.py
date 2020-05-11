@@ -13,7 +13,6 @@ class CreateForm:
 
     def save(self):
         homepage = HomePage.objects.all()[0]
-        print(homepage.path)
         landing_page_content_type = ContentType.objects.get_for_model(
             LandingPage
         )
@@ -24,7 +23,8 @@ class CreateForm:
             slug=self.page_title.replace(' ', '-'),
             content_type=landing_page_content_type,
             show_in_menus=True,
-            live=False
+            live=False,
+            banner_image=homepage.banner_image,
         )
 
         overview_content_type = ContentType.objects.get_for_model(
@@ -37,7 +37,8 @@ class CreateForm:
             slug='overview',
             content_type=overview_content_type,
             show_in_menus=True,
-            live=False
+            live=False,
+            banner_image=homepage.banner_image
         )
 
         resources_content_type = ContentType.objects.get_for_model(
@@ -50,7 +51,8 @@ class CreateForm:
             slug='resources',
             content_type=resources_content_type,
             show_in_menus=True,
-            live=False
+            live=False,
+            banner_image=homepage.banner_image
         )
 
         homepage.add_child(instance=landing_page)
