@@ -7,14 +7,14 @@ import django.db.models.deletion
 def convert_subpage_body_to_snippet(apps, schema_editor):
     LandingPage = apps.get_model("contentPages", "LandingPage")
     SharedContent = apps.get_model("contentPages", "SharedContent")
-    landing_page_objects = LandingPage.objects.all()
-    for landing_page_object in landing_page_objects:
-        overview_body = landing_page_object.overview_subpage_body
-        overview_title = landing_page_object.overview_subpage_heading
+    landing_pages = LandingPage.objects.all()
+    for landing_page in landing_pages:
+        overview_body = landing_page.overview_subpage_body
+        overview_title = "{0} - {1}".format(landing_page.title, landing_page.overview_subpage_heading)
         snippet = SharedContent(content_body=overview_body, title=overview_title)
         snippet.save()
-        landing_page_object.overview_subpage_body = snippet.id
-        landing_page_object.save()
+        landing_page.overview_subpage_body = snippet.id
+        landing_page.save()
 
 
 class Migration(migrations.Migration):

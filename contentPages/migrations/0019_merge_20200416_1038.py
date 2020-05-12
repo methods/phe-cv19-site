@@ -6,14 +6,14 @@ from django.db import migrations
 def convert_resources_subpage_body_to_snippet(apps, schema_editor):
     LandingPage = apps.get_model("contentPages", "LandingPage")
     SharedContent = apps.get_model("contentPages", "SharedContent")
-    landing_page_objects = LandingPage.objects.all()
-    for landing_page_object in landing_page_objects:
-        resources_body = landing_page_object.resources_subpage_body
-        resources_title = landing_page_object.resources_subpage_heading
+    landing_pages = LandingPage.objects.all()
+    for landing_page in landing_pages:
+        resources_body = landing_page.resources_subpage_body
+        resources_title = "{0} - {1}".format(landing_page.title, landing_page.resources_subpage_heading)
         snippet = SharedContent(content_body=resources_body, title=resources_title)
         snippet.save()
-        landing_page_object.resources_subpage_body = snippet.id
-        landing_page_object.save()
+        landing_page.resources_subpage_body = snippet.id
+        landing_page.save()
 
 
 class Migration(migrations.Migration):
