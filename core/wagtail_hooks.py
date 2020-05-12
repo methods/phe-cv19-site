@@ -8,6 +8,7 @@ from wagtail.core.rich_text import LinkHandler
 from wagtail.admin import widgets as wagtailadmin_widgets
 
 from .models.nav import Menu, Footer
+from contentPages.models import HomePage
 
 
 class MenuAdmin(ModelAdmin):
@@ -51,11 +52,12 @@ modeladmin_register(AccessAttemptAdmin)
 
 @hooks.register('register_page_listing_buttons')
 def page_listing_buttons(page, page_perms, is_parent=False):
-    yield wagtailadmin_widgets.PageListingButton(
-        'Create Campaign',
-        '/admin/create-campaign/',
-        priority=60
-    )
+    if isinstance(page, HomePage):
+        yield wagtailadmin_widgets.PageListingButton(
+            'Create Campaign',
+            '/admin/create-campaign/',
+            priority=60
+        )
 
 
 @hooks.register('register_rich_text_features')
