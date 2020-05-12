@@ -5,8 +5,10 @@ from django.utils.html import escape
 from wagtail.contrib.modeladmin.options import (ModelAdmin, modeladmin_register)
 from wagtail.core import hooks
 from wagtail.core.rich_text import LinkHandler
+from wagtail.admin import widgets as wagtailadmin_widgets
 
 from .models.nav import Menu, Footer
+from contentPages.models import HomePage
 
 
 class MenuAdmin(ModelAdmin):
@@ -48,6 +50,17 @@ modeladmin_register(FooterAdmin)
 modeladmin_register(AccessAttemptAdmin)
 
 
+@hooks.register('register_page_listing_buttons')
+def page_listing_buttons(page, page_perms, is_parent=False):
+    if isinstance(page, HomePage):
+        yield wagtailadmin_widgets.PageListingButton(
+            'Create Campaign',
+            '/admin/create-campaign/',
+            priority=60
+        )
+
+
 @hooks.register('register_rich_text_features')
 def unregister_document_feature(features):
     features.default_features.remove('document-link')
+
