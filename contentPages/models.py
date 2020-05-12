@@ -39,6 +39,13 @@ class HomePageCampaign(Orderable):
         PageChooserPanel('campaign_landing_page'),
     ]
 
+    @property
+    def show_tile(self):
+        if self.campaign_landing_page:
+            return self.campaign_landing_page.live
+        return True
+    
+
 
 class HomePage(MethodsBasePage):
     subpage_types = [
@@ -61,8 +68,8 @@ class HomePage(MethodsBasePage):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-    signup_intro = TextField(blank=True)
-    campaign_list_header = TextField(blank=True)
+    signup_intro = RichTextField(null=True, blank=True)
+    campaign_list_header = RichTextField(null=True, blank=True)
 
     content_panels = MethodsBasePage.content_panels + [
         FieldPanel('heading'),
@@ -142,12 +149,22 @@ class LandingPage(MethodsBasePage):
         ImageChooserPanel('subpages_background_image'),
         FieldPanel('overview_subpage_heading'),
         SnippetChooserPanel('overview_subpage_body'),
-        PageChooserPanel('overview_subpage'),
         FieldPanel('resources_subpage_heading'),
         SnippetChooserPanel('resources_subpage_body'),
-        PageChooserPanel('resources_subpage'),
         FieldPanel('body'),
     ]
+
+    def get_resources_subpage(self):
+        children = self.get_children().specific()
+        for child in children:
+            if type(child) == ResourcesPage:
+                return child
+
+    def get_overview_subpage(self):
+        children = self.get_children().specific()
+        for child in children:
+            if type(child) == OverviewPage:
+                return child
 
 
 class OverviewPage(MethodsBasePage):
@@ -418,3 +435,5 @@ class AssetTypePage(MethodsBasePage):
     def asset_count(self):
         resource_count = len(ResourceItemPage.objects.filter(document_type=self.document_type))
         return resource_count
+
+

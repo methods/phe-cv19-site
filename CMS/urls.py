@@ -7,6 +7,7 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 from search import views as search_views
+from core.views import CreateCampaignView
 
 # from wagtail.contrib.sitemaps.views import sitemap
 from static_views.views import SitemapView
@@ -15,6 +16,7 @@ urlpatterns = [
     url(r'^search/$', search_views.search, name='search'),
     url(r'^documents/', include(wagtaildocs_urls)),
     url('^sitemap\.xml$', SitemapView.as_view()),
+    url(r'^admin/create-campaign', CreateCampaignView.as_view()),
     url(r'^admin/', include(wagtailadmin_urls)),
 
     url(r'', include(wagtail_urls)),
