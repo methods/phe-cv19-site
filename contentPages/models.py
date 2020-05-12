@@ -149,12 +149,22 @@ class LandingPage(MethodsBasePage):
         ImageChooserPanel('subpages_background_image'),
         FieldPanel('overview_subpage_heading'),
         SnippetChooserPanel('overview_subpage_body'),
-        PageChooserPanel('overview_subpage'),
         FieldPanel('resources_subpage_heading'),
         SnippetChooserPanel('resources_subpage_body'),
-        PageChooserPanel('resources_subpage'),
         FieldPanel('body'),
     ]
+
+    def get_resources_subpage(self):
+        children = self.get_children().specific()
+        for child in children:
+            if type(child) == ResourcesPage:
+                return child
+
+    def get_overview_subpage(self):
+        children = self.get_children().specific()
+        for child in children:
+            if type(child) == OverviewPage:
+                return child
 
 
 class OverviewPage(MethodsBasePage):
