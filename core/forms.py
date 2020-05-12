@@ -5,6 +5,7 @@ from contentPages.models import HomePage, LandingPage, OverviewPage, ResourcesPa
 class CreateForm:
     def __init__(self, request):
         self.page_title = request.get('page-title')
+        self.errors = ['This field is required.']
 
     def is_valid(self):
         if self.page_title:

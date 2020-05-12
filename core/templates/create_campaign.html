@@ -1,47 +1,54 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailimages_tags wagtailadmin_tags static i18n l10n methods_tags %}
+{% load wagtailimages_tags wagtailadmin_tags sass_tags static i18n l10n methods_tags %}
 {% block titletag %}{% blocktrans %}Creating campaign{% endblocktrans %}{% endblock %}
 {% block extra_css %}
-    {{ block.super }}
-
+{{ block.super }}
+<link href="{% sass_src 'scss/pages/createcampaign.scss' %}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block extra_js %}
-    {{ block.super }}
+{{ block.super }}
 
-    {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
-    <script>
+{% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
+<script>
         $(function() {
             $('#id_tags').tagit({
                 autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
             });
         });
-    </script>
+
+</script>
 
 {% endblock %}
 
 {% block content %}
-    {% trans "Creating Campaign" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=image.title icon="form" %}
+{% trans "Creating Campaign" as editing_str %}
+{% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=image.title icon="form" %}
 
-    <form action="/admin/create-campaign/" method="POST">
-        {% csrf_token %}
-        <div class="row row-flush nice-padding">
-            <div class="col6">
-                <ul class="fields">
-                    <li>
-                        <label class="label no-float">Page title:</label>
-                        <input type="text" name="page-title" id="page-title">
-                    </li>
 
-                </ul>
-                <button class="button">Create campaign</button>
-            </div>
+<form action="/admin/create-campaign/" method="POST">
+    {% csrf_token %}
+    <div class="row row-flush nice-padding">
+        <div class="col6">
+                {% if form.errors %}
+                        {% for error in form.errors %}
+                            <span class="campaign-error">{{ error }}</span>
+                        {% endfor %}
+                    {% endif %}
+            <ul class="fields">
+                <li>
+                    <label class="label no-float">Campaign name:</label>
+                    <input type="text" name="page-title" id="page-title">
+                </li>
+            </ul>
+
+            <button class="button">Create campaign</button>
         </div>
+    </div>
 
 
+</form>
 
-    </form>
 
 {% endblock %}
 

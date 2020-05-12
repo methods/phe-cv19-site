@@ -13,5 +13,6 @@ class CreateCampaignView(View):
         form = CreateForm(request.POST)
         if form.is_valid():
             form.save()
-        return redirect('/admin/pages/{0}/'.format(9))
+            return redirect('/admin/pages/{0}/'.format(9))
+        return render(request, self.template_name, {'form': form})
 
