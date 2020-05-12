@@ -13,8 +13,8 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunSQL('CREATE TABLE "contentPages_assettype" (ID INT PRIMARY KEY NOT NULL,"page_id" INT, "thumbnail_image_id" INT)'),
-        migrations.RunSQL('CREATE TABLE "contentPages_allresources" (ID INT PRIMARY KEY NOT NULL)'),
+        migrations.RunSQL('CREATE TABLE IF NOT EXISTS "contentPages_assettype" (ID INT PRIMARY KEY NOT NULL,"page_id" INT, "thumbnail_image_id" INT)'),
+        migrations.RunSQL('CREATE TABLE IF NOT EXISTS "contentPages_allresources" (ID INT PRIMARY KEY NOT NULL)'),
         migrations.RemoveField(
             model_name='assettype',
             name='page',
