@@ -4,7 +4,7 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /code
 COPY ./requirements.txt /code/
-RUN pip install --upgrade pip
+RUN cat /etc/os-release && pip install --upgrade pip
 RUN pip install -r requirements.txt
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install cron vim -y
