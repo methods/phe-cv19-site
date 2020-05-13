@@ -6,7 +6,7 @@ WORKDIR /code
 COPY ./requirements.txt /code/
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-RUN apt-get update && apt-get upgrade
+RUN apt-get update && apt-get upgrade -y
 RUN apt-get install cron vim -y
 RUN touch /var/log/cron.log
 ENV TZ=Europe/London
