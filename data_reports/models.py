@@ -22,7 +22,8 @@ class UsageReport():
   @classmethod
   def generate_report(cls, report_type):
     report_config = cls.CONFIG[report_type]
-    athena_client = boto3.client('athena', region_name=settings.AWS_REGION_DEPLOYMENT)
+    athena_client = boto3.client('athena', region_name=settings.AWS_REGION_DEPLOYMENT, aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY)
 
     sql_command = cls.get_sql_command(report_config['sql_file'])
     
@@ -37,7 +38,7 @@ class UsageReport():
   @classmethod
   def run_query(cls, client, sql_command, report_type):
     yesterday = (date.today() - timedelta(days=1)).strftime('%d-%m-%y')
-    output_location = "{0}/{1}/{2}/".format(settings.ATHENA_OUTPUT_BUCKET, report_type, yesterday)
+    output_location = "s3://{0}/{1}/{2}/".format(settings.ATHENA_OUTPUT_BUCKET, report_type, yesterday)
 
     response = client.start_query_execution(
       QueryString=sql_command,
