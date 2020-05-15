@@ -13,7 +13,7 @@ class Enums:
         ('digital_out_of_home', 'Digital out-of-home'),
         ('email_signatures', 'Email Signature'),
         ('fact_sheets', 'Fact Sheet'),
-        ('leaflet', 'Leaflet'),
+        ('leaflet', 'Leaflet(s)'),
         ('lockup', 'Lockup'),
         ('pm_letter', 'PM Letter'),
         ('press_release', 'Press Release'),
@@ -24,7 +24,6 @@ class Enums:
         ('translations', 'Translations'),
         ('pull_up_banners', 'Pull Up Banners'),
         ('artwork', 'Artwork'),
-        Leaflets
     )
 
 
