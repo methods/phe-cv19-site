@@ -16,7 +16,15 @@ class Enums:
         ('leaflet', 'Leaflet'),
         ('lockup', 'Lockup'),
         ('pm_letter', 'PM Letter'),
-        ('press_release', 'Press Release')
+        ('press_release', 'Press Release'),
+        ('radio', 'Radio'),
+        ('social_media', 'Social Media'),
+        ('ads', 'Ads'),
+        ('web_banners', 'Web Banners'),
+        ('translations', 'Translations'),
+        ('pull_up_banners', 'Pull Up Banners'),
+        ('artwork', 'Artwork'),
+        Leaflets
     )
 
 
