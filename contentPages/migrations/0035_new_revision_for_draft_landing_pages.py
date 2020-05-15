@@ -2,10 +2,10 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
+from contentPages.models import LandingPage
 
 
 def create_revisions(apps, schema_editor):
-    LandingPage = apps.get_model("contentPages", "LandingPage")
     landing_pages = LandingPage.objects.filter(live=False)
     for landing_page in landing_pages:
         landing_page.save_revision()
