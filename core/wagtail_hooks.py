@@ -64,3 +64,8 @@ def page_listing_buttons(page, page_perms, is_parent=False):
 def unregister_document_feature(features):
     features.default_features.remove('document-link')
 
+# Remove the default wagtail redirect object
+for item in hooks._hooks['register_settings_menu_item']:
+    if (item[0].__name__ == 'register_redirects_menu_item'):
+        hooks._hooks['register_settings_menu_item'].remove(item)
+
