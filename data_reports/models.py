@@ -39,9 +39,11 @@ class UsageReport():
   def run_query(cls, client, sql_command, report_type):
     yesterday = (date.today() - timedelta(days=1)).strftime('%d-%m-%y')
     output_location = "s3://{0}/{1}/{2}/".format(settings.ATHENA_OUTPUT_BUCKET, report_type, yesterday)
+    request_token = "{0}_{1}".format(yesterday, report_type)
 
     response = client.start_query_execution(
       QueryString=sql_command,
+      ClientRequestToken=request_token,
       ResultConfiguration={
         'OutputLocation': output_location,
       },
