@@ -7,3 +7,6 @@ class MethodsRedirect(Redirect):
 
   def __str__(self):
     return "{0} -> {1}".format(self.old_path, self.link)
+
+  class Meta:
+    verbose_name = 'Redirect'
