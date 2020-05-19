@@ -437,3 +437,20 @@ class AssetTypePage(MethodsBasePage):
         return resource_count
 
 
+class CreateNewResourceType(models.Model):
+    new_resource_type = CharField(max_length=500, default='', blank=True, null=True)
+
+    panels = [
+        FieldPanel('new_resource_type')
+    ]
+
+
+    def get_existing_asset_types(self):
+        existing_assets = AssetTypePage.objects.get('document_type')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Resource Type"
+

@@ -6,7 +6,7 @@ class Languages:
 class Enums:
     languages = Languages()
 
-    asset_types = (
+    asset_types = [
         ('posters', 'Poster'),
         ('digital_screens', 'Digital Screen'),
         ('alternative_formats', 'Alternative Format'),
@@ -17,7 +17,7 @@ class Enums:
         ('lockup', 'Lockup'),
         ('pm_letter', 'PM Letter'),
         ('press_release', 'Press Release')
-    )
+    ]
 
 
 enums = Enums()
