@@ -3,14 +3,12 @@
 from django.db import migrations, models
 import django.db.models.deletion
 
-def create_new_draft_revisions(apps, schema_editor):
-    AllResourcesTile = apps.get_model("contentPages", "AllResourcesTile")
-    AssetTypePage = apps.get_model("contentPages", "AssetTypePage")
-    ResourceItemPage = apps.get_model("contentPages", "ResourceItemPage")
+from contentPages.models import AllResourcesPage, AssetTypePage, ResourceItemPage
 
-    resource_tiles = AllResourcesTile.objects.filter(live=False)
-    for resource_tile in resource_tiles:
-        resource_tile.save_revision()
+def create_new_draft_revisions(apps, schema_editor):
+    resource_pages = AllResourcesPage.objects.filter(live=False)
+    for resource_page in resource_pages:
+        resource_page.save_revision()
 
     asset_type_pages = AssetTypePage.objects.filter(live=False)
     for asset_type_page in asset_type_pages:
