@@ -14,6 +14,29 @@ from CMS.enums import enums
 from core.models.pages import MethodsBasePage
 
 
+class CreateNewResourceType(models.Model):
+    resource_type = CharField(max_length=500, default='', blank=True, null=True)
+
+    panels = [
+            FieldPanel('resource_type'),
+    ]
+
+    @classmethod
+    def get_resource_type_choices(cls):
+        resource_types = []
+        all_resource_types = CreateNewResourceType.objects.all().values_list('resource_type', flat=True)
+        for resource_type in all_resource_types:
+            resource_type_value = resource_type.lower().replace(' ', '_')
+            resource_types.append((resource_type_value, resource_type))
+        return resource_types
+
+    def __str__(self):
+        return self.resource_type
+
+    class Meta:
+        verbose_name = "Resource Type"
+
+
 class HomePageCampaign(Orderable):
     caption = TextField(blank=True)
     thumbnail_image = models.ForeignKey(
@@ -284,7 +307,7 @@ class ResourceItemPage(MethodsBasePage):
         verbose_name='Upload document'
     )
 
-    document_type = models.CharField(max_length=25, choices=enums.asset_types, default='posters')
+    document_type = models.CharField(max_length=25, choices=CreateNewResourceType.get_resource_type_choices(), default='posters')
 
     upload_link = TextField(blank=True, default='')
 
@@ -339,7 +362,7 @@ class SharedContent(models.Model):
 
 
 class AllResourcesTile(Orderable):
-    caption = models.CharField(max_length=25, choices=enums.asset_types, default='')
+    caption = models.CharField(max_length=25, choices=CreateNewResourceType.get_resource_type_choices(), default='')
     thumbnail_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -356,7 +379,7 @@ class AllResourcesTile(Orderable):
     ]
 
     def get_asset_string(self):
-        for asset_type in enums.asset_types:
+        for asset_type in CreateNewResourceType.get_resource_type_choices():
             if asset_type[0] == self.caption:
                 return asset_type[1]
 
@@ -418,7 +441,7 @@ class AssetTypePage(MethodsBasePage):
     ASSET_TYPE_HEADER = 'Type Resources'
     signup_intro = TextField(blank=True)
     asset_type_header = TextField(default=ASSET_TYPE_HEADER)
-    document_type = models.CharField(max_length=25, choices=enums.asset_types, default='posters')
+    document_type = models.CharField(max_length=25, choices=CreateNewResourceType.get_resource_type_choices(), default='posters')
 
     content_panels = MethodsBasePage.content_panels + [
         FieldPanel('heading'),
@@ -430,27 +453,13 @@ class AssetTypePage(MethodsBasePage):
     ]
 
     def resource_item_pages(self):
-        return ResourceItemPage.objects.filter(document_type=self.document_type)
+        return ResourceItemPage.objects.live().filter(document_type=self.document_type)
 
     def asset_count(self):
         resource_count = len(ResourceItemPage.objects.filter(document_type=self.document_type))
         return resource_count
 
 
-class CreateNewResourceType(models.Model):
-    new_resource_type = CharField(max_length=500, default='', blank=True, null=True)
-
-    panels = [
-        FieldPanel('new_resource_type')
-    ]
 
 
-    def get_existing_asset_types(self):
-        existing_assets = AssetTypePage.objects.get('document_type')
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = "Resource Type"
 

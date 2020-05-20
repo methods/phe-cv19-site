@@ -52,9 +52,9 @@ class CreateNewResourceTypeAdmin(ModelAdmin):
     menu_order = 400
     add_to_settings_menu = False
     exclude_from_explorer = False
-    list_display = ('new_resource_type',)
-    list_filter = ('new_resource_type',)
-    search_fields = ('new_resource_type',)
+    list_display = ('resource_type',)
+    list_filter = ('resource_type',)
+    search_fields = ('resource_type',)
 
 
 modeladmin_register(MenuAdmin)
