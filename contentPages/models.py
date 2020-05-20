@@ -9,7 +9,6 @@ from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
-from CMS.enums import enums
 
 from core.models.pages import MethodsBasePage
 
