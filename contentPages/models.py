@@ -284,7 +284,7 @@ class ResourceItemPage(MethodsBasePage):
         verbose_name='Upload document'
     )
 
-    document_type = models.CharField(max_length=25, choices=enums.asset_types, default='posters')
+    document_type = models.CharField(max_length=25, choices=enums.asset_types, blank=False)
 
     upload_link = TextField(blank=True, default='')
 
@@ -339,7 +339,7 @@ class SharedContent(models.Model):
 
 
 class AllResourcesTile(Orderable):
-    caption = models.CharField(max_length=25, choices=enums.asset_types, default='')
+    caption = models.CharField(max_length=25, choices=enums.asset_types, blank=False)
     thumbnail_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -418,7 +418,7 @@ class AssetTypePage(MethodsBasePage):
     ASSET_TYPE_HEADER = 'Type Resources'
     signup_intro = TextField(blank=True)
     asset_type_header = TextField(default=ASSET_TYPE_HEADER)
-    document_type = models.CharField(max_length=25, choices=enums.asset_types, default='posters')
+    document_type = models.CharField(max_length=25, choices=enums.asset_types, blank=False)
 
     content_panels = MethodsBasePage.content_panels + [
         FieldPanel('heading'),
