@@ -30,12 +30,9 @@ def convert_resource_types_to_keys(apps, schema_editor):
 
     resource_items = ResourceItemPage.objects.all()
     for resource_item in resource_items:
-        if resource_item.document_type == "":
-            resource_item.document_type = '1'
-        else:
-            for resource_type in all_types:
-                if resource_type.resource_type.lower().replace(' ', '_') == resource_item.document_type:
-                    resource_item.document_type = resource_type.id
+        for resource_type in all_types:
+            if resource_type.resource_type.lower().replace(' ', '_') == resource_item.document_type:
+                resource_item.document_type = resource_type.id
         resource_item.save()
 
 
