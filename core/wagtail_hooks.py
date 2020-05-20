@@ -9,6 +9,9 @@ from wagtail.admin import widgets as wagtailadmin_widgets
 
 from .models.nav import Menu, Footer
 from contentPages.models import HomePage, CreateNewResourceType
+from .models.config import MethodsRedirect
+
+import inspect
 
 
 class MenuAdmin(ModelAdmin):
@@ -44,6 +47,13 @@ class AccessAttemptAdmin(ModelAdmin):
     menu_order = 5
     add_to_settings_menu = True
 
+class MethodsRedirectAdmin(ModelAdmin):
+    model = MethodsRedirect
+    menu_label = 'Redirects'
+    menu_icon = 'redirect'
+    menu_order = 1000
+    add_to_settings_menu = True
+
 
 class CreateNewResourceTypeAdmin(ModelAdmin):
     model = CreateNewResourceType
@@ -61,6 +71,7 @@ modeladmin_register(MenuAdmin)
 modeladmin_register(FooterAdmin)
 modeladmin_register(AccessAttemptAdmin)
 modeladmin_register(CreateNewResourceTypeAdmin)
+modeladmin_register(MethodsRedirectAdmin)
 
 
 @hooks.register('register_page_listing_buttons')
@@ -77,5 +88,9 @@ def page_listing_buttons(page, page_perms, is_parent=False):
 def unregister_document_feature(features):
     features.default_features.remove('document-link')
 
+# Remove the default wagtail redirect object
+for item in hooks._hooks['register_settings_menu_item']:
+    if (item[0].__name__ == 'register_redirects_menu_item'):
+        hooks._hooks['register_settings_menu_item'].remove(item)
 
 
