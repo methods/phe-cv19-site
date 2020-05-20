@@ -8,8 +8,8 @@ from wagtail.core.rich_text import LinkHandler
 from wagtail.admin import widgets as wagtailadmin_widgets
 
 from .models.nav import Menu, Footer
+from contentPages.models import HomePage, CreateNewResourceType
 from .models.config import MethodsRedirect
-from contentPages.models import HomePage
 
 import inspect
 
@@ -55,9 +55,22 @@ class MethodsRedirectAdmin(ModelAdmin):
     add_to_settings_menu = True
 
 
+class CreateNewResourceTypeAdmin(ModelAdmin):
+    model = CreateNewResourceType
+    menu_label = 'Resource Types'
+    menu_icon = 'form'
+    menu_order = 400
+    add_to_settings_menu = False
+    exclude_from_explorer = False
+    list_display = ('resource_type',)
+    list_filter = ('resource_type',)
+    search_fields = ('resource_type',)
+
+
 modeladmin_register(MenuAdmin)
 modeladmin_register(FooterAdmin)
 modeladmin_register(AccessAttemptAdmin)
+modeladmin_register(CreateNewResourceTypeAdmin)
 modeladmin_register(MethodsRedirectAdmin)
 
 
@@ -79,4 +92,5 @@ def unregister_document_feature(features):
 for item in hooks._hooks['register_settings_menu_item']:
     if (item[0].__name__ == 'register_redirects_menu_item'):
         hooks._hooks['register_settings_menu_item'].remove(item)
+
 
