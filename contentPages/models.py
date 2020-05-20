@@ -13,6 +13,7 @@ from wagtail.snippets.models import register_snippet
 from core.models.pages import MethodsBasePage
 
 
+@register_snippet
 class CreateNewResourceType(models.Model):
     resource_type = CharField(max_length=500, default='', blank=True, null=True)
 
@@ -309,7 +310,13 @@ class ResourceItemPage(MethodsBasePage):
         verbose_name='Upload document'
     )
 
-    document_type = models.CharField(max_length=25, choices=CreateNewResourceType.get_resource_type_choices(), blank=False)
+    document_type = models.ForeignKey(
+        'contentPages.CreateNewResourceType',
+        null=True,
+        blank=False,
+        related_name='+',
+        on_delete=models.SET_NULL,
+    )
 
     upload_link = TextField(blank=True, default='')
 
@@ -325,7 +332,7 @@ class ResourceItemPage(MethodsBasePage):
             FieldPanel('description'),
             FieldPanel('upload_link'),
             DocumentChooserPanel('link_document'),
-            FieldPanel('document_type'),
+            SnippetChooserPanel('document_type'),
             ImageChooserPanel('preview_image'),
             FieldPanel('preview_image_screen_reader_text'),
         ], heading='Header section'),
@@ -369,7 +376,13 @@ class SharedContent(models.Model):
 
 
 class AllResourcesTile(Orderable):
-    caption = models.CharField(max_length=25, choices=CreateNewResourceType.get_resource_type_choices(), blank=False)
+    caption = models.ForeignKey(
+        'contentPages.CreateNewResourceType',
+        null=True,
+        blank=False,
+        related_name='+',
+        on_delete=models.SET_NULL,
+    )
 
     thumbnail_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -449,7 +462,14 @@ class AssetTypePage(MethodsBasePage):
     ASSET_TYPE_HEADER = 'Type Resources'
     signup_intro = TextField(blank=True)
     asset_type_header = TextField(default=ASSET_TYPE_HEADER)
-    document_type = models.CharField(max_length=25, choices=CreateNewResourceType.get_resource_type_choices(), blank=False)
+
+    document_type = models.ForeignKey(
+        'contentPages.CreateNewResourceType',
+        null=True,
+        blank=False,
+        related_name='+',
+        on_delete=models.SET_NULL,
+    )
 
     content_panels = MethodsBasePage.content_panels + [
         FieldPanel('heading'),
