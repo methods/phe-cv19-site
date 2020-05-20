@@ -23,10 +23,13 @@ class CreateNewResourceType(models.Model):
     @classmethod
     def get_resource_type_choices(cls):
         resource_types = []
-        all_resource_types = CreateNewResourceType.objects.all().values_list('resource_type', flat=True)
-        for resource_type in all_resource_types:
-            resource_type_value = resource_type.lower().replace(' ', '_')
-            resource_types.append((resource_type_value, resource_type))
+        try:
+            all_resource_types = CreateNewResourceType.objects.all().values_list('resource_type', flat=True)
+            for resource_type in all_resource_types:
+                resource_type_value = resource_type.lower().replace(' ', '_')
+                resource_types.append((resource_type_value, resource_type))
+        except:
+            print('Resource types not present')
         return resource_types
 
     def __str__(self):
