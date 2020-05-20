@@ -73,7 +73,7 @@
                             <div class="row">
                                 <div class="crc-thumbnails">
                                     {% for resource_page in page.resource_list %}
-                                        {% include 'partials/resource_list_item.html' with resource_page=resource_page %}
+                                        {% include 'partials/resource_list_item.html' with resource_page=resource_page column_width=4%}
                                     {% endfor %}
                                 </div>
                             </div>
