@@ -10,7 +10,7 @@ class Enums:
         ('posters', 'Poster'),
         ('digital_screens', 'Digital Screen'),
         ('alternative_formats', 'Alternative Format'),
-        ('digital_out_of_home', 'Digital out-of-home'),
+        ('digital_out_of_home', 'Digital out of home'),
         ('email_signatures', 'Email Signature'),
         ('fact_sheets', 'Fact Sheet'),
         ('leaflet', 'Leaflet(s)'),
