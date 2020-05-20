@@ -332,7 +332,7 @@ class ResourceItemPage(MethodsBasePage):
             FieldPanel('description'),
             FieldPanel('upload_link'),
             DocumentChooserPanel('link_document'),
-            SnippetChooserPanel('document_type'),
+            FieldPanel('document_type'),
             ImageChooserPanel('preview_image'),
             FieldPanel('preview_image_screen_reader_text'),
         ], heading='Header section'),
