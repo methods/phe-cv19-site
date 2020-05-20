@@ -316,6 +316,11 @@ class ResourceItemPage(MethodsBasePage):
     def link_url(self):
         return settings.FINAL_SITE_DOMAIN + self.url
 
+    @property
+    def campaign_name(self):
+        grandparent = self.get_parent().get_parent()
+        return grandparent.landingpage.heading
+
 
 @register_snippet
 class SharedContent(models.Model):
