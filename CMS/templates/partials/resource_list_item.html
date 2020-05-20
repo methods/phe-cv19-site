@@ -3,7 +3,7 @@
 {% image resource_page.preview_image original as preview_image %}
 {% convert_s3_link preview_image.url as preview_image_url %}
 
-<div class="resource-card col-sm-6 col-md-4">
+<div class="resource-card col-sm-6 col-md-{{ column_width }}">
     <a class="resource-card__thumbnail-container" href="{% if resource_page %}{% pageurl resource_page %}{% endif %}">
         <div class="resource-card__thumbnail">
             <div class="resource-card__image-wrapper"

@@ -319,7 +319,7 @@ class ResourceItemPage(MethodsBasePage):
     @property
     def campaign_name(self):
         grandparent = self.get_parent().get_parent()
-        return grandparent.landingpage.heading
+        return grandparent.specific.heading
 
 
 @register_snippet
