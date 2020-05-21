@@ -479,7 +479,7 @@ class AssetTypePage(MethodsBasePage):
         return ResourceItemPage.objects.live().filter(document_type=self.document_type)
 
     def asset_count(self):
-        resource_count = len(ResourceItemPage.objects.filter(document_type=self.document_type))
+        resource_count = len(ResourceItemPage.objects.live().filter(document_type=self.document_type))
         return resource_count
 
 
