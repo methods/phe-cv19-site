@@ -252,7 +252,7 @@ class ResourcesPage(MethodsBasePage):
     )
     sidebar_screenreader_text = TextField(blank=True, null=True)
 
-    signup_message = TextField(blank=True, null=True)
+    signup_message = RichTextField(blank=True, null=True)
 
     content_panels = MethodsBasePage.content_panels + [
         FieldPanel('heading'),
