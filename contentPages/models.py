@@ -72,10 +72,9 @@ class HomePageCampaign(Orderable):
         return True
     
 
-
 class HomePage(MethodsBasePage):
     subpage_types = [
-        'contentPages.LandingPage',
+        'contentPages.OverviewPage',
         'subscription.SubscriptionPage',
         'errors.ErrorPage',
         'contentPages.AllResourcesPage'
@@ -194,10 +193,12 @@ class LandingPage(MethodsBasePage):
 
 
 class OverviewPage(MethodsBasePage):
-    subpage_types = []
+    subpage_types = [
+        'contentPages.ResourcesPage'
+    ]
 
     parent_page_type = [
-        'contentPages.LandingPage'  # appname.ModelName
+        'contentPages.HomePage'
     ]
 
     heading = TextField(blank=True)
@@ -231,7 +232,7 @@ class ResourcesPage(MethodsBasePage):
     subpage_types = ['contentPages.ResourceItemPage']
 
     parent_page_type = [
-        'contentPages.LandingPage'  # appname.ModelName
+        'contentPages.OverviewPage'
     ]
 
     heading = TextField(blank=True)
