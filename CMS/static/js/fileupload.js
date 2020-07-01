@@ -628,7 +628,8 @@
                     data._processQueue = this._processQueue =
                         (this._processQueue || getPromise([this])).then(
                             function () {
-                                var regExpPattern = new RegExp("^[a-zA-Z]{4}_[a-zA-Z]{4}-[a-zA-Z0-9]+");
+                                var regExpPattern = new RegExp("^[0-9]{4}.[0-9]{2}.[0-9]{2}_[a-zA-Z]+(-[a-zA-Z0-9]+)*_[a-zA-Z]+(-[a-zA-Z0-9]+)*\\.[a-z]+");
+                                // debugger
                                 if (regExpPattern.test(data.files[0].name)) {
                                     if (data.errorThrown) {
                                         return $.Deferred()
