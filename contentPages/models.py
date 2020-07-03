@@ -56,6 +56,7 @@ class HomePageCampaign(Orderable):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    external_link = TextField(blank=True)
 
     page = ParentalKey("HomePage", related_name="campaign_items")
 
@@ -63,6 +64,7 @@ class HomePageCampaign(Orderable):
         FieldPanel('caption'),
         ImageChooserPanel('thumbnail_image'),
         PageChooserPanel('campaign_landing_page'),
+        FieldPanel('external_link'),
     ]
 
     @property
@@ -71,7 +73,6 @@ class HomePageCampaign(Orderable):
             return self.campaign_landing_page.live
         return True
     
-
 
 class HomePage(MethodsBasePage):
     subpage_types = [
