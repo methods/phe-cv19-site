@@ -61,6 +61,18 @@
                                         <div class="overlay"></div>
                                     </a>
                                 </div>
+                            {% elif campaign.external_link %}
+                                <div class="campaign-item col-md-3 col-sm-6" style="margin-bottom:1rem">
+                                    <a class="campaign-item__link-area"
+                                       style="background-image: url({{ thumbnail_url }})"
+                                       href="{{ campaign.external_link }}"
+                                       target="_blank">
+                                        <h3 class="campaign-item__caption">{{ campaign.caption }}</h3>
+                                        <div class="campaign-item__arrow"></div>
+
+                                        <div class="overlay"></div>
+                                    </a>
+                                </div>
                             {% else %}
                                 <div class="campaign-item col-md-3 col-sm-6" style="margin-bottom:1rem;">
                                     <div class="campaign-item__link-area" style="background-image: url({{ thumbnail_url }})">
