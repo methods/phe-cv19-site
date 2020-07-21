@@ -38,7 +38,7 @@ def remove_landing_pages(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('contentPages', '0042_auto_20200529_1010'),
+        ('contentPages', '0043_homepagecampaign_external_link'),
     ]
 
     operations = [
