@@ -1,0 +1,25 @@
+{% load wagtailcore_tags wagtailimages_tags sass_tags methods_tags %}
+
+{% image resource_page.thumbnail_image original as thumbnail_image %}
+{% convert_s3_link thumbnail_image.url as thumbnail_image %}
+
+<div class="resource-card col-sm-6 col-md-{{ column_width }}">
+    <a class="resource-card__thumbnail-container" href="{{external_resource.external_link}}">
+        <div class="resource-card__thumbnail">
+            <div class="resource-card__image-wrapper"
+                 style="background-image: url('/static/img/resource-bg.png')">
+                <div class="asset-thumb-container"
+                     style="background-image: url({{ thumbnail_image }})"
+                     title="{{ external_resource.caption }}"></div>
+            </div>
+            <div class="resource-card__footer">
+                <div class="resource-card__title-container">
+                    <h3 class="resource-card__title"
+                        title="{{ external_resource.caption }}">{{ external_resource.caption }}</h3>
+                    <p class="resource-card__detail" title="{{ campaign_name }}">{{ campaign_name }}</p>
+                </div>
+                <span class="resource-card__download-caption">Downloadable</span>
+            </div>
+        </div>
+    </a>
+</div>
