@@ -76,7 +76,7 @@ class HomePageCampaign(Orderable):
 
 class HomePage(MethodsBasePage):
     subpage_types = [
-        'contentPages.LandingPage',
+        'contentPages.OverviewPage',
         'subscription.SubscriptionPage',
         'errors.ErrorPage',
         'contentPages.AllResourcesPage'
@@ -195,10 +195,12 @@ class LandingPage(MethodsBasePage):
 
 
 class OverviewPage(MethodsBasePage):
-    subpage_types = []
+    subpage_types = [
+        'contentPages.ResourcesPage'
+    ]
 
     parent_page_type = [
-        'contentPages.LandingPage'  # appname.ModelName
+        'contentPages.HomePage'
     ]
 
     heading = TextField(blank=True)
@@ -228,11 +230,31 @@ class OverviewPage(MethodsBasePage):
         return parent.landingpage.slug
 
 
+class ExternalResource(Orderable):
+    caption = TextField(blank=True)
+    thumbnail_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    external_link = TextField(blank=False)
+
+    page = ParentalKey("ResourcesPage", related_name="external_resources")
+
+    panels = [
+        FieldPanel('caption'),
+        ImageChooserPanel('thumbnail_image'),
+        FieldPanel('external_link'),
+    ]
+
+
 class ResourcesPage(MethodsBasePage):
     subpage_types = ['contentPages.ResourceItemPage']
 
     parent_page_type = [
-        'contentPages.LandingPage'  # appname.ModelName
+        'contentPages.OverviewPage'
     ]
 
     heading = TextField(blank=True)
@@ -264,7 +286,8 @@ class ResourcesPage(MethodsBasePage):
                 ImageChooserPanel('sidebar_image'),
                 FieldPanel('sidebar_screenreader_text'),
                 FieldPanel('sidebar_note'),
-            ], 'Side bar')
+            ], 'Side bar'),
+        InlinePanel('external_resources', label="External resources")
     ]
 
     @property
@@ -274,7 +297,9 @@ class ResourcesPage(MethodsBasePage):
 
     @property
     def resource_count(self):
-        return ResourceItemPage.objects.live().descendant_of(self).count()
+        resource_item_page_count = ResourceItemPage.objects.live().descendant_of(self).count()
+        external_resource_count = self.external_resources.count()
+        return resource_item_page_count + external_resource_count
 
     @property
     def resource_list(self):
@@ -284,6 +309,11 @@ class ResourcesPage(MethodsBasePage):
     def campaign_slug(self):
         parent = self.get_parent()
         return parent.landingpage.slug
+
+    @property
+    def campaign_name(self):
+        parent = self.get_parent()
+        return parent.specific.heading
 
 
 class ResourceItemPage(MethodsBasePage):

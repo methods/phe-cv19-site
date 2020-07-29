@@ -75,6 +75,10 @@
                                     {% for resource_page in page.resource_list %}
                                         {% include 'partials/resource_list_item.html' with resource_page=resource_page column_width=4%}
                                     {% endfor %}
+
+                                    {% for external_resource in page.external_resources.all %}
+                                        {% include 'partials/external_resource_item.html' with external_resource=external_resource column_width=4 campaign_name=page.campaign_name%}
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
