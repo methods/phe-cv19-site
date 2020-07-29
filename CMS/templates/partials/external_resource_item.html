@@ -1,6 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags sass_tags methods_tags %}
 
-{% image resource_page.thumbnail_image original as thumbnail_image %}
+{% image external_resource.thumbnail_image original as thumbnail_image %}
 {% convert_s3_link thumbnail_image.url as thumbnail_image_url %}
 
 <div class="resource-card col-sm-6 col-md-{{ column_width }}">
