@@ -76,6 +76,7 @@ class HomePageCampaign(Orderable):
 
 class HomePage(MethodsBasePage):
     subpage_types = [
+        'contentPages.LandingPage',
         'contentPages.OverviewPage',
         'subscription.SubscriptionPage',
         'errors.ErrorPage',
@@ -200,6 +201,7 @@ class OverviewPage(MethodsBasePage):
     ]
 
     parent_page_type = [
+        'contentPages.LandingPage',
         'contentPages.HomePage'
     ]
 
@@ -254,6 +256,7 @@ class ResourcesPage(MethodsBasePage):
     subpage_types = ['contentPages.ResourceItemPage']
 
     parent_page_type = [
+        'contentPages.LandingPage',
         'contentPages.OverviewPage'
     ]
 
