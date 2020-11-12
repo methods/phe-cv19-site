@@ -306,7 +306,8 @@ class ResourcesPage(MethodsBasePage):
 
     @property
     def resource_list(self):
-        return ResourceItemPage.objects.live().descendant_of(self)
+        resource_pages = ResourceItemPage.objects.live().descendant_of(self)
+        return resource_pages.order_by('-last_published_at')
 
     @property
     def campaign_slug(self):
