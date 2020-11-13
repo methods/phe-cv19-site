@@ -266,3 +266,17 @@ a.skip-main {
         font-weight: bold;
     }
 }
+
+.order-selector {
+  text-align: right;
+
+  #order-selector__toggle {
+    display: none;
+  }
+}
+
+#internal-resources {
+  #oldest {
+    display: none;
+  }
+}
