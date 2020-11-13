@@ -306,7 +306,8 @@ class ResourcesPage(MethodsBasePage):
 
     @property
     def resource_list(self):
-        return ResourceItemPage.objects.live().descendant_of(self)
+        resource_pages = ResourceItemPage.objects.live().descendant_of(self)
+        return resource_pages.order_by('-last_published_at')
 
     @property
     def campaign_slug(self):
@@ -510,7 +511,8 @@ class AssetTypePage(MethodsBasePage):
     ]
 
     def resource_item_pages(self):
-        return ResourceItemPage.objects.live().filter(document_type=self.document_type)
+        resource_pages = ResourceItemPage.objects.live().filter(document_type=self.document_type)
+        return resource_pages.order_by('-last_published_at')
 
     def asset_count(self):
         resource_count = len(ResourceItemPage.objects.live().filter(document_type=self.document_type))
