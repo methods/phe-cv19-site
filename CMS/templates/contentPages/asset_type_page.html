@@ -16,15 +16,33 @@
         <div class="crc-tab-content-shelf">
             <div class="container crc-nav-tab-content">
                 <div class="resources-search-panel">
-                    <div id="search-results-summary">
-                        <div class="panel-heading">{{ page.asset_count }} items matching</div>
+                    <div class="row">
+                        <div id="search-results-summary" class="col-xs-6">
+                            <div class="panel-heading">{{ page.asset_count }} items matching</div>
+                        </div>
+                        <div class="col-xs-6 order-selector">
+                            Order by
+                            <select id="order-selector__toggle">
+                              <option value="newest">Newest first</option>
+                              <option value="oldest">Oldest first</option>
+                            </select>
+                        </div>
                     </div>
                     <div id="search-results" class="spacer-top-1">
                         <div class="row">
                             <ul class="crc-thumbnails">
-                                {% for resource_item_page in page.resource_item_pages %}
-                                {% include 'partials/resource_list_item.html' with resource_page=resource_item_page column_width=3 %}
-                                {% endfor %}
+                                <div id="internal-resources">
+                                    <div id="newest">
+                                        {% for resource_item_page in page.resource_item_pages %}
+                                            {% include 'partials/resource_list_item.html' with resource_page=resource_item_page column_width=3 %}
+                                        {% endfor %}
+                                    </div>
+                                    <div id="oldest">
+                                        {% for resource_item_page in page.resource_item_pages reversed %}
+                                            {% include 'partials/resource_list_item.html' with resource_page=resource_item_page column_width=3 %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
                             </ul>
                         </div>
                     </div>
