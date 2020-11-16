@@ -1,5 +1,13 @@
 {% extends "../base.html" %}
-{% load wagtailcore_tags wagtailimages_tags sass_tags methods_tags %}
+{% load wagtailcore_tags wagtailimages_tags sass_tags methods_tags static %}
+
+{% block extra_css %}
+  <link href="{% sass_src 'scss/reorder.scss' %}" rel="stylesheet" type="text/css" >
+{% endblock %}
+
+{% block extra_js %}
+  <script type="text/javascript" src="{% static 'js/reorder.js' %}"></script>
+{% endblock %}
 
 {% block content %}
 
@@ -20,7 +28,7 @@
                         <div id="search-results-summary" class="col-xs-6">
                             <div class="panel-heading">{{ page.asset_count }} items matching</div>
                         </div>
-                        <div class="col-xs-6 order-selector">
+                        <div class="col-xs-6 order-selector" style="display: none">
                             Order by
                             <select id="order-selector__toggle">
                               <option value="newest">Newest first</option>
@@ -37,7 +45,7 @@
                                             {% include 'partials/resource_list_item.html' with resource_page=resource_item_page column_width=3 %}
                                         {% endfor %}
                                     </div>
-                                    <div id="oldest">
+                                    <div id="oldest" style="display: none">
                                         {% for resource_item_page in page.resource_item_pages reversed %}
                                             {% include 'partials/resource_list_item.html' with resource_page=resource_item_page column_width=3 %}
                                         {% endfor %}
