@@ -31,6 +31,7 @@
                         <div class="col-xs-6 order-selector" style="display: none">
                             Order by
                             <select id="order-selector__toggle">
+                              <option value="popular">Most popular first</option>
                               <option value="newest">Newest first</option>
                               <option value="oldest">Oldest first</option>
                             </select>
@@ -40,13 +41,18 @@
                         <div class="row">
                             <ul class="crc-thumbnails">
                                 <div id="internal-resources">
-                                    <div id="newest">
-                                        {% for resource_item_page in page.resource_item_pages %}
+                                    <div id="popular">
+                                        {% for resource_page in page.resource_item_pages %}
+                                            {% include 'partials/resource_list_item.html' with resource_page=resource_page column_width=3%}
+                                        {% endfor %}
+                                    </div>
+                                    <div id="newest" style="display: none">
+                                        {% for resource_item_page in page.ordered_resource_item_pages %}
                                             {% include 'partials/resource_list_item.html' with resource_page=resource_item_page column_width=3 %}
                                         {% endfor %}
                                     </div>
                                     <div id="oldest" style="display: none">
-                                        {% for resource_item_page in page.resource_item_pages reversed %}
+                                        {% for resource_item_page in page.ordered_resource_item_pages reversed %}
                                             {% include 'partials/resource_list_item.html' with resource_page=resource_item_page column_width=3 %}
                                         {% endfor %}
                                     </div>

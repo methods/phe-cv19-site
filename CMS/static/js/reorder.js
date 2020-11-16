@@ -8,6 +8,7 @@
   ResourceSort.prototype = {
     setup: function() {
       this.sortToggle.parent().show();
+      this.popularResourceList = this.resourcesArea.find('#popular');
       this.newestResourceList = this.resourcesArea.find('#newest');
       this.oldestResourceList = this.resourcesArea.find('#oldest');
       this.startWatcher();
@@ -21,10 +22,16 @@
     },
 
     handleReorder: function() {
-      if (this.sortToggle[0].value === 'newest') {
+      if (this.sortToggle[0].value === 'popular') {
+        this.newestResourceList.hide();
+        this.oldestResourceList.hide();
+        this.popularResourceList.show();
+      } else if (this.sortToggle[0].value === 'newest') {
+        this.popularResourceList.hide();
         this.oldestResourceList.hide();
         this.newestResourceList.show();
       } else if (this.sortToggle[0].value === 'oldest') {
+        this.popularResourceList.hide();
         this.newestResourceList.hide();
         this.oldestResourceList.show();
       }
