@@ -13,7 +13,8 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker --version
-      - docker ps -a 
+      - docker ps -a
+      - docker login -u methodsphe -p abdd8406-a28a-4f70-a17a-d49bcae4db8b
       - docker build -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   
