@@ -306,6 +306,10 @@ class ResourcesPage(MethodsBasePage):
 
     @property
     def resource_list(self):
+        return ResourceItemPage.objects.live().descendant_of(self)
+
+    @property
+    def ordered_resource_list(self):
         resource_pages = ResourceItemPage.objects.live().descendant_of(self)
         return resource_pages.order_by('-last_published_at')
 
@@ -511,6 +515,9 @@ class AssetTypePage(MethodsBasePage):
     ]
 
     def resource_item_pages(self):
+        return ResourceItemPage.objects.live().filter(document_type=self.document_type)
+
+    def ordered_resource_item_pages(self):
         resource_pages = ResourceItemPage.objects.live().filter(document_type=self.document_type)
         return resource_pages.order_by('-last_published_at')
 
