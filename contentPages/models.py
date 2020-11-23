@@ -178,11 +178,11 @@ class LandingPage(MethodsBasePage):
         FieldPanel('signup_intro'),
         ImageChooserPanel('subpages_background_image'),
         FieldPanel('overview_subpage_heading'),
-        SnippetChooserPanel('overview_subpage_body'),
         FieldPanel('overview_subpage_text'),
+        # SnippetChooserPanel('overview_subpage_body'),
         FieldPanel('resources_subpage_heading'),
-        SnippetChooserPanel('resources_subpage_body'),
         FieldPanel('resources_subpage_text'),
+        # SnippetChooserPanel('resources_subpage_body'),
         FieldPanel('body'),
     ]
 
@@ -397,7 +397,7 @@ class ResourceItemPage(MethodsBasePage):
         return grandparent.specific.heading
 
 
-@register_snippet
+# @register_snippet
 class SharedContent(models.Model):
 
     title = CharField(max_length=500, default='', blank=True)
