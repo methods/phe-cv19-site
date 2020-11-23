@@ -137,6 +137,7 @@ class LandingPage(MethodsBasePage):
     )
     OVERVIEW_HEADING = 'Overview'
     overview_subpage_heading = TextField(default=OVERVIEW_HEADING)
+    overview_subpage_text = RichTextField(default='', blank=True)
     overview_subpage_body = models.ForeignKey(
         'contentPages.SharedContent',
         null=True,
@@ -153,6 +154,7 @@ class LandingPage(MethodsBasePage):
     )
     RESOURCES_HEADING = 'Resources'
     resources_subpage_heading = TextField(default=RESOURCES_HEADING)
+    resources_subpage_text = RichTextField(default='', blank=True)
     resources_subpage_body = models.ForeignKey(
         'contentPages.SharedContent',
         null=True,
@@ -177,8 +179,10 @@ class LandingPage(MethodsBasePage):
         ImageChooserPanel('subpages_background_image'),
         FieldPanel('overview_subpage_heading'),
         SnippetChooserPanel('overview_subpage_body'),
+        FieldPanel('overview_subpage_text'),
         FieldPanel('resources_subpage_heading'),
         SnippetChooserPanel('resources_subpage_body'),
+        FieldPanel('resources_subpage_text'),
         FieldPanel('body'),
     ]
 
