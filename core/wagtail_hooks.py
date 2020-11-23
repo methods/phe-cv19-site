@@ -1,17 +1,12 @@
 from axes.models import AccessAttempt
 
-from django.utils.html import escape
-
 from wagtail.contrib.modeladmin.options import (ModelAdmin, modeladmin_register)
 from wagtail.core import hooks
-from wagtail.core.rich_text import LinkHandler
 from wagtail.admin import widgets as wagtailadmin_widgets
 
 from .models.nav import Menu, Footer
 from contentPages.models import HomePage, CreateNewResourceType
 from .models.config import MethodsRedirect
-
-import inspect
 
 
 class MenuAdmin(ModelAdmin):
@@ -46,6 +41,7 @@ class AccessAttemptAdmin(ModelAdmin):
     menu_icon = 'code'
     menu_order = 5
     add_to_settings_menu = True
+
 
 class MethodsRedirectAdmin(ModelAdmin):
     model = MethodsRedirect
