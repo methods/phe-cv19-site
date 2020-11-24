@@ -137,6 +137,7 @@ class LandingPage(MethodsBasePage):
     )
     OVERVIEW_HEADING = 'Overview'
     overview_subpage_heading = TextField(default=OVERVIEW_HEADING)
+    overview_subpage_text = RichTextField(default='', blank=True)
     overview_subpage_body = models.ForeignKey(
         'contentPages.SharedContent',
         null=True,
@@ -153,6 +154,7 @@ class LandingPage(MethodsBasePage):
     )
     RESOURCES_HEADING = 'Resources'
     resources_subpage_heading = TextField(default=RESOURCES_HEADING)
+    resources_subpage_text = RichTextField(default='', blank=True)
     resources_subpage_body = models.ForeignKey(
         'contentPages.SharedContent',
         null=True,
@@ -176,9 +178,11 @@ class LandingPage(MethodsBasePage):
         FieldPanel('signup_intro'),
         ImageChooserPanel('subpages_background_image'),
         FieldPanel('overview_subpage_heading'),
-        SnippetChooserPanel('overview_subpage_body'),
+        FieldPanel('overview_subpage_text'),
+        # SnippetChooserPanel('overview_subpage_body'),
         FieldPanel('resources_subpage_heading'),
-        SnippetChooserPanel('resources_subpage_body'),
+        FieldPanel('resources_subpage_text'),
+        # SnippetChooserPanel('resources_subpage_body'),
         FieldPanel('body'),
     ]
 
@@ -393,7 +397,7 @@ class ResourceItemPage(MethodsBasePage):
         return grandparent.specific.heading
 
 
-@register_snippet
+# @register_snippet
 class SharedContent(models.Model):
 
     title = CharField(max_length=500, default='', blank=True)
