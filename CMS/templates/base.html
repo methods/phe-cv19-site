@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>
       {% block title %}
         {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
@@ -14,28 +14,34 @@
         {% endwith %}
       {% endblock %}
     </title>
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="Cache-Control" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <link href="{% sass_src 'scss/global.scss' %}" rel="stylesheet" type="text/css" >
-    <link href="{% sass_src 'scss/crc.scss' %}" rel="stylesheet" type="text/css" >
+
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <link href="{% sass_src 'scss/global.scss' %}" rel="stylesheet" type="text/css">
+    <link href="{% sass_src 'scss/crc.scss' %}" rel="stylesheet" type="text/css">
     {% block extra_css %}
       {# Override this in templates to add extra stylesheets #}
     {% endblock %}
 
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-     <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
-     {% block extra_js %}
-       {# Override this in templates to add extra javascript #}
-     {% endblock %}
+    <script>
+      window.crcConfig={};
+      crcConfig.usage_logging_url="{{usage_url}}";
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/usage.js' %}"></script>
+    {% block extra_js %}
+      {# Override this in templates to add extra javascript #}
+    {% endblock %}
   </head>
 
   <body class="{% block body_class %}{% endblock %}">
-  <div class="row">
+    <div class="row">
       <a class="skip-main" href="#main-content">Skip to main content</a>
-  </div>
+    </div>
 
     {% include 'partials/covid-alert.html' %}
 
@@ -49,5 +55,4 @@
 
     {% include 'partials/footer.html' %}
   </body>
-
 </html>
