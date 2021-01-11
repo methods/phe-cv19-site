@@ -1,9 +1,7 @@
-from django.core.management import call_command
-from django.db import transaction
+from django.conf import settings
 
 from wagtail.core.models import Page
 
-from CMS.enums import enums
 from core.models.nav import Menu, Footer
 from core.utils import parse_menu_item, find_subscription_page_url
 
@@ -38,4 +36,5 @@ class MethodsBasePage(Page):
         context = super().get_context(request)
         context['page'] = self
         context['subscription_url'] = find_subscription_page_url()
+        context['usage_url'] = settings.USAGE_URL
         return context
