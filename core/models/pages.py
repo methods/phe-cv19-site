@@ -10,6 +10,11 @@ class MethodsBasePage(Page):
     class Meta:
         abstract = True
 
+    def unpublish(self, set_expired=False, commit=True):
+        super(MethodsBasePage, self).unpublish(set_expired, commit)
+        for child in self.get_children():
+            child.specific.unpublish(set_expired, commit)
+
     @property
     def menu(self):
         menu_data = Menu.objects.first()

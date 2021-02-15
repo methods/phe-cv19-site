@@ -396,6 +396,14 @@ class ResourceItemPage(MethodsBasePage):
         grandparent = self.get_parent().get_parent()
         return grandparent.specific.heading
 
+    @property
+    def campaign_live(self):
+        try:
+            grandparent = self.get_parent().get_parent()
+            return grandparent.live
+        except Exception:
+            return False
+
 
 # @register_snippet
 class SharedContent(models.Model):
@@ -519,14 +527,29 @@ class AssetTypePage(MethodsBasePage):
     ]
 
     def resource_item_pages(self):
-        return ResourceItemPage.objects.live().filter(document_type=self.document_type)
+        live_pages = []
+        resource_pages = ResourceItemPage.objects.live().filter(document_type=self.document_type)
+        for page in resource_pages:
+            if page.campaign_live:
+                live_pages.append(page)
+        return live_pages
 
     def ordered_resource_item_pages(self):
+        live_pages = []
         resource_pages = ResourceItemPage.objects.live().filter(document_type=self.document_type)
-        return resource_pages.order_by('-last_published_at')
+        resource_pages = resource_pages.order_by('-last_published_at')
+        for page in resource_pages:
+            if page.campaign_live:
+                live_pages.append(page)
+        return live_pages
 
     def asset_count(self):
-        resource_count = len(ResourceItemPage.objects.live().filter(document_type=self.document_type))
+        live_pages = []
+        resource_pages = ResourceItemPage.objects.live().filter(document_type=self.document_type)
+        for page in resource_pages:
+            if page.campaign_live:
+                live_pages.append(page)
+        resource_count = len(live_pages)
         return resource_count
 
 
