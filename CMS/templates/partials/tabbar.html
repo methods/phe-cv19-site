@@ -2,10 +2,10 @@
     <div class="container">
         <div class="phe-tabbar">
             <ul class='nav nav-tabs nav-justified'>
-                {% if active == 'overview' %}
+                {% if active == 'overview' and landing_page %}
                     <li class="active"><h2 class="active-tab-caption">Overview</h2></li>
                     <li><a href="/{{ landing_page }}/resources">Resources</a></li>
-                {% elif active == 'resources' %}
+                {% elif active == 'resources' and landing_page %}
                     <li><a href="/{{ landing_page }}/overview">Overview</a></li>
                     <li class="active"><h2 class="active-tab-caption">Resources</h2></li>
                 {% endif %}
