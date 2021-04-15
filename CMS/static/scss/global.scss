@@ -16,6 +16,10 @@ body {
 
 a {
   color: $link-blue;
+
+  &:focus {
+  text-decoration:underline;
+  }
 }
 
 a[target="_blank"] {

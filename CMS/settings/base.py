@@ -128,11 +128,11 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('DBNAME'),
-            'HOST': os.environ.get('DBHOST'),
-            'USER': os.environ.get('DBUSER'),
-            'PORT': os.environ.get('DBPORT'),
-            'PASSWORD': os.environ.get('DBPASSWORD')
+            'NAME': os.environ.get('DBNAME', 'phe'),
+            'HOST': os.environ.get('DBHOST', 'host.docker.internal'),
+            'USER': os.environ.get('DBUSER', 'patrick.fleming'),
+            'PORT': os.environ.get('DBPORT', 5432),
+            'PASSWORD': os.environ.get('DBPASSWORD', '')
         }
     }
 

@@ -30,6 +30,7 @@ class CreateNewResourceType(models.Model):
                 resource_type_value = resource_type.lower().replace(' ', '_')
                 resource_types.append((resource_type_value, resource_type))
         except:
+
             print('Resource types not present')
         return resource_types
 
