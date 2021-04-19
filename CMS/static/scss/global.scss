@@ -256,13 +256,12 @@ a.skip-main {
     a {
         font-size: 19px;
         font-family: "HelveticaNeueMedium", Helvetica, Arial, sans-serif;
-        color: #fff;
+        color: #fff !important;
         text-decoration: underline;
         padding: 3px
     }
 
     a:visited {
-        color: #fff;
         text-decoration: none
     }
 
@@ -270,7 +269,6 @@ a.skip-main {
         outline: thin dotted;
         outline: 5px auto -webkit-focus-ring-color;
         outline-offset: -2px;
-        color: #fff;
         padding: 5px
     }
 
