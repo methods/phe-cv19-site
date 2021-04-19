@@ -257,12 +257,27 @@ a.skip-main {
         font-size: 19px;
         font-family: "HelveticaNeueMedium", Helvetica, Arial, sans-serif;
         color: #fff;
-        text-decoration: underline
+        text-decoration: underline;
+        padding: 3px
     }
 
     a:visited {
         color: #fff;
         text-decoration: none
+    }
+
+    a:focus {
+        outline: thin dotted;
+        outline: 5px auto -webkit-focus-ring-color;
+        outline-offset: -2px;
+        color: #fff;
+        padding: 5px
+    }
+
+    a:hover {
+        background-color: #04857A;
+        border-radius: 5px;
+        color: #fff
     }
 
     p.message {

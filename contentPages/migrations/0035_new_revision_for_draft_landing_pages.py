@@ -6,10 +6,9 @@ from contentPages.models import LandingPage
 
 
 def create_revisions(apps, schema_editor):
-    pass
-    # landing_pages = LandingPage.objects.filter(live=False)
-    # for landing_page in landing_pages:
-    #     landing_page.save_revision()
+    landing_pages = LandingPage.objects.filter(live=False)
+    for landing_page in landing_pages:
+        landing_page.save_revision()
 
 
 class Migration(migrations.Migration):
