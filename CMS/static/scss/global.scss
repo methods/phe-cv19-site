@@ -16,6 +16,10 @@ body {
 
 a {
   color: $link-blue;
+
+  &:focus {
+  text-decoration:underline;
+  }
 }
 
 a[target="_blank"] {
@@ -252,13 +256,26 @@ a.skip-main {
     a {
         font-size: 19px;
         font-family: "HelveticaNeueMedium", Helvetica, Arial, sans-serif;
-        color: #fff;
-        text-decoration: underline
+        color: #fff !important;
+        text-decoration: underline;
+        padding: 3px
     }
 
     a:visited {
-        color: #fff;
         text-decoration: none
+    }
+
+    a:focus {
+        outline: thin dotted;
+        outline: 5px auto -webkit-focus-ring-color;
+        outline-offset: -2px;
+        padding: 5px
+    }
+
+    a:hover {
+        background-color: #04857A;
+        border-radius: 5px;
+        color: #fff
     }
 
     p.message {
