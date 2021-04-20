@@ -74,13 +74,10 @@
                                 <div class="col-xs-6">
                                     <div class="panel-heading">{{ page.resource_count }} items matching</div>
                                 </div>
-                                <div class="col-xs-6 order-selector" style="display: none">
+                                <div class="col-xs-6">
                                     Sort by
-                                    <select id="order-selector__toggle">
-                                      <option value="popular">Most popular first</option>
-                                      <option value="newest">Newest first</option>
-                                      <option value="oldest">Oldest first</option>
-                                    </select>
+                                    <button id="order-selector__popular-button">Popular</button>
+                                    <button id="order-selector__newest-button">Newest</button>
                                 </div>
                             </div>
                         </div>
@@ -96,11 +93,6 @@
                                       </div>
                                       <div id="newest" style="display: none">
                                           {% for resource_page in page.ordered_resource_list %}
-                                              {% include 'partials/resource_list_item.html' with resource_page=resource_page column_width=4%}
-                                          {% endfor %}
-                                      </div>
-                                      <div id="oldest" style="display: none">
-                                          {% for resource_page in page.ordered_resource_list reversed %}
                                               {% include 'partials/resource_list_item.html' with resource_page=resource_page column_width=4%}
                                           {% endfor %}
                                       </div>

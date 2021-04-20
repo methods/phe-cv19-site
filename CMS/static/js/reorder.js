@@ -1,49 +1,57 @@
 (function($) {
-  var ResourceSort = function(sortToggle, resourcesArea) {
-    this.sortToggle = sortToggle;
+  var ResourceSort = function(popularButton, newestButton, resourcesArea) {
+    this.popularButton = popularButton;
+    this.newestButton = newestButton;
     this.resourcesArea = resourcesArea;
     this.setup();
   }
 
   ResourceSort.prototype = {
     setup: function() {
-      this.sortToggle.parent().show();
+    debugger;
       this.popularResourceList = this.resourcesArea.find('#popular');
       this.newestResourceList = this.resourcesArea.find('#newest');
-      this.oldestResourceList = this.resourcesArea.find('#oldest');
-      this.startWatcher();
+      this.startWatcherPopularButton();
+      this.startWatcherNewestButton();
     },
 
-    startWatcher: function() {
+    startWatcherPopularButton: function() {
       var that = this;
-      this.sortToggle.change(function () {
-        that.handleReorder();
+      this.popularButton.click(function () {
+        that.handleReorder('popular')
       })
     },
 
-    handleReorder: function() {
-      if (this.sortToggle[0].value === 'popular') {
+    startWatcherNewestButton: function() {
+      var that = this;
+      this.newestButton.click(function () {
+        that.handleReorder('newest')
+      })
+    },
+
+    handleReorder: function(sortType) {
+      if (sortType === 'popular') {
         this.newestResourceList.hide();
-        this.oldestResourceList.hide();
         this.popularResourceList.show();
-      } else if (this.sortToggle[0].value === 'newest') {
+      } else if (sortType === 'newest') {
         this.popularResourceList.hide();
-        this.oldestResourceList.hide();
         this.newestResourceList.show();
-      } else if (this.sortToggle[0].value === 'oldest') {
-        this.popularResourceList.hide();
-        this.newestResourceList.hide();
-        this.oldestResourceList.show();
       }
     }
   }
 
   function init() {
-    var sortSelector = $('#order-selector__toggle');
+//    var sortSelector = $('#order-selector__toggle');
+    var popularButton = $('#order-selector__popular-button')
+    var newestButton = $('#order-selector__newest-button')
     var sortItems = $('#internal-resources');
-    if (sortSelector.length > 0 && sortItems.length > 0) {
-      new ResourceSort(sortSelector, sortItems);
+//    if (sortSelector.length > 0 && sortItems.length > 0) {
+//      new ResourceSort(popularButton, newestButton, sortItems);
+//    }
+    if (sortItems.length > 0) {
+      new ResourceSort(popularButton, newestButton, sortItems);
     }
+
   }
 
   $(document).on('page:load', init);
