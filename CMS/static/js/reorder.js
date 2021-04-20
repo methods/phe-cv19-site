@@ -8,7 +8,6 @@
 
   ResourceSort.prototype = {
     setup: function() {
-    debugger;
       this.popularResourceList = this.resourcesArea.find('#popular');
       this.newestResourceList = this.resourcesArea.find('#newest');
       this.startWatcherPopularButton();
@@ -41,17 +40,12 @@
   }
 
   function init() {
-//    var sortSelector = $('#order-selector__toggle');
     var popularButton = $('#order-selector__popular-button')
     var newestButton = $('#order-selector__newest-button')
     var sortItems = $('#internal-resources');
-//    if (sortSelector.length > 0 && sortItems.length > 0) {
-//      new ResourceSort(popularButton, newestButton, sortItems);
-//    }
-    if (sortItems.length > 0) {
+    if (popularButton.length > 0 && newestButton.length > 0 && sortItems.length > 0) {
       new ResourceSort(popularButton, newestButton, sortItems);
     }
-
   }
 
   $(document).on('page:load', init);
