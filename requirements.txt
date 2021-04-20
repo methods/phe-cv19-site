@@ -1,5 +1,5 @@
 Django<2.3,>=2.2.2
-wagtail==2.9.3
+wagtail==2.11.6
 Pillow==6.2.2
 psycopg2-binary
 flake8==3.7.7
