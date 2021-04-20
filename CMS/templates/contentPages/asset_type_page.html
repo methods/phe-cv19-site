@@ -23,6 +23,7 @@
 
         <div class="crc-tab-content-shelf">
             <div class="container crc-nav-tab-content">
+                <h1>{{page.title}}</h1>
                 <div class="resources-search-panel">
                     <div class="row">
                         <div id="search-results-summary" class="col-xs-6">
@@ -43,17 +44,17 @@
                                 <div id="internal-resources">
                                     <div id="popular">
                                         {% for resource_page in page.resource_item_pages %}
-                                            {% include 'partials/resource_list_item.html' with resource_page=resource_page column_width=3%}
+                                            {% include 'partials/resource_list_item.html' with resource_page=resource_page column_width=3 header_level='h2'%}
                                         {% endfor %}
                                     </div>
                                     <div id="newest" style="display: none">
                                         {% for resource_item_page in page.ordered_resource_item_pages %}
-                                            {% include 'partials/resource_list_item.html' with resource_page=resource_item_page column_width=3 %}
+                                            {% include 'partials/resource_list_item.html' with resource_page=resource_item_page column_width=3 header_level='h2'%}
                                         {% endfor %}
                                     </div>
                                     <div id="oldest" style="display: none">
                                         {% for resource_item_page in page.ordered_resource_item_pages reversed %}
-                                            {% include 'partials/resource_list_item.html' with resource_page=resource_item_page column_width=3 %}
+                                            {% include 'partials/resource_list_item.html' with resource_page=resource_item_page column_width=3 header_level='h2'%}
                                         {% endfor %}
                                     </div>
                                 </div>
