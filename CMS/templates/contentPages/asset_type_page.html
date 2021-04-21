@@ -47,11 +47,6 @@
                                             {% include 'partials/resource_list_item.html' with resource_page=resource_item_page column_width=3 header_level='h2'%}
                                         {% endfor %}
                                     </div>
-                                    <div id="oldest" style="display: none">
-                                        {% for resource_item_page in page.ordered_resource_item_pages reversed %}
-                                            {% include 'partials/resource_list_item.html' with resource_page=resource_item_page column_width=3 header_level='h2'%}
-                                        {% endfor %}
-                                    </div>
                                 </div>
                             </ul>
                         </div>
