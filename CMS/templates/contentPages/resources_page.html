@@ -71,13 +71,15 @@
                     <div class='col-sm-9 col-xs-7'>
                         <div id="search-results-summary">
                             <div class="row">
-                                <div class="col-xs-6">
+                                <div class="col-sm-6">
                                     <div class="panel-heading">{{ page.resource_count }} items matching</div>
                                 </div>
-                                <div class="col-xs-6">
-                                    Sort by
-                                    <button class="sort-button" id="order-selector__popular-button">Popular</button>
+                                <div class="col-sm-6 resources-sort">
+                                    Sort by:
+                                    <div class="button-container">
+                                    <button class="sort-button" id="order-selector__popular-button">Most popular</button>
                                     <button class="sort-button" id="order-selector__newest-button">Newest</button>
+                                        </div>
                                 </div>
                             </div>
                         </div>

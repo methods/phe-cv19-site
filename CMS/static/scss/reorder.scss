@@ -10,12 +10,14 @@
   &:hover,
   &:active {
     background-color: #292929;
-    outline: none;
+  }
+  &:focus {
+    text-decoration: underline;
   }
   color: #FFFFFF;
   background-color: #04857A;
   border-radius: 7px;
-  margin: 10px;
-  padding: 5px 16px !important;
+  margin: 5px;
+  padding: 5px 8px !important;
   font-size: 16px
 }
