@@ -1,10 +1,23 @@
-.order-selector {
-  text-align: right;
-  display: none;
-}
 
 #internal-resources {
-  #newest, #oldest {
+  #newest {
     display: none;
   }
+}
+
+.sort-button {
+  &:focus,
+  &:hover,
+  &:active {
+    background-color: #292929;
+  }
+  &:focus {
+    text-decoration: underline;
+  }
+  color: #FFFFFF;
+  background-color: #04857A;
+  border-radius: 7px;
+  margin: 5px;
+  padding: 5px 8px !important;
+  font-size: 16px
 }

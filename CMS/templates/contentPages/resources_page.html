@@ -71,16 +71,15 @@
                     <div class='col-sm-9 col-xs-7'>
                         <div id="search-results-summary">
                             <div class="row">
-                                <div class="col-xs-6">
+                                <div class="col-sm-6">
                                     <div class="panel-heading">{{ page.resource_count }} items matching</div>
                                 </div>
-                                <div class="col-xs-6 order-selector" style="display: none">
-                                    Sort by
-                                    <select id="order-selector__toggle">
-                                      <option value="popular">Most popular first</option>
-                                      <option value="newest">Newest first</option>
-                                      <option value="oldest">Oldest first</option>
-                                    </select>
+                                <div class="col-sm-6 resources-sort">
+                                    Sort by:
+                                    <div class="button-container">
+                                    <button class="sort-button" id="order-selector__popular-button">Most popular</button>
+                                    <button class="sort-button" id="order-selector__newest-button">Newest</button>
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -96,11 +95,6 @@
                                       </div>
                                       <div id="newest" style="display: none">
                                           {% for resource_page in page.ordered_resource_list %}
-                                              {% include 'partials/resource_list_item.html' with resource_page=resource_page column_width=4%}
-                                          {% endfor %}
-                                      </div>
-                                      <div id="oldest" style="display: none">
-                                          {% for resource_page in page.ordered_resource_list reversed %}
                                               {% include 'partials/resource_list_item.html' with resource_page=resource_page column_width=4%}
                                           {% endfor %}
                                       </div>

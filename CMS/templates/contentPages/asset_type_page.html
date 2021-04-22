@@ -19,24 +19,19 @@
         <div class="row">
             {% include 'partials/breadcrumbs.html' with ancestors=page.breadcrumbs title=page.title %}
         </div>
-
-
         <div class="crc-tab-content-shelf">
             <div class="container crc-nav-tab-content">
                 <h1>{{page.title}}</h1>
                 <div class="resources-search-panel">
                     <div class="row">
-                        <div id="search-results-summary" class="col-xs-6">
+                        <div id="search-results-summary" class="col-sm-6">
                             <div class="panel-heading">{{ page.asset_count }} items matching</div>
                         </div>
-                        <div class="col-xs-6 order-selector" style="display: none">
-                            Sort by
-                            <select id="order-selector__toggle">
-                              <option value="popular">Most popular first</option>
-                              <option value="newest">Newest first</option>
-                              <option value="oldest">Oldest first</option>
-                            </select>
-                        </div>
+                                <div class="col-sm-6">
+                                    Sort by:
+                                    <button class="sort-button" id="order-selector__popular-button">Most popular</button>
+                                    <button class="sort-button" id="order-selector__newest-button">Newest</button>
+                                </div>
                     </div>
                     <div id="search-results" class="spacer-top-1">
                         <div class="row">
@@ -52,16 +47,11 @@
                                             {% include 'partials/resource_list_item.html' with resource_page=resource_item_page column_width=3 header_level='h2'%}
                                         {% endfor %}
                                     </div>
-                                    <div id="oldest" style="display: none">
-                                        {% for resource_item_page in page.ordered_resource_item_pages reversed %}
-                                            {% include 'partials/resource_list_item.html' with resource_page=resource_item_page column_width=3 header_level='h2'%}
-                                        {% endfor %}
-                                    </div>
                                 </div>
                             </ul>
                         </div>
                     </div>
-                </div>
+
             </div>
         </div>
     </div>
