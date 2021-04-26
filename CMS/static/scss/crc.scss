@@ -3406,8 +3406,15 @@ tbody.collapse.in {
   height: 50px
 }
 
-.navbar-brand:hover, .navbar-brand:focus {
-  text-decoration: none
+.navbar-brand:focus {
+  text-decoration: none;
+  outline: 5px auto -webkit-focus-ring-color;
+  background-color: #04857A;
+}
+
+.navbar-brand:hover {
+  text-decoration: none;
+  background-color: #04857A;
 }
 
 .navbar-brand > img {
@@ -3661,7 +3668,7 @@ tbody.collapse.in {
   color: #777
 }
 
-.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+.navbar-default {
   color: #5e5e5e;
   background-color: transparent
 }
@@ -8166,7 +8173,7 @@ button.btn:hover {
 }
 
 .case-study-download-btn:focus {
-  outline: 0
+  outline: 0;
 }
 
 .case-study-download-btn:before {
@@ -9542,7 +9549,8 @@ nav.crc-navbar .navbar-header {
 
 nav.crc-navbar .navbar-header .navbar-brand {
   background-image: url(/static/img/phe-banner.svg);
-  width: 250px;
+  background-size: 250px 74px;
+  width: 270px;
   height: 74px;
   background-repeat: no-repeat;
   background-position: center
