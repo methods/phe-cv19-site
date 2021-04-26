@@ -128,7 +128,7 @@
       var firstNameValid = true;
       var lastNameValid = true;
       if (this.firstNameField.val() === '') {
-        this.errors.firstName = 'Please enter your first name';
+        this.errors.firstName = 'Enter your first name';
         firstNameValid = false;
       } else if (!this.nameValidationRegex.test(this.firstNameField.value)) {
         this.errors.firstName = 'An invalid character has been entered';
@@ -136,7 +136,7 @@
       }
 
       if (this.lastNameField.val() === '') {
-        this.errors.lastName = 'Please enter your last name';
+        this.errors.lastName = 'Enter your last name';
         lastNameValid = false;
       } else if (!this.nameValidationRegex.test(this.lastNameField.value)) {
         this.errors.lastName = 'An invalid character has been entered';
@@ -148,10 +148,10 @@
 
     validateEmailField: function() {
       if (this.emailField.val() === '') {
-        this.errors.email = 'Please enter an email address';
+        this.errors.email = 'Enter an email address';
         return false;
       } else if (!this.emailVaildationRegex.test(this.emailField.val())) {
-        this.errors.email = 'Please enter a valid email address';
+        this.errors.email = 'Enter an email address in the correct format, like name@example.com';
         return false;
       }
       return true;
