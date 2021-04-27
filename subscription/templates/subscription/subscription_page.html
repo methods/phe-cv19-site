@@ -18,11 +18,11 @@
       </div>
     </div>
   {% else %}
-    <form method="POST" action="#" class="subscription-form container" aria-live="polite">
+    <form method="POST" action="#" class="subscription-form container">
       <h2>{{ page.sub_heading }}</h2>
       <p>{{ page.intro }}</p>
 
-      <div class="error-container" id="errorList">
+      <div class="error-container" id="errorList" role="alert">
         <p class="error-title"></p>
         <ul class="error-list">
         </ul>
