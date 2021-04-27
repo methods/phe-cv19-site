@@ -3400,21 +3400,10 @@ tbody.collapse.in {
 
 .navbar-brand {
   float: left;
-  padding: 15px 15px;
   font-size: 18px;
   line-height: 20px;
-  height: 50px
-}
-
-.navbar-brand:focus {
-  text-decoration: none;
-  outline: 5px auto -webkit-focus-ring-color;
-  background-color: #04857A;
-}
-
-.navbar-brand:hover {
-  text-decoration: none;
-  background-color: #04857A;
+  height: 50px;
+  position: relative;
 }
 
 .navbar-brand > img {
@@ -9548,12 +9537,8 @@ nav.crc-navbar .navbar-header {
 }
 
 nav.crc-navbar .navbar-header .navbar-brand {
-  background-image: url(/static/img/phe-banner.svg);
-  background-size: 250px 74px;
   width: 270px;
   height: 74px;
-  background-repeat: no-repeat;
-  background-position: center
 }
 
 nav.crc-navbar .navbar-collapse.collapse.in {

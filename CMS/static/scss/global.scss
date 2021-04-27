@@ -323,3 +323,31 @@ a.skip-main {
    min-width: 320px;
 }
 
+.navbar-logo-link {
+    padding: 15px;
+    display: block;
+    height: 100%;
+}
+
+.navbar-logo-link:focus {
+  text-decoration: none;
+  outline: 5px auto -webkit-focus-ring-color;
+  background-color: #04857A;
+}
+
+.navbar-logo-link:hover {
+  text-decoration: none;
+  background-color: #04857A;
+}
+
+.navbar-img {
+    max-height: 100%;
+    max-width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 0px 7px;
+}
