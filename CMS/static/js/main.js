@@ -64,6 +64,7 @@
       this.alreadySignedUpMessage = this.form.find('.subscription-form__already');
       this.errorList = this.form.find('.error-list');
       this.errorTitle = this.form.find('.error-title')
+      this.errorContainer = this.form.find('.error-container')
       this.errors = {};
       this.startWatcher();
     },
@@ -87,6 +88,7 @@
       this.alreadySignedUpMessage.hide();
       this.errorList.empty();
       this.errorTitle.text('');
+      this.errorContainer.hide();
     },
 
     startWatcher: function() {
@@ -171,31 +173,32 @@
 
     showErrors: function() {
       if (this.errors) {
-        this.errorTitle.text('There is a problem')
+        this.errorContainer.show().css('display', 'inline-block');
+        this.errorTitle.text('There is a problem');
       }
       if (this.errors.firstName) {
         this.firstNameErrorSpace.text(this.errors.firstName);
         this.firstNameErrorSpace.show();
         this.firstNameErrorSpace.parent().addClass('error');
-        this.errorList.append('<li>' + this.errors.firstName + '</li>');
+        this.errorList.append('<li><a href="#firstname">' + this.errors.firstName + '</a></li>');
       }
       if (this.errors.lastName) {
         this.lastNameErrorSpace.text(this.errors.lastName);
         this.lastNameErrorSpace.show();
         this.lastNameErrorSpace.parent().addClass('error');
-        this.errorList.append('<li>' + this.errors.lastName + '</li>');
+        this.errorList.append('<li><a href="#lastname">' + this.errors.lastName + '</a></li>');
       }
       if (this.errors.email) {
         this.emailErrorSpace.text(this.errors.email);
         this.emailErrorSpace.show();
         this.emailErrorSpace.parent().addClass('error');
-        this.errorList.append('<li>' + this.errors.email + '</li>');
+        this.errorList.append('<li><a href="#email">' + this.errors.email + '</a></li>');
       }
       if (this.errors.terms) {
         this.termsErrorSpace.text(this.errors.terms);
         this.termsErrorSpace.show();
         this.termsErrorSpace.parent().addClass('error');
-        this.errorList.append('<li>' + this.errors.terms + '</li>');
+        this.errorList.append('<li><a href="#terms">' + this.errors.terms + '</a></li>');
       }
     }
   }
