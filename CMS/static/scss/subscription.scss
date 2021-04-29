@@ -1,6 +1,10 @@
 .subscription-form {
   padding: 30px 0px 50px;
 
+  &__text-input-container {
+
+  }
+
   &__success {
     border-left: 5px solid #00703c;
     padding: 10px;
@@ -17,7 +21,6 @@
 
   &__field {
     border: none;
-    padding-bottom: 10px;
 
     &.terms {
       margin-top: 15px;
@@ -70,7 +73,7 @@
     font-size: 16px;
     cursor: pointer;
     padding: 6px 12px;
-    margin-top: 30px;
+    margin-top: 20px;
 
     &:hover {
       color: #fff;
@@ -95,4 +98,10 @@
 
 .service_pending_container {
   margin: 1.5em 0;
+}
+
+.row {
+      &:not(:last-child){
+      padding-bottom: 10px;
+    }
 }
