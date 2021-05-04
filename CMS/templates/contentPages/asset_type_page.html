@@ -14,7 +14,6 @@
 {% image page.banner_image original as banner %}
 {% convert_s3_link banner.url as banner_url %}
 
-<main id="main-content" tabindex="-1">
     <div id="content">
         <div class="row">
             {% include 'partials/breadcrumbs.html' with ancestors=page.breadcrumbs title=page.title %}
@@ -55,6 +54,5 @@
             </div>
         </div>
     </div>
-</main>
 
 {% endblock %}
