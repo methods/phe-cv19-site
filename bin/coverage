@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-docker exec -ti phe-cv19-site_web_1 bash -c "coverage run manage.py test" >/dev/null
+docker exec -ti ${PWD##*/}_web_1 bash -c "coverage run manage.py test" >/dev/null
 
-docker exec -ti phe-cv19-site_web_1 bash -c "coverage report"
+docker exec -ti ${PWD##*/}_web_1 bash -c "coverage report"
 
-docker exec -ti phe-cv19-site_web_1 bash -c "coverage html"
+docker exec -ti ${PWD##*/}_web_1 bash -c "coverage html"
 
-docker cp phe-cv19-site_web_1:code/htmlcov .
+docker cp ${PWD##*/}_web_1:code/htmlcov .
