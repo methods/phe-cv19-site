@@ -35,9 +35,10 @@
 
       <p class="subscription-form__already" role="alert">This email address has already signed up for automated updates</p>
 
-      <p class="subscription-form__fail" role="alert">Sign up failed. Please try again</p>
-
-
+      <p class="subscription-form__fail">Sign up failed. Please try again</p>
+      
+      <div class="subscription-form__text-input-container">
+        
       <div class="row">
         <div class="subscription-form__field col-sm-12 col-md-6">
           <label class="subscription-form__label" for="firstname">First name*</label>
@@ -67,6 +68,7 @@
           <p class="subscription-form__error"></p>
         </div>
       </div>
+        </div>
 
       {{ page.signup_details | richtext }}
 

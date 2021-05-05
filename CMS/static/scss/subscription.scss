@@ -69,7 +69,7 @@
     font-size: 16px;
     cursor: pointer;
     padding: 6px 12px;
-    margin-top: 30px;
+    margin-top: 20px;
 
     &:hover {
       color: #fff;
@@ -101,6 +101,11 @@
 .service_pending_container {
   margin: 1.5em 0;
 }
+
+.row {
+      &:not(:last-child){
+      padding-bottom: 10px;
+    }
 
 .error-container {
     display:none;
