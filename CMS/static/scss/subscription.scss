@@ -30,7 +30,7 @@
   &__label {
     font-weight: initial;
     margin-bottom: 0px;
-    color: #666666;
+    color: #262626;
     font-size: 0.9em;
     display: block;
   }
@@ -44,20 +44,11 @@
   &__terms-label {
     font-weight: initial;
     margin-bottom: 0px;
-    color: #666666;
+    color: #262626;
     font-size: 0.9em;
 
     .rich-text {
       display: inline-block;
-
-      a {
-        color: #337ab7;
-        text-decoration: none;
-
-        &:hover, &:focus {
-          color: #646e9b;
-        }
-      }
     }
   }
 
@@ -80,7 +71,7 @@
   &__required-field {
     font-style: italic;
     font-size: 16px;
-    color: #666666;
+    color: #262626;
     margin-bottom: 30px;
   }
 

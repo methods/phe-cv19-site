@@ -32,6 +32,7 @@ a[target="_blank"] {
 //Required to prevent wagtail adding huge padding to bottom of embeds
 
 .rich-text {
+  color: $body-text-color;
   .responsive-object {
     position: relative;
 
@@ -44,6 +45,15 @@ a[target="_blank"] {
       height: 100%;
     }
   }
+  a {
+    color: $link-blue;
+    text-decoration: underline;
+
+    &:hover, &:focus {
+      color: $link-blue-hover;
+    }
+  }
+
 }
 
 .visibly-hidden {
