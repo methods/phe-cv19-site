@@ -284,7 +284,7 @@ a.skip-main {
     }
 
     a:hover {
-        background-color: #04857A;
+        background-color: $phe-teal;
         border-radius: 5px;
         color: #fff
     }
@@ -338,11 +338,11 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
   a {
- color: #3471B7 ;
+ color: $link-blue ;
     text-decoration: underline;
 
     &:hover, &:focus {
-      color: #646E9B;
+      color: $link-blue-hover;
       text-decoration: underline;
     }
   }

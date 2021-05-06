@@ -56,7 +56,7 @@
 
   &__btn {
     border-radius: 0px;
-    background-color: #04857A;
+    background-color: $phe-teal;
     color: #fff;
     line-height: 25px;
     font-size: 16px;
@@ -66,7 +66,7 @@
 
     &:hover {
       color: #fff;
-      background-color: #292929;
+      background-color: $phe-dark;
     }
   }
 
