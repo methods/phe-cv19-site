@@ -12,6 +12,7 @@
 body {
   margin: 0;
   font-family: sans-serif, serif;
+  color: $body-text-color;
 }
 
 a {
@@ -331,4 +332,18 @@ a.skip-main {
    display: flex;
    align-items:center;
    min-width: 320px;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  a {
+ color: #3471B7 ;
+    text-decoration: underline;
+
+    &:hover, &:focus {
+      color: #646E9B;
+      text-decoration: underline;
+    }
+  }
 }

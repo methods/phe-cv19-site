@@ -234,16 +234,6 @@ optgroup {
 
 table {
   border-collapse: collapse;
-  border-spacing: 0;
-  a {
- color: #3471B7 ;
-    text-decoration: underline;
-
-    &:hover, &:focus {
-      color: #646E9B;
-      text-decoration: underline;
-    }
-  }
 }
 
 td, th {
@@ -6354,7 +6344,6 @@ div.dcp-master-pane {
 body {
   padding: 0px;
   font-size: 16px;
-  color: #262626;
 }
 
 h1.newsletter {
