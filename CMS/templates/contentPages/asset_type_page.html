@@ -34,20 +34,22 @@
                     </div>
                     <div id="search-results" class="spacer-top-1">
                         <div class="row">
-                            <ul class="crc-thumbnails">
-                                <div id="internal-resources">
+                                <div id="internal-resources" class="crc-thumbnails">
                                     <div id="popular">
-                                        {% for resource_page in page.resource_item_pages %}
+                                        <ul>
+                                            {% for resource_page in page.resource_item_pages %}
                                             {% include 'partials/resource_list_item.html' with resource_page=resource_page column_width=3 header_level='h2'%}
                                         {% endfor %}
+                                        </ul>
                                     </div>
                                     <div id="newest" style="display: none">
-                                        {% for resource_item_page in page.ordered_resource_item_pages %}
+                                        <ul>
+                                            {% for resource_item_page in page.ordered_resource_item_pages %}
                                             {% include 'partials/resource_list_item.html' with resource_page=resource_item_page column_width=3 header_level='h2'%}
                                         {% endfor %}
+                                        </ul>
                                     </div>
                                 </div>
-                            </ul>
                         </div>
                     </div>
 
