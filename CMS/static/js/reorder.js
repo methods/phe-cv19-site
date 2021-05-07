@@ -17,14 +17,14 @@
     startWatcherPopularButton: function() {
       var that = this;
       this.popularButton.click(function () {
-        that.handleReorder('popular')
+        that.handleReorder('popular');
       })
     },
 
     startWatcherNewestButton: function() {
       var that = this;
       this.newestButton.click(function () {
-        that.handleReorder('newest')
+        that.handleReorder('newest');
       })
     },
 
