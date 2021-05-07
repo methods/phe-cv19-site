@@ -3,9 +3,14 @@
 <nav class="navbar navbar-default navbar-static-top crc-navbar affix-top" role="navigation" data-spy="affix" data-offset-top="74">
   <div class="container">
     <div class="navbar-header">
-      <a data-track="CRC_Header_Navigation" data-track-item="HomeLink" href="https://campaignresources.phe.gov.uk/resources">
-        <div class="navbar-brand"><span class="visibly-hidden">PHE Campaign Resource Center</span></div>
-      </a>
+        <div class="navbar-brand">
+          <a class="navbar-logo-link navigation-link" data-track="CRC_Header_Navigation" data-track-item="HomeLink" href="https://campaignresources.phe.gov.uk/resources">
+          <picture>
+            <img class="navbar-img" src="/static/img/phe-banner.svg" alt="PHE Campaign Resource Center">
+          </picture>
+            </a>
+        </div>
+
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
@@ -19,7 +24,7 @@
 
           {% for item in page.menu %}
             <li>
-              <a data-track="CRC_Header_Navigation" data-track-item="{% title_to_id item.label %}" class="crc-menu-item" href="{{ item.url }}">
+              <a data-track="CRC_Header_Navigation" data-track-item="{% title_to_id item.label %}" class="crc-menu-item navigation-link" href="{{ item.url }}">
                 {{ item.label }}
               </a>
             </li>
@@ -30,7 +35,7 @@
       <ul class="nav navbar-nav navbar-right crc-navbar-right">
         <li class="last">
           <div>
-            <a data-track="CRC_Subscribe" data-track-item="header" class="button-focus crc-menu-item signin" id="btn-trigger-signin" href="{{ subscription_url }}">
+            <a data-track="CRC_Subscribe" data-track-item="header" class="button-focus crc-menu-item signin navigation-link" id="btn-trigger-signin" href="{{ subscription_url }}">
               Subscribe for updates
             </a>
           </div>
