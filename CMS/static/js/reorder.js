@@ -34,11 +34,15 @@
         this.popularResourceList.show();
         this.newestButton.removeClass('sort-button--selected')
         this.popularButton.addClass('sort-button--selected')
+        this.popularButton.attr('aria-pressed','true')
+        this.newestButton.attr('aria-pressed','false')
       } else if (sortType === 'newest') {
         this.popularResourceList.hide();
         this.newestResourceList.show();
         this.popularButton.removeClass('sort-button--selected')
         this.newestButton.addClass('sort-button--selected')
+        this.popularButton.attr('aria-pressed','false')
+        this.newestButton.attr('aria-pressed','true')
       }
     }
   }
@@ -47,6 +51,7 @@
     var popularButton = $('#order-selector__popular-button')
     var newestButton = $('#order-selector__newest-button')
     var sortItems = $('#internal-resources');
+    
     if (popularButton.length > 0 && newestButton.length > 0 && sortItems.length > 0) {
       new ResourceSort(popularButton, newestButton, sortItems);
     }
