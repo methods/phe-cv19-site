@@ -32,9 +32,13 @@
       if (sortType === 'popular') {
         this.newestResourceList.hide();
         this.popularResourceList.show();
+        this.newestButton.removeClass('sort-button--selected')
+        this.popularButton.addClass('sort-button--selected')
       } else if (sortType === 'newest') {
         this.popularResourceList.hide();
         this.newestResourceList.show();
+        this.popularButton.removeClass('sort-button--selected')
+        this.newestButton.addClass('sort-button--selected')
       }
     }
   }
