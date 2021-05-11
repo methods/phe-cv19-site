@@ -323,3 +323,12 @@ a.skip-main {
    align-items:center;
    min-width: 320px;
 }
+
+@media (min-width: 992px) {
+  .one-you-links .links-row {
+    min-height: 300px;
+  }
+}
+.links-row{
+  padding-bottom: 2em;
+}

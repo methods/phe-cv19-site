@@ -6,10 +6,10 @@ $focus-border-width: 3px;
 .phe-links-block a .block {
   position: relative;
   margin: 2em 1em $focus-border-width;
-  height: 221px;
+  min-height: 221px;
   background: $tile-background-color;
   overflow: hidden;
-
+  
   .row {
     margin: 0 0 -4px
   }
