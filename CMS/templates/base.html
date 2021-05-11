@@ -1,7 +1,7 @@
 {% load static wagtailuserbar methods_tags sass_tags %}
 
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8"/>
     <title>
@@ -38,7 +38,9 @@
     {% endblock %}
   </head>
 
-  <body class="{% block body_class %}{% endblock %}">
+  <body class="{% block body_class %}{% endblock %} no-js">
+    {% include 'partials/no-js.html' %}
+
     <div class="row">
       <a class="skip-main" href="#main-content">Skip to main content</a>
     </div>

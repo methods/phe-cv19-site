@@ -3,7 +3,7 @@
 {% image external_resource.thumbnail_image original as thumbnail_image %}
 {% convert_s3_link thumbnail_image.url as thumbnail_image_url %}
 
-<div class="resource-card col-sm-6 col-md-{{ column_width }}">
+<li class="resource-card col-sm-6 col-md-{{ column_width }}">
     <a class="resource-card__thumbnail-container" href="{{external_resource.external_link}}">
         <div class="resource-card__thumbnail">
             <div class="resource-card__image-wrapper"
@@ -22,4 +22,4 @@
             </div>
         </div>
     </a>
-</div>
+</li>

@@ -3,14 +3,13 @@
 {% image resource_page.preview_image original as preview_image %}
 {% convert_s3_link preview_image.url as preview_image_url %}
 
-<div class="resource-card col-sm-6 col-md-{{ column_width }}">
+<li class="resource-card col-sm-6 col-md-{{ column_width }}">
     <a class="resource-card__thumbnail-container" href="{% if resource_page %}{% pageurl resource_page %}{% endif %}">
         <div class="resource-card__thumbnail">
             <div class="resource-card__image-wrapper"
                  style="background-image: url('/static/img/resource-bg.png')">
                 <div class="asset-thumb-container"
-                     style="background-image: url({{ preview_image_url }})"
-                     title="{{ resource_page.title }}"></div>
+                     style="background-image: url({{ preview_image_url }})"></div>
             </div>
             <div class="resource-card__footer">
                 <div class="resource-card__title-container">
@@ -21,10 +20,10 @@
                     <h3 class="resource-card__title"
                         title="{{ resource_page.title }}">{{ resource_page.title }}</h3>
                     {% endif %}
-                    <p class="resource-card__detail" title="Coronavirus (COVID-19)">{{ resource_page.campaign_name }}</p>
+                    <p class="resource-card__detail" title="{{ resource_page.campaign_name }}">{{ resource_page.campaign_name }}</p>
                 </div>
                 <span class="resource-card__download-caption">Downloadable</span>
             </div>
         </div>
     </a>
-</div>
+</li>
