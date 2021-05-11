@@ -13,6 +13,7 @@
 body {
   margin: 0;
   font-family: sans-serif, serif;
+  color: $body-text-color;
 }
 
 a {
@@ -45,6 +46,15 @@ a[target="_blank"] {
       height: 100%;
     }
   }
+  a {
+    color: $link-blue;
+    text-decoration: underline;
+
+    &:hover, &:focus {
+      color: $link-blue-hover;
+    }
+  }
+
 }
 
 .visibly-hidden {
@@ -274,7 +284,7 @@ a.skip-main {
     }
 
     a:hover {
-        background-color: #04857A;
+        background-color: $phe-teal;
         border-radius: 5px;
         color: #fff
     }
@@ -324,6 +334,20 @@ a.skip-main {
    min-width: 320px;
 }
 
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  a {
+ color: $link-blue ;
+    text-decoration: underline;
+
+    &:hover, &:focus {
+      color: $link-blue-hover;
+      text-decoration: underline;
+    }
+  }
+}
 .navbar-logo-link {
     padding: 15px;
     display: block;
@@ -355,3 +379,4 @@ a.skip-main {
 .navigation-link:focus {
     outline: none;
 }
+
