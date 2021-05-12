@@ -96,8 +96,8 @@ class HomePage(MethodsBasePage):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-    signup_intro = RichTextField(null=True, blank=True, features=['bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link', 'image', 'embed'])
-    campaign_list_header = RichTextField(null=True, blank=True, features=['bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link', 'image', 'embed'])
+    signup_intro = RichTextField(null=True, blank=True)
+    campaign_list_header = RichTextField(null=True, blank=True)
 
     content_panels = MethodsBasePage.content_panels + [
         FieldPanel('heading'),
@@ -137,7 +137,7 @@ class LandingPage(MethodsBasePage):
     )
     OVERVIEW_HEADING = 'Overview'
     overview_subpage_heading = TextField(default=OVERVIEW_HEADING)
-    overview_subpage_text = RichTextField(default='', blank=True, features=['bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link', 'image', 'embed'])
+    overview_subpage_text = RichTextField(default='', blank=True)
     overview_subpage_body = models.ForeignKey(
         'contentPages.SharedContent',
         null=True,
@@ -154,7 +154,7 @@ class LandingPage(MethodsBasePage):
     )
     RESOURCES_HEADING = 'Resources'
     resources_subpage_heading = TextField(default=RESOURCES_HEADING)
-    resources_subpage_text = RichTextField(default='', blank=True, features=['bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link', 'image', 'embed'])
+    resources_subpage_text = RichTextField(default='', blank=True)
     resources_subpage_body = models.ForeignKey(
         'contentPages.SharedContent',
         null=True,
@@ -170,7 +170,7 @@ class LandingPage(MethodsBasePage):
         related_name='+'
     )
 
-    body = RichTextField(null=True, blank=True, features=['bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link', 'image', 'embed'])
+    body = RichTextField(null=True, blank=True)
 
     content_panels = MethodsBasePage.content_panels + [
         FieldPanel('heading'),
@@ -217,7 +217,7 @@ class OverviewPage(MethodsBasePage):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-    body = RichTextField(null=True, blank=True, features=['bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link', 'image', 'embed'])
+    body = RichTextField(null=True, blank=True)
 
     content_panels = MethodsBasePage.content_panels + [
         FieldPanel('heading'),
@@ -282,7 +282,7 @@ class ResourcesPage(MethodsBasePage):
     )
     sidebar_screenreader_text = TextField(blank=True, null=True)
 
-    signup_message = RichTextField(blank=True, null=True, features=['bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link', 'image', 'embed'])
+    signup_message = RichTextField(blank=True, null=True)
 
     content_panels = MethodsBasePage.content_panels + [
         FieldPanel('heading'),
@@ -334,7 +334,7 @@ class ResourceItemPage(MethodsBasePage):
     parent_page_type = ['contentPages.ResourcesPage']
 
     heading = TextField(blank=True)
-    description = RichTextField(blank=True, null=True, default='', features=['bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link', 'image', 'embed'])
+    description = RichTextField(blank=True, null=True, default='')
     preview_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -364,7 +364,7 @@ class ResourceItemPage(MethodsBasePage):
     upload_link = TextField(blank=True, default='')
 
     product_code = CharField(max_length=256, blank=True, null=True, default='')
-    overview = RichTextField(blank=True, default='', features=['bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link', 'image', 'embed'])
+    overview = RichTextField(blank=True, default='')
     format = CharField(max_length=256, blank=True, null=True, default='')
     file_size = CharField(max_length=256, blank=True, null=True, default='')
 
@@ -409,7 +409,7 @@ class ResourceItemPage(MethodsBasePage):
 class SharedContent(models.Model):
 
     title = CharField(max_length=500, default='', blank=True)
-    content_body = RichTextField(default='', blank=True, features=['bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link', 'image', 'embed'])
+    content_body = RichTextField(default='', blank=True)
 
     panels = [
 
