@@ -6229,6 +6229,12 @@ div.header-block {
 }
 
 
+@media (min-width: 768px) {
+  div.header-block {
+    width: 515px;
+  }
+}
+
 div .vcenter {
   display: table-cell;
   vertical-align: middle;
