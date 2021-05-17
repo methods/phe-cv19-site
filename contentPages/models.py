@@ -2,8 +2,8 @@ from django.conf import settings
 from django.db import models
 from django.db.models.fields import TextField, CharField
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, InlinePanel, MultiFieldPanel
-from wagtail.core.fields import RichTextField
+from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -11,6 +11,8 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
 from core.models.pages import MethodsBasePage
+
+from contentPages import blocks
 
 
 @register_snippet
@@ -553,6 +555,34 @@ class AssetTypePage(MethodsBasePage):
         return resource_count
 
 
+class AccessibilityStatement(MethodsBasePage):
+    subpage_types = []
+
+    parent_page_type = [
+        'wagtailcore.HomePage'  # appname.ModelName
+    ]
+
+    heading = TextField(blank=True)
+    subtitle = TextField(blank=True)
+    banner_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    content = StreamField(
+        [
+            ('title_and_paragraph', blocks.TitleAndParagraphBlock())
+        ],
+        null=True,
+        blank=True
+    )
+
+    content_panels = MethodsBasePage.content_panels + [
+        StreamFieldPanel("content"),
+    ]
 
 
 
