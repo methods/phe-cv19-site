@@ -1,3 +1,5 @@
+@import "./variables";
+
 .subscription-form {
   padding: 30px 0px 50px;
 
@@ -30,7 +32,7 @@
   &__label {
     font-weight: initial;
     margin-bottom: 0px;
-    color: #666666;
+    color: $body-text-color;
     font-size: 0.9em;
     display: block;
   }
@@ -44,26 +46,17 @@
   &__terms-label {
     font-weight: initial;
     margin-bottom: 0px;
-    color: #666666;
+    color: $body-text-color;
     font-size: 0.9em;
 
     .rich-text {
       display: inline-block;
-
-      a {
-        color: #337ab7;
-        text-decoration: none;
-
-        &:hover, &:focus {
-          color: #646e9b;
-        }
-      }
     }
   }
 
   &__btn {
     border-radius: 0px;
-    background-color: #04857A;
+    background-color: $phe-teal;
     color: #fff;
     line-height: 25px;
     font-size: 16px;
@@ -71,16 +64,17 @@
     padding: 6px 12px;
     margin-top: 20px;
 
-    &:hover {
+    &:hover,
+    &:focus {
       color: #fff;
-      background-color: #292929;
+      background-color: $phe-dark;
     }
   }
 
   &__required-field {
     font-style: italic;
     font-size: 16px;
-    color: #666666;
+    color: $body-text-color;
     margin-bottom: 30px;
   }
 

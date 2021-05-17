@@ -234,7 +234,6 @@ optgroup {
 
 table {
   border-collapse: collapse;
-  border-spacing: 0
 }
 
 td, th {
@@ -3400,14 +3399,10 @@ tbody.collapse.in {
 
 .navbar-brand {
   float: left;
-  padding: 15px 15px;
   font-size: 18px;
   line-height: 20px;
-  height: 50px
-}
-
-.navbar-brand:hover, .navbar-brand:focus {
-  text-decoration: none
+  height: 50px;
+  position: relative;
 }
 
 .navbar-brand > img {
@@ -3661,7 +3656,7 @@ tbody.collapse.in {
   color: #777
 }
 
-.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+.navbar-default {
   color: #5e5e5e;
   background-color: transparent
 }
@@ -6345,7 +6340,6 @@ div.dcp-master-pane {
 body {
   padding: 0px;
   font-size: 16px;
-  color: #666666
 }
 
 h1.newsletter {
@@ -8160,7 +8154,7 @@ button.btn:hover {
 }
 
 .case-study-download-btn:focus {
-  outline: 0
+  outline: 0;
 }
 
 .case-study-download-btn:before {
@@ -9536,11 +9530,8 @@ nav.crc-navbar .navbar-header {
 }
 
 nav.crc-navbar .navbar-header .navbar-brand {
-  background-image: url(/static/img/phe-banner.svg);
-  width: 250px;
+  width: 270px;
   height: 74px;
-  background-repeat: no-repeat;
-  background-position: center
 }
 
 nav.crc-navbar .navbar-collapse.collapse.in {
@@ -9575,7 +9566,6 @@ nav.crc-navbar .crc-navbar-center li:last-child {
 
 nav.crc-navbar ul.navbar-nav li a.crc-menu-item {
   font-family: "HelveticaNeueMedium", Helvetica, Arial, sans-serif;
-  height: 74px;
   line-height: 74px;
   padding: 0px 16px;
   margin: 0px;

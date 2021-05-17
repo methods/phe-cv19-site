@@ -13,6 +13,7 @@
 body {
   margin: 0;
   font-family: sans-serif, serif;
+  color: $body-text-color;
 }
 
 a {
@@ -45,6 +46,15 @@ a[target="_blank"] {
       height: 100%;
     }
   }
+  a {
+    color: $link-blue;
+    text-decoration: underline;
+
+    &:hover, &:focus {
+      color: $link-blue-hover;
+    }
+  }
+
 }
 
 .visibly-hidden {
@@ -159,6 +169,7 @@ a[target="_blank"] {
     &:hover,
     &:focus {
       border: $phe-teal 3px solid;
+      outline: none;
 
       .resource-card__thumbnail {
         padding: 17px 17px 7px 17px;
@@ -267,14 +278,13 @@ a.skip-main {
     }
 
     a:focus {
-        outline: thin dotted;
-        outline: 5px auto -webkit-focus-ring-color;
-        outline-offset: -2px;
+        outline: none;
+        background-color: $phe-teal;
         padding: 5px
     }
 
     a:hover {
-        background-color: #04857A;
+        background-color: $phe-teal;
         border-radius: 5px;
         color: #fff
     }
@@ -331,4 +341,57 @@ a.skip-main {
 }
 .links-row{
   padding-bottom: 2em;
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  a {
+ color: $link-blue ;
+    text-decoration: underline;
+
+    &:hover, &:focus {
+      color: $link-blue-hover;
+      text-decoration: underline;
+    }
+  }
+}
+.navbar-logo-link {
+    padding: 15px;
+    display: block;
+    height: 100%;
+}
+
+.navbar-logo-link:focus {
+  outline: none;
+  background-color: #04857A;
+}
+
+.navbar-logo-link:hover {
+  text-decoration: none;
+  background-color: #04857A;
+}
+
+.navbar-img {
+    max-height: 100%;
+    max-width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 0px 7px;
+}
+
+.navigation-link:focus {
+    outline: none;
+}
+
+nav.crc-navbar ul.navbar-nav li a.crc-menu-item {
+  font-family: "HelveticaNeueMedium", Helvetica, Arial, sans-serif;
+  min-height: 74px;
+  line-height: 74px;
+  padding: 0px 16px;
+  margin: 0px;
+  color: #fff
 }

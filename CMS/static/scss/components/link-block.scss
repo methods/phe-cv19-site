@@ -7,7 +7,7 @@ $focus-border-width: 3px;
   position: relative;
   margin: 2em 1em $focus-border-width;
   min-height: 221px;
-  background: $tile-background-color;
+  background: rgba(0, 0, 0, 0.6);
   overflow: hidden;
   
   .row {
@@ -15,12 +15,14 @@ $focus-border-width: 3px;
   }
 
   .title h2 {
+
     padding: 18px;
     border: 3px solid transparent;
-    background: $tile-title-background-color;
+    background: rgba(0, 0, 0, 0.6);
     color: $white;
     font-size: 36px;
     margin-bottom: 0px;
+
   }
 
   .overview {
@@ -35,14 +37,20 @@ $focus-border-width: 3px;
   .phe-links-block__arrow {
     bottom: calc(-2 * #{$focus-border-width});
   }
+  .title h2{
+    background-color: $phe-teal
+  }
 }
 
 .phe-links-block a:focus .block {
   margin: calc(2em - #{$focus-border-width}) calc(1em - #{$focus-border-width}) 0;
   border: $white $focus-border-width solid;
-
+  
   .phe-links-block__arrow {
     bottom: calc(-2 * #{$focus-border-width});
+  }
+  .title h2{
+    background-color: $phe-teal
   }
 }
 

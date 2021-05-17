@@ -1,16 +1,23 @@
+@import "./variables";
+
 .sort-button {
   &:focus,
   &:hover,
   &:active {
-    background-color: #292929;
+    outline: none;
+    background-color: $phe-dark;
   }
   &:focus {
     text-decoration: underline;
   }
-  color: #FFFFFF;
-  background-color: #04857A;
+  color: $white;
+  background-color: $phe-teal;
   border-radius: 7px;
   margin: 5px;
   padding: 5px 8px !important;
-  font-size: 16px
+  font-size: 16px;
+
+  &--selected {
+    background-color: $phe-dark;
+  }
 }
