@@ -6429,12 +6429,6 @@ div.right-arrow {
   background-position: 25% 54%
 }
 
-@media (min-width: 992px) {
-  .one-you-links .links-row {
-    height: 300px
-  }
-}
-
 @media (max-width: 992px) {
   .one-you-links .links-row {
     height: 600px
@@ -9572,7 +9566,6 @@ nav.crc-navbar .crc-navbar-center li:last-child {
 
 nav.crc-navbar ul.navbar-nav li a.crc-menu-item {
   font-family: "HelveticaNeueMedium", Helvetica, Arial, sans-serif;
-  height: 74px;
   line-height: 74px;
   padding: 0px 16px;
   margin: 0px;

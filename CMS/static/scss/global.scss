@@ -211,6 +211,8 @@ a[target="_blank"] {
     font-size: 12px;
     padding: 5px 0 10px 0;
     text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__download-caption {
@@ -334,6 +336,14 @@ a.skip-main {
    min-width: 320px;
 }
 
+@media (min-width: 992px) {
+  .one-you-links .links-row {
+    min-height: 300px;
+  }
+}
+.links-row{
+  padding-bottom: 2em;
+}
 
 table {
   border-collapse: collapse;
@@ -380,8 +390,19 @@ table {
     outline: none;
 }
 
+
 div.header{
   min-height: 300px;
   padding-bottom: 1em;
   margin-bottom: 1em;
 }
+
+nav.crc-navbar ul.navbar-nav li a.crc-menu-item {
+  font-family: "HelveticaNeueMedium", Helvetica, Arial, sans-serif;
+  min-height: 74px;
+  line-height: 74px;
+  padding: 0px 16px;
+  margin: 0px;
+  color: #fff;
+}
+
