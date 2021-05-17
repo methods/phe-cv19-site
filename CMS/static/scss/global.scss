@@ -390,6 +390,13 @@ table {
     outline: none;
 }
 
+
+div.header{
+  min-height: 300px;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
+
 nav.crc-navbar ul.navbar-nav li a.crc-menu-item {
   font-family: "HelveticaNeueMedium", Helvetica, Arial, sans-serif;
   min-height: 74px;
@@ -398,3 +405,4 @@ nav.crc-navbar ul.navbar-nav li a.crc-menu-item {
   margin: 0px;
   color: #fff;
 }
+

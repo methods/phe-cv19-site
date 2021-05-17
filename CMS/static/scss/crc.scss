@@ -6214,7 +6214,6 @@ form.formtastic .popover {
 
 div.header {
   width: 100%;
-  height: 300px;
   /*background: url(/assets/header_image-bec05193e574528bcf6ca8ed75a31bd97fd74efc833305d2910eba81330a4732.jpg) no-repeat center;*/
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -6229,9 +6228,10 @@ div.header-block {
   padding: 1.5em 1.5em 1.5em 1.5em
 }
 
+
 @media (min-width: 768px) {
   div.header-block {
-    width: 515px
+    width: 515px;
   }
 }
 
