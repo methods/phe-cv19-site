@@ -334,6 +334,13 @@ a.skip-main {
    min-width: 320px;
 }
 
+@media (min-width: 992px) {
+  .one-you-links .links-row {
+    min-height: 300px;
+  }
+}
+.links-row{
+  padding-bottom: 2em;
 
 table {
   border-collapse: collapse;
