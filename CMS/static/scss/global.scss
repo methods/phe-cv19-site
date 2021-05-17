@@ -211,6 +211,8 @@ a[target="_blank"] {
     font-size: 12px;
     padding: 5px 0 10px 0;
     text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__download-caption {
