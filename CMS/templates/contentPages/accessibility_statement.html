@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags sass_tags methods_tags %}
+
+{#{% block extra_css %}#}
+{#    <link href="{% sass_src 'scss/pages/homepage.scss' %}" rel="stylesheet" type="text/css">#}
+{#{% endblock %}#}
+
+
+{% block content %}
+
+    {% image page.banner_image original as banner %}
+    {% convert_s3_link banner.url as banner_url %}
+
+    {% include 'partials/banner.html' with heading=page.heading banner_url=banner_url %}
+    
+
+    <div>
+        <h1>{{self.subtitle}}</h1>
+    </div>
+
+    {% for block in page.content %}
+        {% include_block block %}
+    {% endfor %}
+
+
+{% endblock %}
+
