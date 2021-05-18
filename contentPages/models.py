@@ -80,6 +80,7 @@ class HomePage(MethodsBasePage):
     subpage_types = [
         'contentPages.LandingPage',
         'contentPages.OverviewPage',
+        'contentPages.AccessibilityStatement',
         'subscription.SubscriptionPage',
         'errors.ErrorPage',
         'contentPages.AllResourcesPage'
@@ -556,12 +557,6 @@ class AssetTypePage(MethodsBasePage):
 
 
 class AccessibilityStatement(MethodsBasePage):
-    subpage_types = []
-
-    parent_page_type = [
-        'contentPages.LandingPage',
-        'contentPages.HomePage',
-    ]
 
     heading = TextField()
     subtitle = TextField(blank=True)
