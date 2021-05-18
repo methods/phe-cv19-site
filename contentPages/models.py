@@ -559,10 +559,11 @@ class AccessibilityStatement(MethodsBasePage):
     subpage_types = []
 
     parent_page_type = [
-        'contentPages.LandingPage'  # appname.ModelName
+        'contentPages.LandingPage',
+        'contentPages.HomePage',
     ]
 
-    heading = TextField(blank=True)
+    heading = TextField()
     subtitle = TextField(blank=True)
     banner_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -581,8 +582,8 @@ class AccessibilityStatement(MethodsBasePage):
     )
 
     content_panels = MethodsBasePage.content_panels + [
+        FieldPanel('heading'),
+        FieldPanel('subtitle'),
+        ImageChooserPanel('banner_image'),
         StreamFieldPanel("content"),
     ]
-
-
-
