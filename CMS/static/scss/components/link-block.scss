@@ -5,7 +5,7 @@ $focus-border-width: 3px;
 
 .phe-links-block a .block {
   position: relative;
-  margin: 2em 1em $focus-border-width;
+  margin: 2em 1em 0px;
   min-height: 221px;
   background: rgba(0, 0, 0, 0.6);
   overflow: hidden;
@@ -31,7 +31,7 @@ $focus-border-width: 3px;
 }
 
 .phe-links-block a:hover .block {
-  margin: calc(2em - #{$focus-border-width}) calc(1em - #{$focus-border-width}) 0;
+  margin: calc(2em - #{$focus-border-width}) calc(1em - #{$focus-border-width}) 3px;
   border: $white $focus-border-width solid;
 
   .phe-links-block__arrow {
@@ -43,7 +43,7 @@ $focus-border-width: 3px;
 }
 
 .phe-links-block a:focus .block {
-  margin: calc(2em - #{$focus-border-width}) calc(1em - #{$focus-border-width}) 0;
+  margin: calc(2em - #{$focus-border-width}) calc(1em - #{$focus-border-width}) 3px;
   border: $white $focus-border-width solid;
   
   .phe-links-block__arrow {
@@ -68,4 +68,8 @@ $focus-border-width: 3px;
   bottom: 0;
   right: 0;
   z-index: 10;
+}
+
+.phe-links-block a:focus{
+  outline: none;
 }
