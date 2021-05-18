@@ -559,7 +559,7 @@ class AccessibilityStatement(MethodsBasePage):
     subpage_types = []
 
     parent_page_type = [
-        'wagtailcore.HomePage'  # appname.ModelName
+        'contentPages.LandingPage'  # appname.ModelName
     ]
 
     heading = TextField(blank=True)
