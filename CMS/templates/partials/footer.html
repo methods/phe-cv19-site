@@ -16,6 +16,9 @@
                     <li><a href="https://campaignresources.phe.gov.uk/resources/faqs" class="navigation-link">FAQs</a></li>
                     <li><a href="https://campaignresources.phe.gov.uk/resources/contact_us" class="navigation-link">Contact us</a></li>
                     <li><a href="https://campaignresources.phe.gov.uk/resources/cookie-declaration" class="navigation-link">Cookie declaration</a></li>
+                    {% if accessibility_statement_url %}
+                    <li><a href="{{ accessibility_statement_url }}" class="navigation-link">Accessibility statement</a></li>
+                    {% endif %}
                     <li><a href="https://campaignresources.phe.gov.uk/resources/about-us>About PHE" class="navigation-link">About PHE</a></li>
                     <li><a href="https://campaignresources.phe.gov.uk/resources/what-we-do" class="navigation-link">What we do</a></li>
                     <li><a href="https://campaignresources.phe.gov.uk/resources/privacy-policy" class="navigation-link">Privacy policy</a></li>
