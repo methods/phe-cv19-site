@@ -14,14 +14,21 @@
     {% include 'partials/banner.html' with heading=page.heading banner_url=banner_url %}
     
 
-    <div>
-        <h1>{{self.subtitle}}</h1>
+    <div id="content">
+        <div class="container">
+            <div class="page-content spacer-top-2 spacer-2">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row-fluid">
+                            <h2>{{self.subtitle}}</h2>
+                            {% for block in page.content %}
+                                {% include_block block %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    {% for block in page.content %}
-        {% include_block block %}
-    {% endfor %}
-
-
 {% endblock %}
 
