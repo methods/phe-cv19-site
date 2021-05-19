@@ -57,9 +57,9 @@ def find_subscription_page_url():
 
 def find_accessibility_statement_url():
     from contentPages.models import AccessibilityStatement
-    page = AccessibilityStatement.objects.first()
+    page = AccessibilityStatement.objects.live().first()
     if page is None:
-        return '#'
+        return None
     return page.url
 
 
