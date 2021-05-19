@@ -1,7 +1,7 @@
 {% load static wagtailuserbar methods_tags sass_tags %}
 
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8"/>
     <title>
@@ -20,8 +20,8 @@
     <meta http-equiv="Cache-Control" content="no-cache"/>
     <meta http-equiv="Expires" content="0"/>
     <meta http-equiv="Pragma" content="no-cache"/>
-    <link href="{% sass_src 'scss/global.scss' %}" rel="stylesheet" type="text/css">
     <link href="{% sass_src 'scss/crc.scss' %}" rel="stylesheet" type="text/css">
+    <link href="{% sass_src 'scss/global.scss' %}" rel="stylesheet" type="text/css">
     {% block extra_css %}
       {# Override this in templates to add extra stylesheets #}
     {% endblock %}
@@ -38,7 +38,9 @@
     {% endblock %}
   </head>
 
-  <body class="{% block body_class %}{% endblock %}">
+  <body class="{% block body_class %}{% endblock %} no-js">
+    {% include 'partials/no-js.html' %}
+
     <div class="row">
       <a class="skip-main" href="#main-content">Skip to main content</a>
     </div>

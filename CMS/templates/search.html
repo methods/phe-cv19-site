@@ -1,7 +1,7 @@
 {% load static wagtailuserbar %}
 
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html lang="en">
     <head>
         <meta charset="utf-8" />
         <title>
@@ -29,7 +29,8 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     </head>
 
-    <body class="{% block body_class %}{% endblock %}">
+    <body class="{% block body_class %}{% endblock %} no-js">
+        {% include 'partials/no-js.html' %}
         {% wagtailuserbar %}
         <div class="searchtool-container">
           <button class="back-button" role="button">< back</button>

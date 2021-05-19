@@ -55,6 +55,14 @@ def find_subscription_page_url():
     return page.url
 
 
+def find_accessibility_statement_url():
+    from contentPages.models import AccessibilityStatement
+    page = AccessibilityStatement.objects.live().first()
+    if page is None:
+        return None
+    return page.url
+
+
 def check_for_virus(instance):
     if instance.file.closed:
         with open(instance.file.path, 'rb') as file:

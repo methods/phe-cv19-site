@@ -71,45 +71,45 @@
                     <div class='col-sm-9 col-xs-7'>
                         <div id="search-results-summary">
                             <div class="row">
-                                <div class="col-xs-6">
+                                <div class="col-sm-6">
                                     <div class="panel-heading">{{ page.resource_count }} items matching</div>
                                 </div>
-                                <div class="col-xs-6 order-selector" style="display: none">
-                                    Order by
-                                    <select id="order-selector__toggle">
-                                      <option value="popular">Most popular first</option>
-                                      <option value="newest">Newest first</option>
-                                      <option value="oldest">Oldest first</option>
-                                    </select>
+                                <div class="col-sm-6 resources-sort no-js-hidden">
+                                    Sort by:
+                                    <div class="button-container">
+                                    <button class="sort-button sort-button--selected" id="order-selector__popular-button" aria-pressed="true">Most popular</button>
+                                    <button class="sort-button" id="order-selector__newest-button" aria-pressed="false">Newest</button>
+                                        </div>
                                 </div>
                             </div>
                         </div>
 
                         <div id="search-results" class="spacer-top-1">
                             <div class="row">
-                                <div class="crc-thumbnails">
-                                    <div id="internal-resources">
+                                    <div id="internal-resources" class="crc-thumbnails">
                                       <div id="popular">
-                                          {% for resource_page in page.resource_list %}
-                                              {% include 'partials/resource_list_item.html' with resource_page=resource_page column_width=4%}
-                                          {% endfor %}
+                                          <ul>
+                                            {% for resource_page in page.resource_list %}
+                                            {% include 'partials/resource_list_item.html' with resource_page=resource_page column_width=4%}
+                                        {% endfor %}
+                                          </ul>
+                                          
                                       </div>
                                       <div id="newest" style="display: none">
-                                          {% for resource_page in page.ordered_resource_list %}
+                                        <ul>
+                                            {% for resource_page in page.ordered_resource_list %}
                                               {% include 'partials/resource_list_item.html' with resource_page=resource_page column_width=4%}
                                           {% endfor %}
-                                      </div>
-                                      <div id="oldest" style="display: none">
-                                          {% for resource_page in page.ordered_resource_list reversed %}
-                                              {% include 'partials/resource_list_item.html' with resource_page=resource_page column_width=4%}
-                                          {% endfor %}
+                                        </ul> 
                                       </div>
                                     </div>
-
-                                    {% for external_resource in page.external_resources.all %}
-                                        {% include 'partials/external_resource_item.html' with external_resource=external_resource column_width=4 campaign_name=page.campaign_name%}
-                                    {% endfor %}
-                                </div>
+                                    <div class="crc-thumbnails">
+                                            <ul>
+                                                {% for external_resource in page.external_resources.all %}
+                                                {% include 'partials/external_resource_item.html' with external_resource=external_resource column_width=4 campaign_name=page.campaign_name%}
+                                            {% endfor %}
+                                            </ul>   
+                                    </div>
                             </div>
                         </div>
                     </div>

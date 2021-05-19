@@ -24,7 +24,7 @@
 
         <div class="shelf departments">
             <div class="container">
-                <h2>Resources</h2>
+                <h1>Resources</h1>
                 <div class="spacer-top-2">
                     {% for asset_type in page.asset_types.all %}
 
@@ -36,7 +36,7 @@
                                 <a class="campaign-item__link-area"
                                     style="background-image: url({{ thumbnail_url }})"
                                     href="{% pageurl asset_type_page %}">
-                                    <h3 class="campaign-item__caption">{{ asset_type.caption }}</h3>
+                                    <h2 class="campaign-item__caption">{{ asset_type.caption }}</h2>
                                     <div class="campaign-item__arrow"></div>
                                     <div class="overlay"></div>
                                 </a>

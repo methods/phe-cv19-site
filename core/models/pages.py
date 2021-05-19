@@ -3,7 +3,7 @@ from django.conf import settings
 from wagtail.core.models import Page
 
 from core.models.nav import Menu, Footer
-from core.utils import parse_menu_item, find_subscription_page_url
+from core.utils import parse_menu_item, find_subscription_page_url, find_accessibility_statement_url
 
 
 class MethodsBasePage(Page):
@@ -41,5 +41,6 @@ class MethodsBasePage(Page):
         context = super().get_context(request)
         context['page'] = self
         context['subscription_url'] = find_subscription_page_url()
+        context['accessibility_statement_url'] = find_accessibility_statement_url()
         context['usage_url'] = settings.USAGE_URL
         return context
