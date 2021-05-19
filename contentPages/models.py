@@ -87,7 +87,7 @@ class HomePage(MethodsBasePage):
         'wagtailcore.Page'
     ]
 
-    heading = TextField(blank=True)
+    heading = TextField()
     subtitle = TextField(blank=True)
     banner_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -119,7 +119,7 @@ class LandingPage(MethodsBasePage):
         'wagtailcore.HomePage'  # appname.ModelName
     ]
 
-    heading = TextField(blank=True)
+    heading = TextField()
     banner_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -209,7 +209,9 @@ class OverviewPage(MethodsBasePage):
         'contentPages.HomePage'
     ]
 
-    heading = TextField(blank=True)
+    OVERVIEW_HEADING = 'Overview'
+    heading = TextField(default=OVERVIEW_HEADING)
+
     banner_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -264,7 +266,8 @@ class ResourcesPage(MethodsBasePage):
         'contentPages.OverviewPage'
     ]
 
-    heading = TextField(blank=True)
+    RESOURCE_HEADING = 'Resources'
+    heading = TextField(default=RESOURCE_HEADING)
     banner_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -333,7 +336,7 @@ class ResourceItemPage(MethodsBasePage):
 
     parent_page_type = ['contentPages.ResourcesPage']
 
-    heading = TextField(blank=True)
+    heading = TextField()
     description = RichTextField(blank=True, null=True, default='')
     preview_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -460,7 +463,8 @@ class AllResourcesPage(MethodsBasePage):
         'contentPages.HomePage'
     ]
 
-    heading = TextField(blank=True)
+    RESOURCE_HEADING = 'Resources'
+    heading = TextField(default=RESOURCE_HEADING)
     subtitle = TextField(blank=True)
     banner_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -495,7 +499,7 @@ class AssetTypePage(MethodsBasePage):
 
     parent_page_type = ['contentPages.AllResourcesPage']
 
-    heading = TextField(blank=True)
+    heading = TextField()
     subtitle = TextField(blank=True)
     banner_image = models.ForeignKey(
         'wagtailimages.Image',
