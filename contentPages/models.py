@@ -559,7 +559,8 @@ class AssetTypePage(MethodsBasePage):
 class AccessibilityStatement(MethodsBasePage):
 
     heading = TextField()
-    subtitle = TextField(blank=True)
+    subtitle = TextField(default='Accessibility Statement')
+    intro = RichTextField(null=True, blank=True)
     banner_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -578,7 +579,8 @@ class AccessibilityStatement(MethodsBasePage):
 
     content_panels = MethodsBasePage.content_panels + [
         FieldPanel('heading'),
-        FieldPanel('subtitle'),
         ImageChooserPanel('banner_image'),
+        FieldPanel('subtitle'),
+        FieldPanel('intro'),
         StreamFieldPanel("content"),
     ]

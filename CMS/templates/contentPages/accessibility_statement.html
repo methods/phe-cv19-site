@@ -21,6 +21,7 @@
                     <div class="col-sm-12">
                         <div class="row-fluid">
                             <h2>{{self.subtitle}}</h2>
+                            {{ self.intro | richtext }}
                             {% for block in page.content %}
                                 {% include_block block %}
                             {% endfor %}
