@@ -1,5 +1,6 @@
 Django<2.3,>=2.2.2
-wagtail==2.8.1
+wagtail==2.9.3
+Pillow==6.2.2
 psycopg2-binary
 flake8==3.7.7
 coverage==4.5.1
@@ -14,7 +15,7 @@ azure==1.0.0
 django-cors-headers
 django-axes==5.3.5
 pyClamd
-wagtail-bakery
+wagtail-bakery==0.4.0
 watchtower
 python-crontab==2.4.1
 

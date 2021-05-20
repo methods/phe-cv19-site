@@ -28,11 +28,6 @@ TODO: Only used in one place - may be artifact
 /*
 SHELVES ARE USED THROUGHOUT CV19 CODE
 */
-.shelf h2 {
-  font-size: 2em;
-  text-align: center;
-  color: #555
-}
 
 .shelf .intro p {
   text-align: center
@@ -54,12 +49,6 @@ SHELVES ARE USED THROUGHOUT CV19 CODE
 
 .crc-tab-content-shelf {
   background-color: #f5f5f5
-}
-
-.crc-tab-content-shelf h2 {
-  font-size: 2em;
-  text-align: center;
-  color: #555
 }
 
 .crc-tab-content-shelf .intro p {
@@ -245,7 +234,6 @@ optgroup {
 
 table {
   border-collapse: collapse;
-  border-spacing: 0
 }
 
 td, th {
@@ -288,7 +276,7 @@ a {
   text-decoration: none
 }
 
-a:hover, a:focus {
+a:hover {
   color: #646e9b;
   text-decoration: underline
 }
@@ -799,7 +787,7 @@ pre code {
 
 .row {
   margin-left: -15px;
-  margin-right: -15px
+  margin-right: -15px;
 }
 
 .row:before, .row:after {
@@ -3411,14 +3399,10 @@ tbody.collapse.in {
 
 .navbar-brand {
   float: left;
-  padding: 15px 15px;
   font-size: 18px;
   line-height: 20px;
-  height: 50px
-}
-
-.navbar-brand:hover, .navbar-brand:focus {
-  text-decoration: none
+  height: 50px;
+  position: relative;
 }
 
 .navbar-brand > img {
@@ -3672,7 +3656,7 @@ tbody.collapse.in {
   color: #777
 }
 
-.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+.navbar-default {
   color: #5e5e5e;
   background-color: transparent
 }
@@ -5426,11 +5410,6 @@ h3 span a:hover, h3 span a:focus {
   color: #628e86
 }
 
-a:focus {
-  outline: 0;
-  text-decoration: none
-}
-
 .panel-body {
   padding: 5px 5px 10px 5px
 }
@@ -6235,7 +6214,6 @@ form.formtastic .popover {
 
 div.header {
   width: 100%;
-  height: 300px;
   /*background: url(/assets/header_image-bec05193e574528bcf6ca8ed75a31bd97fd74efc833305d2910eba81330a4732.jpg) no-repeat center;*/
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -6250,9 +6228,10 @@ div.header-block {
   padding: 1.5em 1.5em 1.5em 1.5em
 }
 
+
 @media (min-width: 768px) {
   div.header-block {
-    width: 515px
+    width: 515px;
   }
 }
 
@@ -6361,7 +6340,6 @@ div.dcp-master-pane {
 body {
   padding: 0px;
   font-size: 16px;
-  color: #666666
 }
 
 h1.newsletter {
@@ -6451,15 +6429,9 @@ div.right-arrow {
   background-position: 25% 54%
 }
 
-@media (min-width: 992px) {
-  .one-you-links .links-row {
-    height: 300px
-  }
-}
-
 @media (max-width: 992px) {
   .one-you-links .links-row {
-    height: 600px
+    min-height: 600px
   }
 }
 
@@ -8182,7 +8154,7 @@ button.btn:hover {
 }
 
 .case-study-download-btn:focus {
-  outline: 0
+  outline: 0;
 }
 
 .case-study-download-btn:before {
@@ -9183,7 +9155,8 @@ ul.evenly-spaced li {
 .crc-table-striped-heading {
   color: #04867B;
   text-transform: uppercase;
-  width: 25%
+  width: 25%;
+  font-weight: bold;
 }
 
 .icn-restricted {
@@ -9557,11 +9530,8 @@ nav.crc-navbar .navbar-header {
 }
 
 nav.crc-navbar .navbar-header .navbar-brand {
-  background-image: url(/static/img/phe-banner.svg);
-  width: 250px;
+  width: 270px;
   height: 74px;
-  background-repeat: no-repeat;
-  background-position: center
 }
 
 nav.crc-navbar .navbar-collapse.collapse.in {
@@ -9596,7 +9566,6 @@ nav.crc-navbar .crc-navbar-center li:last-child {
 
 nav.crc-navbar ul.navbar-nav li a.crc-menu-item {
   font-family: "HelveticaNeueMedium", Helvetica, Arial, sans-serif;
-  height: 74px;
   line-height: 74px;
   padding: 0px 16px;
   margin: 0px;

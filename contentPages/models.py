@@ -2,8 +2,8 @@ from django.conf import settings
 from django.db import models
 from django.db.models.fields import TextField, CharField
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, InlinePanel, MultiFieldPanel
-from wagtail.core.fields import RichTextField
+from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -11,6 +11,8 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
 from core.models.pages import MethodsBasePage
+
+from contentPages import blocks
 
 
 @register_snippet
@@ -78,6 +80,7 @@ class HomePage(MethodsBasePage):
     subpage_types = [
         'contentPages.LandingPage',
         'contentPages.OverviewPage',
+        'contentPages.AccessibilityStatement',
         'subscription.SubscriptionPage',
         'errors.ErrorPage',
         'contentPages.AllResourcesPage'
@@ -87,7 +90,7 @@ class HomePage(MethodsBasePage):
         'wagtailcore.Page'
     ]
 
-    heading = TextField(blank=True)
+    heading = TextField()
     subtitle = TextField(blank=True)
     banner_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -119,7 +122,7 @@ class LandingPage(MethodsBasePage):
         'wagtailcore.HomePage'  # appname.ModelName
     ]
 
-    heading = TextField(blank=True)
+    heading = TextField()
     banner_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -209,7 +212,9 @@ class OverviewPage(MethodsBasePage):
         'contentPages.HomePage'
     ]
 
-    heading = TextField(blank=True)
+    OVERVIEW_HEADING = 'Overview'
+    heading = TextField(default=OVERVIEW_HEADING)
+
     banner_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -264,7 +269,8 @@ class ResourcesPage(MethodsBasePage):
         'contentPages.OverviewPage'
     ]
 
-    heading = TextField(blank=True)
+    RESOURCE_HEADING = 'Resources'
+    heading = TextField(default=RESOURCE_HEADING)
     banner_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -333,7 +339,7 @@ class ResourceItemPage(MethodsBasePage):
 
     parent_page_type = ['contentPages.ResourcesPage']
 
-    heading = TextField(blank=True)
+    heading = TextField()
     description = RichTextField(blank=True, null=True, default='')
     preview_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -460,7 +466,8 @@ class AllResourcesPage(MethodsBasePage):
         'contentPages.HomePage'
     ]
 
-    heading = TextField(blank=True)
+    RESOURCE_HEADING = 'Resources'
+    heading = TextField(default=RESOURCE_HEADING)
     subtitle = TextField(blank=True)
     banner_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -495,7 +502,7 @@ class AssetTypePage(MethodsBasePage):
 
     parent_page_type = ['contentPages.AllResourcesPage']
 
-    heading = TextField(blank=True)
+    heading = TextField()
     subtitle = TextField(blank=True)
     banner_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -553,6 +560,31 @@ class AssetTypePage(MethodsBasePage):
         return resource_count
 
 
+class AccessibilityStatement(MethodsBasePage):
 
+    heading = TextField()
+    subtitle = TextField(default='Accessibility Statement')
+    intro = RichTextField(null=True, blank=True)
+    banner_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
 
+    content = StreamField(
+        [
+            ('title_and_paragraph', blocks.TitleAndParagraphBlock())
+        ],
+        null=True,
+        blank=True
+    )
 
+    content_panels = MethodsBasePage.content_panels + [
+        FieldPanel('heading'),
+        ImageChooserPanel('banner_image'),
+        FieldPanel('subtitle'),
+        FieldPanel('intro'),
+        StreamFieldPanel("content"),
+    ]

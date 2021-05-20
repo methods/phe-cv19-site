@@ -62,6 +62,9 @@
       this.signUpSuccessMessage = this.form.find('.subscription-form__success');
       this.signUpFailMessage = this.form.find('.subscription-form__fail');
       this.alreadySignedUpMessage = this.form.find('.subscription-form__already');
+      this.errorList = this.form.find('.error-list');
+      this.errorTitle = this.form.find('.error-title')
+      this.errorContainer = this.form.find('.error-container')
       this.errors = {};
       this.startWatcher();
     },
@@ -83,6 +86,9 @@
       this.signUpFailMessage.hide();
       this.signUpSuccessMessage.hide();
       this.alreadySignedUpMessage.hide();
+      this.errorList.empty();
+      this.errorTitle.text('');
+      this.errorContainer.hide();
     },
 
     startWatcher: function() {
@@ -128,7 +134,7 @@
       var firstNameValid = true;
       var lastNameValid = true;
       if (this.firstNameField.val() === '') {
-        this.errors.firstName = 'Please enter your first name';
+        this.errors.firstName = 'Enter your first name';
         firstNameValid = false;
       } else if (!this.nameValidationRegex.test(this.firstNameField.value)) {
         this.errors.firstName = 'An invalid character has been entered';
@@ -136,7 +142,7 @@
       }
 
       if (this.lastNameField.val() === '') {
-        this.errors.lastName = 'Please enter your last name';
+        this.errors.lastName = 'Enter your last name';
         lastNameValid = false;
       } else if (!this.nameValidationRegex.test(this.lastNameField.value)) {
         this.errors.lastName = 'An invalid character has been entered';
@@ -148,10 +154,10 @@
 
     validateEmailField: function() {
       if (this.emailField.val() === '') {
-        this.errors.email = 'Please enter an email address';
+        this.errors.email = 'Enter an email address';
         return false;
       } else if (!this.emailVaildationRegex.test(this.emailField.val())) {
-        this.errors.email = 'Please enter a valid email address';
+        this.errors.email = 'Enter an email address in the correct format, like name@example.com';
         return false;
       }
       return true;
@@ -166,25 +172,33 @@
     },
 
     showErrors: function() {
+      if (this.errors) {
+        this.errorContainer.show().css('display', 'inline-block');
+        this.errorTitle.text('There is a problem');
+      }
       if (this.errors.firstName) {
         this.firstNameErrorSpace.text(this.errors.firstName);
         this.firstNameErrorSpace.show();
         this.firstNameErrorSpace.parent().addClass('error');
+        this.errorList.append('<li><a href="#firstname">' + this.errors.firstName + '</a></li>');
       }
       if (this.errors.lastName) {
         this.lastNameErrorSpace.text(this.errors.lastName);
         this.lastNameErrorSpace.show();
         this.lastNameErrorSpace.parent().addClass('error');
+        this.errorList.append('<li><a href="#lastname">' + this.errors.lastName + '</a></li>');
       }
       if (this.errors.email) {
         this.emailErrorSpace.text(this.errors.email);
         this.emailErrorSpace.show();
         this.emailErrorSpace.parent().addClass('error');
+        this.errorList.append('<li><a href="#email">' + this.errors.email + '</a></li>');
       }
       if (this.errors.terms) {
         this.termsErrorSpace.text(this.errors.terms);
         this.termsErrorSpace.show();
         this.termsErrorSpace.parent().addClass('error');
+        this.errorList.append('<li><a href="#terms">' + this.errors.terms + '</a></li>');
       }
     }
   }

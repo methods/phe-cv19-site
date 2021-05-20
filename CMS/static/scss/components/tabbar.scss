@@ -36,6 +36,8 @@
 
   &:focus {
     background-color: $phe-dark !important;
+    outline: none;
+    text-decoration: underline;
   }
 }
 
