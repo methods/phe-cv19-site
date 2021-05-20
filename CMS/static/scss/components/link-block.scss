@@ -31,12 +31,8 @@ $focus-border-width: 3px;
 }
 
 .phe-links-block a:hover .block {
-  border: $white $focus-border-width solid;
-  margin-bottom: -3px;
+  outline: $white $focus-border-width solid;
 
-  .phe-links-block__arrow {
-    bottom: calc(-2 * #{$focus-border-width});
-  }
   .title h2{
     background-color: $phe-teal
   }
@@ -49,12 +45,8 @@ $focus-border-width: 3px;
 }
 
 .phe-links-block a:focus .block {
-  border: $white $focus-border-width solid;
-  margin-bottom: -3px;
-  
-  .phe-links-block__arrow {
-    bottom: calc(-2 * #{$focus-border-width});
-  }
+  outline: $white $focus-border-width solid;
+
   .title h2{
     background-color: $phe-teal
   }
