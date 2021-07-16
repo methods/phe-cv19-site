@@ -28,21 +28,21 @@
                         </div>
                                 <div class="col-sm-6">
                                     Sort by:
-                                    <button class="sort-button sort-button--selected" id="order-selector__popular-button" aria-pressed="true">Most popular</button>
-                                    <button class="sort-button" id="order-selector__newest-button" aria-pressed="false">Newest</button>
+                                    <button class="sort-button sort-button--selected" id="order-selector__newest-button" aria-pressed="true">Newest</button>
+                                    <button class="sort-button" id="order-selector__popular-button" aria-pressed="false">Most popular</button>
                                 </div>
                     </div>
                     <div id="search-results" class="spacer-top-1">
                         <div class="row">
                                 <div id="internal-resources" class="crc-thumbnails">
-                                    <div id="popular">
+                                    <div id="popular" style="display: none">
                                         <ul>
                                             {% for resource_page in page.resource_item_pages %}
                                             {% include 'partials/resource_list_item.html' with resource_page=resource_page column_width=3 header_level='h2'%}
                                         {% endfor %}
                                         </ul>
                                     </div>
-                                    <div id="newest" style="display: none">
+                                    <div id="newest">
                                         <ul>
                                             {% for resource_item_page in page.ordered_resource_item_pages %}
                                             {% include 'partials/resource_list_item.html' with resource_page=resource_item_page column_width=3 header_level='h2'%}
